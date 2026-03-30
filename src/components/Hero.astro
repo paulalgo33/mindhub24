@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+import type { Translations } from '@/i18n/ru';
+
+interface Props {
+  t: Translations;
+  heroImage: ImageMetadata;
+}
+
+const { t, heroImage } = Astro.props;
+---
+
+<section class="min-h-screen flex items-center relative overflow-hidden px-[clamp(1.5rem,4vw,3rem)]">
+  <!-- Ambient orbs -->
+  <div class="orb w-[500px] h-[500px] -top-[10%] -right-[5%] bg-[radial-gradient(circle,rgba(27,77,92,0.12),transparent_70%)]" style="animation-delay:0s"></div>
+  <div class="orb w-[400px] h-[400px] bottom-[5%] -left-[10%] bg-[radial-gradient(circle,rgba(201,168,76,0.08),transparent_70%)]" style="animation-delay:-7s"></div>
+  <div class="orb w-[300px] h-[300px] top-[40%] right-[30%] bg-[radial-gradient(circle,rgba(27,77,92,0.06),transparent_70%)]" style="animation-delay:-14s"></div>
+
+  <div class="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_0.85fr] gap-[clamp(2rem,6vw,6rem)] items-center relative z-2 pt-30 pb-20 lg:pt-32 lg:pb-20">
+    <!-- Content -->
+    <div class="max-w-[620px]">
+      <div class="inline-flex items-center gap-2 mb-8" data-reveal>
+        <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-[breathe_3s_ease-in-out_infinite]"></span>
+        <span class="text-[0.78rem] tracking-[0.14em] uppercase text-[var(--color-text-mid)] font-medium">{t.hero.eyebrow}</span>
+      </div>
+
+      <!-- Day hero -->
+      <div id="dayHero">
+        <h1 class="font-heading text-[clamp(2.6rem,5.5vw,4.2rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-7" data-reveal="d1">
+          {t.hero.title}<br /><em class="italic text-gradient">{t.hero.titleEm}</em>
+        </h1>
+        <p class="text-lg text-[var(--color-text-mid)] leading-[1.85] font-light mb-10 max-w-[480px]" data-reveal="d2">
+          {t.hero.desc}
+        </p>
+      </div>
+
+      <!-- Night hero -->
+      <div id="nightHero" style="display:none">
+        <h1 class="font-heading text-[clamp(2.6rem,5.5vw,4.2rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-7" data-reveal="d1">
+          {t.heroNight.title}
+        </h1>
+        <p class="text-lg text-[var(--color-text-mid)] leading-[1.85] font-light mb-6 max-w-[480px]" data-reveal="d2">
+          {t.heroNight.desc}
+        </p>
+        <div class="mt-6 p-7 bg-[rgba(42,122,145,0.08)] border border-[rgba(42,122,145,0.15)] rounded-2xl text-base text-[var(--color-text-mid)] leading-[1.9]" data-reveal="d3">
+          {t.heroNight.breathing}
+        </div>
+      </div>
+
+      <div class="flex items-center gap-5 flex-wrap" data-reveal="d3">
+        <a href="#pricing" class="btn-primary">
+          <span>{t.hero.cta}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+        <button class="btn-ghost" onclick="document.getElementById('audioSection')?.scrollIntoView({behavior:'smooth'})">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21" /></svg>
+          {t.hero.ghost}
+        </button>
+      </div>
+
+      <p class="text-sm text-[var(--color-text-light)] mt-5 font-light" data-reveal="d4">
+        {t.hero.micro}
+      </p>
+    </div>
+
+    <!-- Hero image -->
+    <div class="relative hide-mobile" data-reveal="d2">
+      <div class="rounded-3xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.03)] aspect-[3/4] max-h-[600px]">
+        <Image
+          src={heroImage}
+          alt="MindHub24"
+          class="w-full h-full object-cover transition-transform duration-[8s] ease hover:scale-[1.03]"
+          widths={[400, 600, 800]}
+          sizes="(max-width: 900px) 0px, 40vw"
+          loading="eager"
+        />
+      </div>
+      <!-- Floating badge -->
+      <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-[20px] rounded-2xl py-5 px-6 flex items-center gap-4 border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+        <div class="w-11 h-11 rounded-xl bg-[var(--color-deep)] flex items-center justify-center shrink-0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+        </div>
+        <div>
+          <div class="text-sm font-medium text-[var(--color-text)]">{t.hero.floatTitle}</div>
+          <div class="text-xs text-[var(--color-text-mid)] font-light mt-0.5">{t.hero.floatSub}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes breathe {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+  [data-night="true"] .hero-float-badge {
+    background: rgba(22, 27, 34, 0.9);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+</style>

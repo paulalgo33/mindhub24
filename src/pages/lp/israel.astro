@@ -1,0 +1,277 @@
+---
+import LandingLayout from '@/layouts/LandingLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Hero from '@/components/Hero.astro';
+import Marquee from '@/components/Marquee.astro';
+import Quiz from '@/components/Quiz.astro';
+import Voices from '@/components/Voices.astro';
+import Footer from '@/components/Footer.astro';
+import AudioPlayer from '@/components/AudioPlayer.astro';
+import BreathingCircle from '@/components/BreathingCircle.astro';
+import MoodWeather from '@/components/MoodWeather.astro';
+import { Image } from 'astro:assets';
+import { ru } from '@/i18n/ru';
+
+import heroImg from '@/assets/images/alexandra-hero.jpeg';
+import aboutImg from '@/assets/images/alexandra-about.jpeg';
+import sessionImg from '@/assets/images/alexandra-session.jpeg';
+
+const t = ru;
+---
+
+<LandingLayout title={t.meta.title} description={t.meta.description} lang="ru">
+
+<Nav cta={t.nav.cta} lang="ru" />
+
+<Hero t={t} heroImage={heroImg} />
+
+<!-- Night mode: animated breathing circle -->
+<BreathingCircle />
+
+<Marquee items={t.marquee} />
+
+<!-- =================== PAIN RECOGNITION =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1000px] mx-auto">
+    <p class="s-label" data-reveal>{t.pain.label}</p>
+    <h2 class="s-title" data-reveal="d1">
+      {t.pain.title} <em>{t.pain.titleEm}</em>
+    </h2>
+    <p class="s-subtitle" data-reveal="d2">{t.pain.subtitle}</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
+      {t.pain.cards.map((card, i) => (
+        <div
+          class="p-8 pl-9 bg-white rounded-2xl border border-[var(--color-border)] border-l-[3px] border-l-[var(--color-primary)] text-lg leading-[1.65] font-light transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] hover:border-l-[var(--color-accent)] relative overflow-hidden"
+          data-reveal={`d${i + 1}`}
+        >
+          {card}
+        </div>
+      ))}
+    </div>
+
+    <p class="font-heading text-xl italic text-[var(--color-text-mid)] leading-relaxed max-w-[600px]" data-reveal>
+      {t.pain.closing}
+    </p>
+  </div>
+</section>
+
+<!-- =================== STEPS =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[1200px] mx-auto">
+    <p class="s-label" data-reveal>{t.steps.label}</p>
+    <h2 class="s-title" data-reveal="d1">{t.steps.title}</h2>
+    <p class="s-subtitle" data-reveal="d2">{t.steps.subtitle}</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+      {t.steps.items.map((step, i) => (
+        <div class="p-10 rounded-[20px] border border-[var(--color-border)] bg-white card-lift" data-reveal={`d${i + 1}`}>
+          <div class="font-heading text-6xl font-bold leading-none bg-gradient-to-b from-[rgba(15,46,56,0.08)] to-[rgba(15,46,56,0.02)] bg-clip-text text-transparent mb-6">
+            {step.num}
+          </div>
+          <h3 class="font-heading text-xl font-semibold mb-3">{step.title}</h3>
+          <p class="text-base text-[var(--color-text-mid)] font-light leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- =================== SERVICES (Dark) =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-deep)] text-white relative overflow-hidden">
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(201,168,76,0.4)] to-transparent"></div>
+  <div class="max-w-[1200px] mx-auto">
+    <p class="s-label text-[var(--color-accent-light)]" data-reveal>{t.services.label}</p>
+    <h2 class="font-heading text-[clamp(2rem,4vw,3rem)] font-normal leading-snug text-white tracking-[-0.02em] mb-5" data-reveal="d1">{t.services.title}</h2>
+    <p class="text-lg text-white/50 font-light leading-relaxed mb-14 max-w-[600px]" data-reveal="d2">{t.services.subtitle}</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      {t.services.items.map((srv, i) => (
+        <div
+          class="p-9 rounded-[18px] bg-white/[0.04] border border-white/[0.06] transition-all duration-500 hover:bg-white/[0.08] hover:border-[rgba(201,168,76,0.2)] hover:-translate-y-1"
+          data-reveal={`d${(i % 6) + 1}`}
+        >
+          <div class="text-2xl mb-5 w-12 h-12 flex items-center justify-center bg-white/[0.06] rounded-[14px]">{srv.icon}</div>
+          <h3 class="font-heading text-lg font-semibold mb-2 text-white">{srv.name}</h3>
+          <p class="text-sm text-white/50 font-light leading-relaxed">{srv.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- =================== APPROACH =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[clamp(3rem,6vw,6rem)] items-center">
+    <div>
+      <p class="s-label" data-reveal>{t.approach.label}</p>
+      <h2 class="s-title" data-reveal="d1">{t.approach.title}</h2>
+      <div class="flex flex-col gap-6 mb-10">
+        {t.approach.items.map((item, i) => (
+          <div class="flex items-start gap-5 text-lg leading-[1.65] font-light" data-reveal={`d${Math.min(i + 1, 4)}`}>
+            <span class="shrink-0 w-5 h-0.5 bg-[var(--color-primary)] mt-3"></span>
+            {item}
+          </div>
+        ))}
+      </div>
+      <div class="font-heading text-xl italic text-[var(--color-primary)] leading-relaxed p-7 bg-[rgba(27,77,92,0.04)] rounded-2xl border border-[rgba(27,77,92,0.08)]" data-reveal="d4">
+        {t.approach.quote}
+      </div>
+    </div>
+    <div class="rounded-[20px] overflow-hidden aspect-[4/5] shadow-[0_30px_60px_rgba(0,0,0,0.06)] hide-mobile" data-reveal="d2">
+      <Image
+        src={sessionImg}
+        alt="MindHub24 подход"
+        class="w-full h-full object-cover"
+        widths={[400, 600]}
+        sizes="(max-width: 900px) 0px, 40vw"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- =================== AUDIO =================== -->
+<AudioPlayer
+  label={t.audio.label}
+  title={t.audio.title}
+  subtitle={t.audio.subtitle}
+  playerTitle={t.audio.playerTitle}
+  playerMeta={t.audio.playerMeta}
+  hint={t.audio.hint}
+/>
+
+<!-- =================== PHRASES =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[800px] mx-auto text-center">
+    <p class="s-label" data-reveal>{t.phrases.label}</p>
+    <h2 class="s-title text-center" data-reveal="d1">{t.phrases.title}</h2>
+    <p class="s-subtitle text-center mx-auto max-w-[500px]" data-reveal="d2">{t.phrases.subtitle}</p>
+
+    <div class="flex flex-wrap gap-3 justify-center my-10">
+      {t.phrases.items.map((phrase, i) => (
+        <span
+          class="py-3.5 px-6 bg-white border border-[var(--color-border)] rounded-full text-base text-[var(--color-text-mid)] font-light italic transition-all duration-400 cursor-default hover:bg-[var(--color-deep)] hover:text-white hover:border-[var(--color-deep)] hover:-translate-y-[3px] hover:shadow-[0_10px_30px_rgba(15,46,56,0.15)]"
+          data-reveal={`d${(i % 3) + 1}`}
+        >
+          {phrase}
+        </span>
+      ))}
+    </div>
+
+    <p class="font-heading text-xl text-[var(--color-primary)] font-medium" data-reveal>{t.phrases.closing}</p>
+  </div>
+</section>
+
+<Quiz
+  label={t.quiz.label}
+  title={t.quiz.title}
+  subtitle={t.quiz.subtitle}
+  cta={t.quiz.cta}
+  fine={t.quiz.fine}
+  questions={t.quiz.questions}
+  result={t.quiz.result}
+  resultCta={t.quiz.resultCta}
+/>
+
+<!-- =================== ABOUT =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-[clamp(3rem,6vw,6rem)] items-center">
+    <div class="rounded-3xl overflow-hidden aspect-[3/4] shadow-[0_40px_80px_rgba(0,0,0,0.06)] relative" data-reveal>
+      <Image
+        src={aboutImg}
+        alt="Александра — MindHub24"
+        class="w-full h-full object-cover transition-transform duration-[6s] ease hover:scale-[1.04]"
+        widths={[400, 600]}
+        sizes="(max-width: 900px) 100vw, 40vw"
+      />
+      <div class="absolute inset-0 border border-black/[0.04] rounded-3xl"></div>
+    </div>
+    <div>
+      <p class="s-label" data-reveal>{t.about.label}</p>
+      <h2 class="font-heading text-4xl font-medium text-[var(--color-deep)] tracking-[-0.02em] mb-2" data-reveal="d1">{t.about.name}</h2>
+      <p class="text-sm text-[var(--color-text-mid)] font-normal mb-8" data-reveal="d2">{t.about.role}</p>
+      {t.about.text.map((p, i) => (
+        <p class="text-lg leading-[1.85] text-[var(--color-text-mid)] font-light mb-5" data-reveal={`d${i + 2}`}>{p}</p>
+      ))}
+      <div class="flex flex-wrap gap-2.5 mt-8" data-reveal="d4">
+        {t.about.tags.map((tag) => (
+          <span class="py-2 px-4 bg-[rgba(15,46,56,0.05)] rounded-full text-xs text-[var(--color-primary)] font-medium">{tag}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PRICING =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]" id="pricing">
+  <div class="max-w-[800px] mx-auto text-center">
+    <p class="s-label" data-reveal>{t.pricing.label}</p>
+    <h2 class="s-title text-center" data-reveal="d1">{t.pricing.title}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+      {t.pricing.cards.map((card, i) => (
+        <div
+          class:list={[
+            "p-10 rounded-3xl text-center card-lift",
+            card.featured
+              ? "border-2 border-[var(--color-deep)] bg-[rgba(27,77,92,0.03)] relative"
+              : "bg-white border border-[var(--color-border)]",
+          ]}
+          data-reveal={`d${i + 1}`}
+        >
+          {card.featured && (
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--color-deep)] text-white text-[0.7rem] tracking-[0.08em] uppercase py-1 px-4 rounded-full font-medium">Популярный выбор</span>
+          )}
+          <div class="text-xs tracking-[0.12em] uppercase text-[var(--color-text-light)] font-semibold mb-5">{card.type}</div>
+          <div class="font-heading text-5xl font-semibold text-[var(--color-deep)] mb-1.5">
+            {card.amount}
+            {card.sub && <small class="text-base font-normal text-[var(--color-text-mid)]">{card.sub}</small>}
+          </div>
+          <div class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed whitespace-pre-line">{card.desc}</div>
+          <button class="btn-primary mt-6"><span>{card.cta}</span></button>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-8 text-base text-[var(--color-text-mid)] font-light" data-reveal>{t.pricing.note}</p>
+    <p class="text-sm text-[var(--color-accent)] font-normal mt-2" data-reveal>{t.pricing.compare}</p>
+  </div>
+</section>
+
+<Voices
+  label={t.voices.label}
+  title={t.voices.title}
+  items={t.voices.items}
+  closing={t.voices.closing}
+/>
+
+<!-- =================== FINAL CTA =================== -->
+<section class="py-[var(--spacing-section-lg)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)] text-center relative overflow-hidden">
+  <div class="absolute w-[600px] h-[600px] rounded-full blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(27,77,92,0.06),transparent_70%)] pointer-events-none"></div>
+  <div class="relative z-2 max-w-[600px] mx-auto">
+    <h2 class="font-heading text-[clamp(2.2rem,5vw,3.6rem)] font-medium text-[var(--color-deep)] mb-4" data-reveal>{t.final.title}</h2>
+    <p class="text-lg text-[var(--color-text-mid)] font-light mb-10 whitespace-pre-line" data-reveal="d1">{t.final.subtitle}</p>
+    <a href="#pricing" class="btn-primary text-lg py-5 px-10" data-reveal="d2">
+      <span>{t.final.cta}</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+    </a>
+    <p class="text-sm text-[var(--color-text-light)] mt-4 font-light" data-reveal="d3">{t.final.micro}</p>
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4" data-reveal="d4">
+      <a href="/first-words" class="btn-ghost text-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        Попробовать симуляцию первой встречи
+      </a>
+      <span class="text-[var(--color-text-light)] text-xs hide-mobile">·</span>
+      <a href="/sounds" class="btn-ghost text-sm">
+        🎧 Бесплатные аудио-упражнения
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Mood Weather Widget -->
+<MoodWeather />
+
+<Footer t={t} />
+
+</LandingLayout>

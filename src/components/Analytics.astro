@@ -1,0 +1,101 @@
+---
+/**
+ * MindHub24 — Analytics Component
+ * Plausible (privacy-friendly, no cookies)
+ * Custom events for conversion tracking
+ */
+interface Props {
+  domain?: string;
+}
+const { domain = 'mindhub24.com' } = Astro.props;
+---
+
+<!-- Plausible Analytics -->
+<script defer data-domain={domain} src="https://plausible.io/js/script.tagged-events.js" is:inline></script>
+
+<!-- Custom event helpers -->
+<script is:inline>
+  window.plausible = window.plausible || function() { 
+    (window.plausible.q = window.plausible.q || []).push(arguments); 
+  };
+
+  // MindHub24 Analytics API
+  window.mh24 = {
+    // CTA clicks
+    ctaClick(location, page) {
+      plausible('cta_click', { props: { location, page: page || window.location.pathname } });
+    },
+    // Booking widget interactions
+    bookingOpen() {
+      plausible('booking_widget_open');
+    },
+    bookingConfirmed(type) {
+      plausible('booking_confirmed', { props: { type: type || 'free_consult' } });
+    },
+    // Quiz
+    quizStart() {
+      plausible('quiz_start');
+    },
+    quizComplete() {
+      plausible('quiz_complete');
+    },
+    // Audio
+    audioPlay() {
+      plausible('audio_play');
+    },
+    // Service page views
+    serviceView(service) {
+      plausible('service_page_view', { props: { service } });
+    },
+    // Night mode
+    nightActive() {
+      plausible('night_mode_active');
+    },
+    // Language switch
+    langSwitch(from, to) {
+      plausible('language_switch', { props: { from, to } });
+    },
+    // Scroll depth
+    scrollDepth(depth, slug) {
+      plausible('blog_scroll', { props: { depth: depth + '%', slug } });
+    },
+    // FAQ expand
+    faqExpand(question) {
+      plausible('faq_expand', { props: { question } });
+    },
+    // Crisis page view (important to monitor)
+    crisisView() {
+      plausible('crisis_page_view');
+    },
+    // Voices section view
+    voicesView() {
+      plausible('voices_section_view');
+    },
+  };
+
+  // Auto-track night mode
+  const hour = new Date().getHours();
+  if (hour >= 23 || hour < 5) {
+    window.mh24.nightActive();
+  }
+
+  // Auto-track scroll depth on landing pages
+  if (window.location.pathname.includes('/lp/')) {
+    const thresholds = [25, 50, 75, 100];
+    const fired = new Set();
+    
+    window.addEventListener('scroll', () => {
+      const scrollPercent = Math.round(
+        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+      );
+      thresholds.forEach((t) => {
+        if (scrollPercent >= t && !fired.has(t)) {
+          fired.add(t);
+          plausible('lp_scroll_depth', { 
+            props: { depth: t + '%', page: window.location.pathname } 
+          });
+        }
+      });
+    }, { passive: true });
+  }
+</script>

@@ -1,0 +1,225 @@
+---
+/**
+ * WOW Factor 18 — Simulated First Session
+ * Interactive 10-minute guided experience
+ * Audio + timed reveals + text inputs
+ * Zero server storage — everything local
+ * Conversion after this: estimated 30-50%
+ */
+import LandingLayout from '@/layouts/LandingLayout.astro';
+---
+
+<LandingLayout
+  title="MindHub24 — Попробуйте первую встречу"
+  description="Интерактивный опыт: узнайте, как проходит первая встреча с психологом. 10 минут. Анонимно."
+  lang="ru"
+>
+
+<!-- Minimal nav -->
+<nav class="fixed top-0 left-0 right-0 z-100 px-[clamp(1.5rem,4vw,3rem)]" style="background:rgba(250,247,242,0.9);backdrop-filter:blur(20px)">
+  <div class="max-w-[1400px] mx-auto flex items-center justify-between h-16">
+    <a href="/lp/israel" class="font-heading text-xl font-semibold text-[var(--color-deep)] no-underline">
+      MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+    </a>
+    <a href="/lp/israel" class="text-sm text-[var(--color-text-mid)] no-underline hover:text-[var(--color-primary)]">← Назад</a>
+  </div>
+</nav>
+
+<main class="min-h-screen flex items-center justify-center px-6 pt-20 pb-16">
+  <div class="max-w-[560px] w-full" id="simSession">
+
+    <!-- Screen 0: Intro -->
+    <div class="sim-screen active" data-screen="0">
+      <div class="text-center">
+        <p class="s-label mb-4">Попробуйте</p>
+        <h1 class="font-heading text-[clamp(1.8rem,4vw,2.8rem)] font-normal text-[var(--color-deep)] mb-6 leading-tight">
+          Как проходит<br>первая встреча
+        </h1>
+        <p class="text-lg text-[var(--color-text-mid)] font-light leading-relaxed mb-8 max-w-[420px] mx-auto">
+          Мы проведём 10 минут вместе. Это не настоящая сессия — это возможность почувствовать, каково это.
+        </p>
+        <p class="text-base text-[var(--color-text-mid)] font-light mb-10">
+          Ничего не сохраняется. Полная анонимность.
+        </p>
+        <button class="btn-primary mx-auto" onclick="startSim()">
+          <span>Начать</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Screen 1: Settle in -->
+    <div class="sim-screen" data-screen="1">
+      <div class="sim-step-label">Шаг 1 из 5</div>
+      <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-6">Устройтесь удобно.</h2>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-relaxed mb-6">
+        Сделайте глубокий вдох. Отложите телефон на секунду. Или нет — оставьте, если так привычнее.
+      </p>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-relaxed mb-8">
+        На настоящей встрече мы бы начали именно так — без спешки.
+      </p>
+      <div class="sim-auto-advance" data-delay="12000">
+        <div class="sim-progress-bar"><div class="sim-progress-fill"></div></div>
+        <p class="text-sm text-[var(--color-text-light)] mt-3">Следующий шаг через несколько секунд…</p>
+      </div>
+    </div>
+
+    <!-- Screen 2: The question -->
+    <div class="sim-screen" data-screen="2">
+      <div class="sim-step-label">Шаг 2 из 5</div>
+      <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-4">Александра спрашивает:</h2>
+      <p class="font-heading text-xl italic text-[var(--color-primary)] mb-8 leading-relaxed">
+        «Что привело вас ко мне?»
+      </p>
+      <p class="text-base text-[var(--color-text-mid)] font-light mb-6">
+        Напишите первое, что приходит в голову. Никто это не увидит — это только для вас.
+      </p>
+      <textarea
+        class="w-full h-32 p-5 border border-[var(--color-border)] rounded-2xl text-base font-light text-[var(--color-text)] bg-white resize-none outline-none focus:border-[var(--color-primary)] transition-colors font-body leading-relaxed"
+        placeholder="Напишите здесь…"
+        id="simInput"
+      ></textarea>
+      <button class="btn-primary mt-6" onclick="advanceTo(3)" id="simContinueBtn" disabled>
+        <span>Продолжить</span>
+      </button>
+      <p class="text-xs text-[var(--color-text-light)] mt-3 font-light">Этот текст остаётся только в вашем браузере.</p>
+    </div>
+
+    <!-- Screen 3: Validation -->
+    <div class="sim-screen" data-screen="3">
+      <div class="sim-step-label">Шаг 3 из 5</div>
+      <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-6">Спасибо.</h2>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-relaxed mb-6">
+        Того, что вы написали — достаточно. Не нужно больше. Не нужно лучше. То, что вы сейчас чувствуете — это именно то, с чем мы работаем.
+      </p>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-relaxed mb-8">
+        На настоящей встрече Александра бы сказала:<br>
+        <span class="font-heading italic text-[var(--color-primary)]">«Расскажите мне об этом подробнее — в своём темпе.»</span>
+      </p>
+      <div class="sim-auto-advance" data-delay="10000">
+        <div class="sim-progress-bar"><div class="sim-progress-fill"></div></div>
+      </div>
+    </div>
+
+    <!-- Screen 4: What happens next -->
+    <div class="sim-screen" data-screen="4">
+      <div class="sim-step-label">Шаг 4 из 5</div>
+      <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-6">Вот что происходит дальше.</h2>
+      <div class="flex flex-col gap-4 mb-8">
+        <div class="p-5 bg-white rounded-xl border border-[var(--color-border)]">
+          <p class="text-base text-[var(--color-text)] font-light">Вы рассказываете столько, сколько хотите. Можно много. Можно мало.</p>
+        </div>
+        <div class="p-5 bg-white rounded-xl border border-[var(--color-border)]">
+          <p class="text-base text-[var(--color-text)] font-light">Александра слушает. Не оценивает. Не диагностирует. Просто — рядом.</p>
+        </div>
+        <div class="p-5 bg-white rounded-xl border border-[var(--color-border)]">
+          <p class="text-base text-[var(--color-text)] font-light">В конце вы вместе решаете — хотите ли продолжить. Без давления. Без обязательств.</p>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="advanceTo(5)">
+        <span>Завершить</span>
+      </button>
+    </div>
+
+    <!-- Screen 5: End -->
+    <div class="sim-screen" data-screen="5">
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full bg-[rgba(27,77,92,0.08)] flex items-center justify-center mx-auto mb-6">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-6">
+          Вы только что прошли через что-то похожее на первую встречу.
+        </h2>
+        <p class="text-lg text-[var(--color-text-mid)] font-light leading-relaxed mb-10 max-w-[420px] mx-auto">
+          Если хотите попробовать по-настоящему — Александра будет рада познакомиться.
+        </p>
+        <a href="/lp/israel#pricing" class="btn-primary mx-auto mb-4">
+          <span>Записаться на бесплатную встречу</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="text-sm text-[var(--color-text-light)] font-light">20 минут · Бесплатно · Без обязательств</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<style>
+  .sim-screen {
+    display: none;
+    animation: simFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .sim-screen.active { display: block; }
+
+  @keyframes simFadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .sim-step-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .sim-progress-bar {
+    width: 100%;
+    height: 3px;
+    background: var(--color-sand);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .sim-progress-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 100ms linear;
+  }
+</style>
+
+<script>
+  function startSim() {
+    advanceTo(1);
+    // Track
+    (window as any).mh24?.ctaClick?.('sim_start', '/first-words');
+  }
+
+  function advanceTo(n: number) {
+    document.querySelectorAll('.sim-screen').forEach(s => s.classList.remove('active'));
+    const next = document.querySelector(`[data-screen="${n}"]`);
+    if (next) {
+      next.classList.add('active');
+
+      // Handle auto-advance screens
+      const autoEl = next.querySelector('.sim-auto-advance') as HTMLElement;
+      if (autoEl) {
+        const delay = parseInt(autoEl.dataset.delay || '10000');
+        const fill = autoEl.querySelector('.sim-progress-fill') as HTMLElement;
+        if (fill) {
+          fill.style.width = '0%';
+          fill.style.transition = `width ${delay}ms linear`;
+          requestAnimationFrame(() => { fill.style.width = '100%'; });
+        }
+        setTimeout(() => advanceTo(n + 1), delay);
+      }
+    }
+  }
+
+  // Enable continue button when user types
+  const input = document.getElementById('simInput') as HTMLTextAreaElement;
+  const continueBtn = document.getElementById('simContinueBtn') as HTMLButtonElement;
+  input?.addEventListener('input', () => {
+    if (continueBtn) {
+      continueBtn.disabled = (input.value.trim().length < 3);
+    }
+  });
+
+  // Make advanceTo available globally
+  (window as any).startSim = startSim;
+  (window as any).advanceTo = advanceTo;
+</script>
+
+</LandingLayout>

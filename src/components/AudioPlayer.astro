@@ -1,0 +1,150 @@
+---
+/**
+ * MindHub24 — Audio Player
+ * Voice recording of Alexandra explaining first session
+ * Animated waveform, play/pause, progress
+ */
+interface Props {
+  label: string;
+  title: string;
+  subtitle: string;
+  playerTitle: string;
+  playerMeta: string;
+  hint: string;
+  audioSrc?: string;
+}
+const { label, title, subtitle, playerTitle, playerMeta, hint, audioSrc } = Astro.props;
+---
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]" id="audioSection">
+  <div class="max-w-[800px] mx-auto text-center">
+    <p class="s-label" data-reveal>{label}</p>
+    <h2 class="s-title text-center" data-reveal="d1">{title}</h2>
+    <p class="s-subtitle text-center mx-auto max-w-[500px]" data-reveal="d2">{subtitle}</p>
+
+    <div
+      class="audio-card bg-white rounded-3xl p-10 border border-[var(--color-border)] flex flex-col md:flex-row items-center gap-10 text-left transition-all duration-500 cursor-pointer hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] hover:border-[var(--color-primary)] hover:-translate-y-0.5 mt-10 relative overflow-hidden"
+      id="audioCard"
+      data-reveal="d3"
+    >
+      <!-- Progress bar -->
+      <div class="absolute bottom-0 left-0 h-1 bg-[var(--color-primary)] transition-all duration-300 rounded-b-3xl" id="audioProgress" style="width:0%"></div>
+
+      <div class="w-[72px] h-[72px] rounded-full bg-gradient-to-br from-[var(--color-deep)] to-[var(--color-primary)] flex items-center justify-center shrink-0 shadow-[0_8px_24px_rgba(15,46,56,0.2)] transition-all duration-400" id="audioPlayBtn">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white" id="playIcon"><polygon points="6 3 20 12 6 21 6 3" /></svg>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white" id="pauseIcon" style="display:none"><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></svg>
+      </div>
+      <div class="flex-1">
+        <h3 class="font-heading text-xl font-medium mb-1">{playerTitle}</h3>
+        <p class="text-sm text-[var(--color-text-mid)] font-light">
+          <span id="audioTime">{playerMeta}</span>
+        </p>
+        <div class="flex items-center gap-[3px] h-8 mt-3" id="audioWave"></div>
+      </div>
+    </div>
+
+    <p class="text-base text-[var(--color-text-mid)] font-light italic mt-8" data-reveal="d4">{hint}</p>
+  </div>
+</section>
+
+<script define:vars={{ audioSrc }}>
+  // Generate waveform bars
+  const waveEl = document.getElementById('audioWave');
+  const barHeights = [];
+  if (waveEl) {
+    for (let i = 0; i < 35; i++) {
+      const bar = document.createElement('span');
+      const h = 6 + Math.random() * 22;
+      barHeights.push(h);
+      bar.style.cssText = `width:3px;border-radius:3px;background:var(--color-primary);opacity:0.15;height:${h}px;transition:all 0.3s ease;flex-shrink:0;`;
+      waveEl.appendChild(bar);
+    }
+  }
+
+  let audio = null;
+  let isPlaying = false;
+  let animFrame = null;
+
+  function initAudio() {
+    if (audio || !audioSrc) return;
+    audio = new Audio(audioSrc);
+    audio.addEventListener('ended', () => {
+      isPlaying = false;
+      updateUI();
+    });
+    audio.addEventListener('timeupdate', updateProgress);
+  }
+
+  function updateProgress() {
+    if (!audio) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    const progressBar = document.getElementById('audioProgress');
+    if (progressBar) progressBar.style.width = pct + '%';
+
+    // Animate bars based on current time
+    const bars = document.querySelectorAll('#audioWave span');
+    bars.forEach((bar, i) => {
+      const el = bar;
+      if (isPlaying) {
+        const wave = Math.sin((audio.currentTime * 3) + i * 0.4) * 0.5 + 0.5;
+        const h = 6 + wave * barHeights[i];
+        el.style.height = h + 'px';
+        el.style.opacity = String(0.3 + wave * 0.5);
+      }
+    });
+
+    if (isPlaying) animFrame = requestAnimationFrame(updateProgress);
+  }
+
+  function updateUI() {
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const card = document.getElementById('audioCard');
+    const bars = document.querySelectorAll('#audioWave span');
+
+    if (playIcon) playIcon.style.display = isPlaying ? 'none' : 'block';
+    if (pauseIcon) pauseIcon.style.display = isPlaying ? 'block' : 'none';
+
+    if (!isPlaying) {
+      bars.forEach((bar, i) => {
+        const el = bar;
+        el.style.height = barHeights[i] + 'px';
+        el.style.opacity = '0.15';
+      });
+      if (animFrame) cancelAnimationFrame(animFrame);
+    }
+  }
+
+  document.getElementById('audioCard')?.addEventListener('click', () => {
+    if (audioSrc) {
+      initAudio();
+      if (isPlaying) {
+        audio?.pause();
+        isPlaying = false;
+      } else {
+        audio?.play();
+        isPlaying = true;
+        window.mh24?.audioPlay?.();
+        updateProgress();
+      }
+      updateUI();
+    } else {
+      // Demo mode — animate waveform without audio
+      isPlaying = !isPlaying;
+      const bars = document.querySelectorAll('#audioWave span');
+      bars.forEach((bar, i) => {
+        const el = bar;
+        if (isPlaying) {
+          el.style.animation = `waveAnim 1.2s ease-in-out infinite`;
+          el.style.setProperty('--wave-h', barHeights[i] + 'px');
+          el.style.animationDelay = (Math.random() * 1.2) + 's';
+          el.style.opacity = '0.5';
+        } else {
+          el.style.animation = 'none';
+          el.style.opacity = '0.15';
+        }
+      });
+      updateUI();
+    }
+  });
+</script>

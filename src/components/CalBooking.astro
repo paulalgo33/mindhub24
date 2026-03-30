@@ -1,0 +1,82 @@
+---
+/**
+ * MindHub24 — Cal.com Booking Embed
+ * Inline or modal booking widget
+ * Event: "Ознакомительная встреча (бесплатно, 20 мин)"
+ */
+interface Props {
+  calLink?: string;
+  mode?: 'inline' | 'modal';
+  buttonText?: string;
+  theme?: 'light' | 'dark';
+}
+
+const {
+  calLink = 'mindhub24/free-consult',
+  mode = 'modal',
+  buttonText = 'Записаться на бесплатную встречу',
+  theme = 'light',
+} = Astro.props;
+---
+
+{mode === 'inline' ? (
+  <div
+    id="cal-embed"
+    class="w-full min-h-[600px] rounded-2xl overflow-hidden border border-[var(--color-border)]"
+    data-cal-link={calLink}
+    data-cal-theme={theme}
+  />
+) : (
+  <button
+    class="btn-primary"
+    data-cal-link={calLink}
+    data-cal-config={`{"theme":"${theme}"}`}
+    onclick="window.mh24?.bookingOpen(); window.mh24Meta?.schedule();"
+  >
+    <span>{buttonText}</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  </button>
+)}
+
+<!-- Cal.com embed script -->
+<script is:inline>
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement("script")).src = A;
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") {
+          cal.ns[namespace] = cal.ns[namespace] || api;
+          p(cal.ns[namespace], ar);
+          p(cal, ["initNamespace", namespace]);
+        } else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", {
+    origin: "https://app.cal.com",
+  });
+
+  Cal("ui", {
+    theme: "light",
+    styles: { branding: { brandColor: "#1B4D5C" } },
+    hideEventTypeDetails: false,
+    layout: "month_view",
+  });
+</script>

@@ -1,0 +1,27 @@
+---
+import type { Translations } from '@/i18n/ru';
+interface Props { t: Translations; }
+const { t } = Astro.props;
+---
+
+<!-- Crisis -->
+<div class="py-8 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)] text-center border-t border-[var(--color-border)]">
+  <p class="text-sm text-[var(--color-text-mid)] font-light max-w-[600px] mx-auto leading-relaxed">
+    <strong class="font-medium text-[var(--color-text)]">{t.crisis.title}</strong><br />
+    {t.crisis.lines.join(' · ')}<br />
+    {t.crisis.disclaimer}
+  </p>
+</div>
+
+<!-- Footer -->
+<footer class="py-14 px-[clamp(1.5rem,4vw,3rem)] bg-[#111] text-center">
+  <div class="font-heading text-xl font-semibold text-white/70 mb-5">
+    MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+  </div>
+  <div class="flex justify-center gap-8 mb-6 flex-wrap">
+    {t.footer.links.map((link) => (
+      <a href="#" class="text-xs text-white/30 no-underline font-light transition-colors duration-200 hover:text-white/70">{link}</a>
+    ))}
+  </div>
+  <p class="text-[0.72rem] text-white/15 font-light">{t.footer.copy}</p>
+</footer>

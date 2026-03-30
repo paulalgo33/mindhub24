@@ -1,0 +1,207 @@
+---
+/**
+ * WOW Factor 15 — Mood Weather Widget "Погода Души"
+ * Floating button → 5 weather states → personalized micro-response
+ * No data stored. No email. Pure micro-moment of connection.
+ */
+---
+
+<div class="mood-widget" id="moodWidget">
+  <!-- Trigger button -->
+  <button class="mood-trigger" id="moodTrigger" aria-label="Как вы сегодня?">
+    <span class="mood-trigger-icon">☁️</span>
+  </button>
+
+  <!-- Panel -->
+  <div class="mood-panel" id="moodPanel">
+    <div class="mood-question" id="moodQuestion">
+      <p class="mood-q-text">Как вы сегодня?</p>
+      <div class="mood-options">
+        <button class="mood-opt" data-mood="sunny" aria-label="Солнечно">☀️</button>
+        <button class="mood-opt" data-mood="partly" aria-label="Облачно">🌤️</button>
+        <button class="mood-opt" data-mood="cloudy" aria-label="Пасмурно">☁️</button>
+        <button class="mood-opt" data-mood="rainy" aria-label="Дождливо">🌧️</button>
+        <button class="mood-opt" data-mood="storm" aria-label="Гроза">⛈️</button>
+      </div>
+    </div>
+    <div class="mood-response" id="moodResponse" style="display:none">
+      <p class="mood-r-text" id="moodResponseText"></p>
+      <div class="mood-r-action" id="moodResponseAction"></div>
+      <button class="mood-close" id="moodClose">Спасибо</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mood-widget {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 90;
+  }
+
+  .mood-trigger {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-deep);
+    box-shadow: 0 4px 20px rgba(15, 46, 56, 0.25);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    font-size: 1.4rem;
+  }
+  .mood-trigger:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(15, 46, 56, 0.35);
+  }
+
+  .mood-panel {
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    width: 300px;
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--color-border);
+    display: none;
+    animation: moodSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mood-panel.open { display: block; }
+
+  @keyframes moodSlideUp {
+    from { opacity: 0; transform: translateY(10px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  [data-night="true"] .mood-panel {
+    background: #1A1A1A;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .mood-q-text {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .mood-options {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .mood-opt {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    border: 1px solid var(--color-border);
+    background: var(--color-cream);
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mood-opt:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .mood-r-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .mood-r-action {
+    margin-bottom: 1rem;
+  }
+  .mood-r-action a {
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .mood-close {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-text-mid);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .mood-close:hover {
+    background: var(--color-cream);
+    border-color: var(--color-primary);
+  }
+
+  @media (max-width: 600px) {
+    .mood-panel { width: 280px; }
+  }
+</style>
+
+<script>
+  const responses: Record<string, { text: string; action?: string }> = {
+    sunny: { text: 'Рады за вас. Хорошие дни стоит замечать.' },
+    partly: { text: 'Немного облачно — но это нормально. Не каждый день должен быть солнечным.' },
+    cloudy: { text: 'Пасмурно бывает. Если хотите поговорить — мы здесь.', action: '<a href="#pricing">Записаться на встречу →</a>' },
+    rainy: { text: 'Дождливые дни проходят. Но если дождь затянулся — вы знаете, где нас найти.', action: '<a href="#pricing">Записаться на встречу →</a>' },
+    storm: { text: 'Если сейчас шторм — вы не должны пережидать его в одиночку.', action: '<a href="#pricing">Записаться →</a> · <a href="#crisis">Кризисная помощь</a>' },
+  };
+
+  const trigger = document.getElementById('moodTrigger');
+  const panel = document.getElementById('moodPanel');
+  const question = document.getElementById('moodQuestion');
+  const response = document.getElementById('moodResponse');
+  const responseText = document.getElementById('moodResponseText');
+  const responseAction = document.getElementById('moodResponseAction');
+  const closeBtn = document.getElementById('moodClose');
+
+  trigger?.addEventListener('click', () => {
+    panel?.classList.toggle('open');
+    if (question) question.style.display = 'block';
+    if (response) response.style.display = 'none';
+  });
+
+  document.querySelectorAll('.mood-opt').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const mood = (btn as HTMLElement).dataset.mood || 'cloudy';
+      const r = responses[mood];
+      if (question) question.style.display = 'none';
+      if (response) response.style.display = 'block';
+      if (responseText) responseText.textContent = r.text;
+      if (responseAction) responseAction.innerHTML = r.action || '';
+
+      // Track in Plausible
+      (window as any).plausible?.('mood_check', { props: { mood } });
+    });
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    panel?.classList.remove('open');
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    const widget = document.getElementById('moodWidget');
+    if (widget && !widget.contains(e.target as Node)) {
+      panel?.classList.remove('open');
+    }
+  });
+</script>

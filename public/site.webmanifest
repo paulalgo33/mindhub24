@@ -1,0 +1,10 @@
+{
+  "name": "MindHub24",
+  "short_name": "MindHub24",
+  "description": "Психологическая помощь онлайн на русском языке",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FAF7F2",
+  "theme_color": "#1B4D5C",
+  "lang": "ru"
+}

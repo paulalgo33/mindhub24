@@ -1,0 +1,35 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  items: string[];
+  closing: string;
+}
+const { label, title, items, closing } = Astro.props;
+---
+
+<section class="py-[var(--spacing-section-lg)] px-[clamp(1.5rem,4vw,3rem)] bg-[#111] text-white relative overflow-hidden">
+  <!-- Gold line -->
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(201,168,76,0.3)] to-transparent"></div>
+  <!-- Ambient orbs -->
+  <div class="absolute w-[400px] h-[400px] rounded-full blur-[120px] top-[10%] -left-[10%] bg-[rgba(27,77,92,0.15)] pointer-events-none"></div>
+  <div class="absolute w-[300px] h-[300px] rounded-full blur-[120px] bottom-[10%] -right-[5%] bg-[rgba(201,168,76,0.08)] pointer-events-none"></div>
+
+  <div class="max-w-[1000px] mx-auto relative z-2">
+    <p class="s-label text-[var(--color-accent-light)]" data-reveal>{label}</p>
+    <h2 class="font-heading text-[clamp(1.6rem,3vw,2.2rem)] text-white/90 mb-12 font-normal leading-snug" data-reveal="d1">{title}</h2>
+
+    <div class="columns-1 md:columns-2 gap-6 mb-12">
+      {items.map((item, i) => (
+        <div
+          class="break-inside-avoid mb-6 p-7 bg-white/[0.03] border border-white/[0.05] rounded-2xl text-lg italic text-white/50 leading-[1.75] font-light transition-all duration-600 hover:text-white/85 hover:bg-white/[0.06] hover:border-[rgba(201,168,76,0.15)] hover:-translate-y-0.5"
+          data-reveal={`d${(i % 3) + 1}`}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center font-heading text-xl text-white/40 italic max-w-[500px] mx-auto" data-reveal>{closing}</p>
+  </div>
+</section>

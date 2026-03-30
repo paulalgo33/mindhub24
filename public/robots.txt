@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Landing pages — allow indexing
+Allow: /lp/
+
+# Admin and private
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://mindhub24.com/sitemap-index.xml

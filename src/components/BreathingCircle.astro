@@ -1,0 +1,109 @@
+---
+/**
+ * WOW Factor 1 Enhancement — Animated Breathing Circle
+ * Inhale 4s → Hold 4s → Exhale 6s = 14s cycle
+ * Renders only during night mode (23:00-05:00)
+ */
+---
+
+<div class="breathing-container" id="breathingCircle" style="display:none">
+  <div class="breathing-label">Подышите с нами</div>
+  <div class="breathing-ring">
+    <div class="breathing-circle" id="breathCircle"></div>
+    <div class="breathing-text" id="breathText">Вдох</div>
+  </div>
+  <div class="breathing-instruction" id="breathInstruction">Вдохните на 4 секунды</div>
+</div>
+
+<style>
+  .breathing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+    padding: 2.5rem;
+    background: rgba(42, 122, 145, 0.06);
+    border: 1px solid rgba(42, 122, 145, 0.12);
+    border-radius: 24px;
+  }
+  .breathing-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+  .breathing-ring {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .breathing-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(42, 122, 145, 0.25), rgba(42, 122, 145, 0.08));
+    border: 2px solid rgba(42, 122, 145, 0.3);
+    animation: breathCycle 14s ease-in-out infinite;
+    position: absolute;
+  }
+  .breathing-text {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--color-text-mid);
+    transition: opacity 0.5s ease;
+  }
+  .breathing-instruction {
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+    font-weight: 300;
+    transition: opacity 0.5s ease;
+  }
+
+  @keyframes breathCycle {
+    /* Inhale: 0-28.6% (4s of 14s) */
+    0% { transform: scale(0.6); opacity: 0.4; }
+    28.6% { transform: scale(1.15); opacity: 0.9; }
+    /* Hold: 28.6-57.1% (4s) */
+    57.1% { transform: scale(1.15); opacity: 0.9; }
+    /* Exhale: 57.1-100% (6s) */
+    100% { transform: scale(0.6); opacity: 0.4; }
+  }
+</style>
+
+<script>
+  const hour = new Date().getHours();
+  const isNight = hour >= 23 || hour < 5;
+
+  if (isNight) {
+    const container = document.getElementById('breathingCircle');
+    if (container) container.style.display = 'flex';
+
+    // Cycle through breathing phases
+    const phases = [
+      { text: 'Вдох', instruction: 'Вдохните на 4 секунды', duration: 4000 },
+      { text: 'Пауза', instruction: 'Задержите дыхание', duration: 4000 },
+      { text: 'Выдох', instruction: 'Выдохните на 6 секунд', duration: 6000 },
+    ];
+
+    let phaseIndex = 0;
+    const textEl = document.getElementById('breathText');
+    const instrEl = document.getElementById('breathInstruction');
+
+    function nextPhase() {
+      const phase = phases[phaseIndex];
+      if (textEl) textEl.textContent = phase.text;
+      if (instrEl) instrEl.textContent = phase.instruction;
+      phaseIndex = (phaseIndex + 1) % phases.length;
+      setTimeout(nextPhase, phase.duration);
+    }
+    nextPhase();
+  }
+</script>

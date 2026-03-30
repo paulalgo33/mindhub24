@@ -1,0 +1,54 @@
+---
+interface Props {
+  cta: string;
+  lang: string;
+}
+const { cta, lang } = Astro.props;
+---
+
+<nav
+  class="fixed top-0 left-0 right-0 z-100 px-[clamp(1.5rem,4vw,3rem)] transition-all duration-600"
+  id="mainNav"
+>
+  <div class="max-w-[1400px] mx-auto flex items-center justify-between h-20">
+    <a href="#" class="font-heading text-2xl font-semibold text-[var(--color-deep)] no-underline tracking-[-0.03em] flex items-baseline gap-0.5">
+      MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+    </a>
+    <div class="flex items-center gap-4">
+      <a
+        href={lang === 'ru' ? '/en/' : '/ru/'}
+        class="text-xs text-[var(--color-text-mid)] no-underline tracking-[0.08em] uppercase font-medium px-3 py-1.5 rounded-md transition-all duration-200 hover:bg-[var(--color-border)] hover:text-[var(--color-text)] hide-small"
+      >
+        {lang === 'ru' ? 'En' : 'Ру'}
+      </a>
+      <button
+        class="nav-cta bg-[var(--color-deep)] text-white border-none px-6 py-2.5 rounded-full font-body text-sm font-medium cursor-pointer transition-all duration-400 tracking-[0.01em] hover:bg-[var(--color-primary)] hover:shadow-[0_4px_24px_rgba(15,46,56,0.25)] hover:-translate-y-px"
+        onclick="document.getElementById('pricing')?.scrollIntoView({behavior:'smooth'})"
+      >
+        {cta}
+      </button>
+    </div>
+  </div>
+</nav>
+
+<style>
+  nav::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(250, 247, 242, 0.8);
+    backdrop-filter: blur(30px) saturate(1.8);
+    -webkit-backdrop-filter: blur(30px) saturate(1.8);
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border-bottom: 1px solid transparent;
+    z-index: -1;
+  }
+  nav.scrolled::after {
+    opacity: 1;
+    border-bottom-color: var(--color-border);
+  }
+  [data-night="true"] nav::after {
+    background: rgba(11, 15, 19, 0.85);
+  }
+</style>
