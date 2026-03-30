@@ -8,12 +8,8 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  i18n: {
-    defaultLocale: 'ru',
-    locales: ['ru', 'en'],
-    routing: {
-      prefixDefaultLocale: true,
-    },
+  redirects: {
+    '/': '/lp/israel',
   },
   image: {
     domains: [],
