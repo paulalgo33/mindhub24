@@ -1,0 +1,177 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Сканирование тела" dark={true}>
+  <div class="max-w-[560px] mx-auto" style="color:#e6edf3;">
+
+    <div class="text-center mb-10">
+      <p class="s-label" style="color:var(--color-accent-light, #C9A84C);">Осознанность</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] mb-3" style="color:#e6edf3;">Сканирование тела</h1>
+      <p style="color:rgba(230,237,243,0.55);font-weight:300;line-height:1.7;">Пройдитесь вниманием по телу. Нажмите на зону — отметьте, что вы там чувствуете.</p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8 items-start">
+      <!-- SVG body -->
+      <div class="flex-shrink-0 mx-auto">
+        <svg id="bodySvg" viewBox="0 0 160 340" width="160" height="340" style="display:block;">
+          <!-- Head -->
+          <ellipse cx="80" cy="38" rx="28" ry="32" class="body-zone" data-zone="head" fill="rgba(42,122,145,0.25)" stroke="rgba(42,122,145,0.5)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Neck -->
+          <rect x="68" y="68" width="24" height="18" rx="6" class="body-zone" data-zone="neck" fill="rgba(42,122,145,0.2)" stroke="rgba(42,122,145,0.4)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Shoulders -->
+          <ellipse cx="44" cy="96" rx="22" ry="12" class="body-zone" data-zone="shoulders" fill="rgba(42,122,145,0.2)" stroke="rgba(42,122,145,0.4)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <ellipse cx="116" cy="96" rx="22" ry="12" class="body-zone" data-zone="shoulders" fill="rgba(42,122,145,0.2)" stroke="rgba(42,122,145,0.4)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Chest -->
+          <rect x="56" y="84" width="48" height="40" rx="8" class="body-zone" data-zone="chest" fill="rgba(42,122,145,0.2)" stroke="rgba(42,122,145,0.4)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Stomach -->
+          <rect x="58" y="124" width="44" height="36" rx="8" class="body-zone" data-zone="stomach" fill="rgba(42,122,145,0.2)" stroke="rgba(42,122,145,0.4)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Hips -->
+          <rect x="54" y="160" width="52" height="28" rx="8" class="body-zone" data-zone="hips" fill="rgba(42,122,145,0.2)" stroke="rgba(42,122,145,0.4)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Left arm -->
+          <rect x="22" y="90" width="20" height="70" rx="10" class="body-zone" data-zone="arms" fill="rgba(42,122,145,0.18)" stroke="rgba(42,122,145,0.35)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Right arm -->
+          <rect x="118" y="90" width="20" height="70" rx="10" class="body-zone" data-zone="arms" fill="rgba(42,122,145,0.18)" stroke="rgba(42,122,145,0.35)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Left leg -->
+          <rect x="56" y="188" width="22" height="90" rx="11" class="body-zone" data-zone="legs" fill="rgba(42,122,145,0.18)" stroke="rgba(42,122,145,0.35)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Right leg -->
+          <rect x="82" y="188" width="22" height="90" rx="11" class="body-zone" data-zone="legs" fill="rgba(42,122,145,0.18)" stroke="rgba(42,122,145,0.35)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <!-- Feet -->
+          <ellipse cx="67" cy="285" rx="16" ry="8" class="body-zone" data-zone="feet" fill="rgba(42,122,145,0.18)" stroke="rgba(42,122,145,0.35)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+          <ellipse cx="93" cy="285" rx="16" ry="8" class="body-zone" data-zone="feet" fill="rgba(42,122,145,0.18)" stroke="rgba(42,122,145,0.35)" stroke-width="1.5" style="cursor:pointer;transition:fill 0.3s;" />
+        </svg>
+      </div>
+
+      <!-- Sensing panel -->
+      <div class="flex-1 w-full">
+        <!-- Active zone -->
+        <div id="activePanel" style="display:none;" class="p-5 rounded-2xl mb-4" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);">
+          <p id="zoneName" class="font-heading text-lg mb-3" style="color:#e6edf3;"></p>
+          <p class="text-xs mb-3" style="color:rgba(230,237,243,0.45);">Что вы там ощущаете?</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            {['Напряжение', 'Тяжесть', 'Тепло', 'Холод', 'Покалывание', 'Расслабленность', 'Боль', 'Пустота', 'Ничего'].map(s => (
+              <button class="sensation-tag text-xs px-3 py-1.5 rounded-full transition-all duration-300" data-sensation={s}
+                style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:rgba(230,237,243,0.7);"
+              >{s}</button>
+            ))}
+          </div>
+          <button id="saveZoneBtn" class="btn-primary text-sm w-full justify-center" style="background:rgba(42,122,145,0.6);">Отметить</button>
+        </div>
+
+        <div id="defaultPanel" class="text-sm" style="color:rgba(230,237,243,0.4);">
+          <p>← Нажмите на любую зону тела</p>
+        </div>
+
+        <!-- Saved notes -->
+        <div id="savedNotes" class="mt-4 flex flex-col gap-2"></div>
+      </div>
+    </div>
+
+    <!-- Finish -->
+    <div class="mt-10 text-center">
+      <a href="/lp/israel#pricing" class="btn-primary justify-center" style="background:var(--color-primary);">
+        <span>Хотите работать с телом глубже? Записаться</span>
+      </a>
+      <button id="clearBtn" class="btn-ghost mt-4 text-sm w-full justify-center" style="color:rgba(230,237,243,0.3);">Сбросить</button>
+    </div>
+  </div>
+</ToolLayout>
+
+<style>
+  .body-zone:hover { fill: rgba(42,122,145,0.45) !important; }
+  .body-zone.active { fill: rgba(42,122,145,0.6) !important; stroke: rgba(42,122,145,0.9) !important; stroke-width: 2 !important; }
+  .body-zone.marked { fill: rgba(201,168,76,0.35) !important; stroke: rgba(201,168,76,0.7) !important; }
+  .sensation-tag.selected { background: rgba(42,122,145,0.5) !important; border-color: rgba(42,122,145,0.8) !important; color: #e6edf3 !important; }
+</style>
+
+<script>
+  const ZONE_NAMES: Record<string, string> = {
+    head: 'Голова',
+    neck: 'Шея',
+    shoulders: 'Плечи',
+    chest: 'Грудь',
+    stomach: 'Живот',
+    hips: 'Таз / Бёдра',
+    arms: 'Руки',
+    legs: 'Ноги',
+    feet: 'Ступни',
+  };
+
+  let activeZone = '';
+  let selectedSensations: string[] = [];
+  const savedData: Record<string, string[]> = {};
+
+  const activePanel = document.getElementById('activePanel')!;
+  const defaultPanel = document.getElementById('defaultPanel')!;
+  const zoneName = document.getElementById('zoneName')!;
+  const savedNotes = document.getElementById('savedNotes')!;
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  document.querySelectorAll('.body-zone').forEach(zone => {
+    zone.addEventListener('click', () => {
+      const z = (zone as SVGElement).dataset.zone || '';
+      if (activeZone === z) return;
+
+      document.querySelectorAll('.body-zone').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll(`.body-zone[data-zone="${z}"]`).forEach(b => b.classList.add('active'));
+
+      activeZone = z;
+      selectedSensations = [];
+      document.querySelectorAll('.sensation-tag').forEach(t => t.classList.remove('selected'));
+      zoneName.textContent = ZONE_NAMES[z] || z;
+      show(activePanel);
+      hide(defaultPanel);
+    });
+  });
+
+  document.querySelectorAll('.sensation-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const s = (tag as HTMLElement).dataset.sensation || '';
+      if (tag.classList.contains('selected')) {
+        tag.classList.remove('selected');
+        selectedSensations = selectedSensations.filter(x => x !== s);
+      } else {
+        tag.classList.add('selected');
+        selectedSensations.push(s);
+      }
+    });
+  });
+
+  document.getElementById('saveZoneBtn')!.addEventListener('click', () => {
+    if (!activeZone || selectedSensations.length === 0) return;
+    savedData[activeZone] = [...selectedSensations];
+
+    document.querySelectorAll(`.body-zone[data-zone="${activeZone}"]`).forEach(b => {
+      b.classList.remove('active');
+      b.classList.add('marked');
+    });
+
+    renderNotes();
+    hide(activePanel);
+    show(defaultPanel);
+    activeZone = '';
+    selectedSensations = [];
+  });
+
+  function renderNotes() {
+    savedNotes.innerHTML = '';
+    Object.entries(savedData).forEach(([zone, sensations]) => {
+      const el = document.createElement('div');
+      el.className = 'flex items-center gap-2 text-xs py-2 px-3 rounded-lg';
+      el.style.cssText = 'background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);color:rgba(230,237,243,0.8);';
+      el.innerHTML = `<span style="font-weight:600;color:rgba(201,168,76,0.9);">${ZONE_NAMES[zone]}</span> · ${sensations.join(', ')}`;
+      savedNotes.appendChild(el);
+    });
+  }
+
+  document.getElementById('clearBtn')!.addEventListener('click', () => {
+    Object.keys(savedData).forEach(k => delete savedData[k]);
+    document.querySelectorAll('.body-zone').forEach(b => b.classList.remove('active', 'marked'));
+    savedNotes.innerHTML = '';
+    hide(activePanel);
+    show(defaultPanel);
+    activeZone = '';
+  });
+</script>

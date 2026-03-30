@@ -1,0 +1,66 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Тревога: что происходит в теле и голове">
+  <div class="max-w-[660px] mx-auto">
+    <div class="mb-10">
+      <p class="s-label">Руководство · Чтение 5 мин</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Тревога: что происходит в теле и голове
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">Понять тревогу — уже наполовину с ней справиться. Без диагнозов, без страшилок.</p>
+    </div>
+
+    <div class="prose-guide">
+
+      <h2>Тревога — это не слабость</h2>
+      <p>Тревога — биологический механизм выживания. Миллионы лет она помогала нашим предкам убегать от хищников. Проблема в том, что современный мозг реагирует на email от начальника так же, как на саблезубого тигра.</p>
+
+      <h2>Что происходит в теле</h2>
+      <p>Когда мозг воспринимает угрозу, надпочечники выбрасывают адреналин и кортизол. Сердцебиение учащается, мышцы напрягаются, дыхание становится поверхностным. Это реакция «бей или беги». Тело буквально готовится к действию.</p>
+      <p>Поэтому при тревоге помогает <em>физическое движение</em> — оно «сжигает» адреналин так, как это задумала природа.</p>
+
+      <h2>Что происходит в голове</h2>
+      <p>Тревожное мышление имеет паттерны: катастрофизация («всё будет ужасно»), чтение мыслей («они думают плохо обо мне»), сверхобобщение («я всегда всё порчу»). Это не дефекты — это автоматические программы, которые можно замечать и переосмыслять.</p>
+
+      <h2>Нормальная тревога vs тревожное расстройство</h2>
+      <p>Тревога становится проблемой, когда она непропорциональна ситуации, продолжается долго, мешает жизни. Если вы замечаете это — стоит поговорить со специалистом. Это не ставит «диагноз» — это просто более глубокая работа.</p>
+
+      <h2>Что помогает прямо сейчас</h2>
+      <p>Дыхание (удлинённый выдох активирует парасимпатическую нервную систему), движение, холодная вода на лицо, называние чувств вслух («я сейчас тревожусь»). Всё это снижает активацию миндалевидного тела.</p>
+
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <a href="/tools/breathe" class="p-5 rounded-xl border border-[var(--color-border)] bg-white hover:border-[var(--color-primary)] transition-all duration-300 no-underline">
+        <p class="text-sm font-semibold text-[var(--color-deep)] mb-1">Дыши со мной →</p>
+        <p class="text-xs text-[var(--color-text-light)] font-light">Дыхательное упражнение прямо сейчас</p>
+      </a>
+      <a href="/tools/ground" class="p-5 rounded-xl border border-[var(--color-border)] bg-white hover:border-[var(--color-primary)] transition-all duration-300 no-underline">
+        <p class="text-sm font-semibold text-[var(--color-deep)] mb-1">Заземление 5-4-3-2-1 →</p>
+        <p class="text-xs text-[var(--color-text-light)] font-light">Вернуться в настоящий момент</p>
+      </a>
+    </div>
+
+    <div class="mt-6 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+      </div>
+      <div>
+        <p class="text-sm text-[var(--color-text)] font-medium mb-1">Хотите проработать тревогу глубоко и системно?</p>
+        <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться к Александре →</a>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <a href="/tools" class="text-sm text-[var(--color-text-light)] hover:text-[var(--color-primary)] transition-colors no-underline">← Все инструменты</a>
+    </div>
+  </div>
+</ToolLayout>
+
+<style>
+  .prose-guide h2 { font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:500;color:var(--color-deep);margin:2rem 0 0.75rem;letter-spacing:-0.01em; }
+  .prose-guide p { color:var(--color-text);font-weight:300;line-height:1.85;margin-bottom:1rem;font-size:1.025rem; }
+  .prose-guide em { font-style:italic;color:var(--color-primary); }
+</style>

@@ -1,0 +1,171 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Дневник чувств">
+  <div class="max-w-[640px] mx-auto">
+    <!-- Header -->
+    <div class="mb-10">
+      <p class="s-label">Дневник чувств</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Что вы чувствуете прямо сейчас?
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">
+        Напишите — и получите тёплый, принимающий отклик. Без советов. Без оценок. Только присутствие.
+      </p>
+    </div>
+
+    <!-- Input form -->
+    <div id="formSection">
+      <textarea
+        id="journalInput"
+        placeholder="Напишите, что вы чувствуете прямо сейчас..."
+        class="w-full min-h-[200px] p-6 rounded-2xl border border-[var(--color-border)] bg-white font-body text-base text-[var(--color-text)] leading-relaxed resize-none outline-none focus:border-[var(--color-primary)] transition-colors duration-300 font-light"
+        style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+      ></textarea>
+      <div class="flex items-center justify-between mt-4">
+        <p class="text-xs text-[var(--color-text-light)]">Ваш текст не сохраняется</p>
+        <button id="submitBtn" class="btn-primary">
+          <span>Поделиться</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loadingSection" style="display:none;" class="text-center py-14">
+      <div class="breath-ring mx-auto mb-5"></div>
+      <p class="text-[var(--color-text-mid)] font-light text-sm">Читаю...</p>
+    </div>
+
+    <!-- Crisis message -->
+    <div id="crisisSection" style="display:none;" class="p-8 rounded-2xl border-2 border-[var(--color-accent)] bg-[rgba(201,168,76,0.06)]">
+      <p class="font-heading text-lg text-[var(--color-deep)] mb-4">Если вам сейчас очень тяжело — пожалуйста, позвоните. Вы не одни.</p>
+      <div class="flex flex-col gap-2 text-sm font-medium text-[var(--color-text-mid)]">
+        <span>🇮🇱 Израиль: Eran — <strong>1201</strong></span>
+        <span>🇷🇺 Россия: <strong>8-800-2000-122</strong></span>
+        <span>🆘 Экстренная помощь: <strong>112</strong></span>
+      </div>
+      <button id="crisisBack" class="btn-ghost mt-6 text-sm">← Вернуться</button>
+    </div>
+
+    <!-- Response -->
+    <div id="responseSection" style="display:none;" class="mt-2">
+      <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] border-l-4 border-l-[var(--color-primary)]" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5),0 20px 60px rgba(0,0,0,0.04);">
+        <p class="text-xs text-[var(--color-accent)] font-semibold tracking-[0.1em] uppercase mb-4">Отклик</p>
+        <p id="responseText" class="text-[var(--color-text)] leading-[1.9] font-light text-[1.05rem]"></p>
+      </div>
+
+      <!-- Soft CTA -->
+      <div class="mt-6 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+        <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 flex items-center justify-center">
+          <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover rounded-full" />
+        </div>
+        <div>
+          <p class="text-sm text-[var(--color-text)] font-medium mb-1">Если хотите поговорить глубже — Александра здесь.</p>
+          <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться бесплатно →</a>
+        </div>
+      </div>
+
+      <button id="resetBtn" class="btn-ghost mt-8 text-sm">← Написать снова</button>
+    </div>
+  </div>
+</ToolLayout>
+
+<style>
+  .breath-ring {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    animation: breathRing 2.4s ease-in-out infinite;
+  }
+  @keyframes breathRing {
+    0%, 100% { transform: scale(0.85); opacity: 0.4; }
+    50%       { transform: scale(1.15); opacity: 1; }
+  }
+</style>
+
+<script>
+  const CRISIS_WORDS = ['суицид', 'убить себя', 'не хочу жить', 'покончить', 'покончу', 'убью себя', 'хочу умереть', 'умереть хочу', 'больше не хочу жить'];
+  const SYSTEM_PROMPT = `Ты — тёплый, эмпатичный собеседник. Ты НЕ терапевт, НЕ ставишь диагнозы, НЕ даёшь советов. Ты просто отражаешь чувства человека с теплотой и принятием. Отвечай на русском языке. Коротко — 2-4 предложения. Начни с признания того, что человек чувствует. Заверши мягким напоминанием, что его чувства важны. Никогда не используй слова: терапия, диагноз, лечение, расстройство. Если человек описывает кризис или суицидальные мысли — НЕ отвечай рефлексией, а сразу дай номера экстренной помощи.`;
+
+  const formSection = document.getElementById('formSection')!;
+  const loadingSection = document.getElementById('loadingSection')!;
+  const responseSection = document.getElementById('responseSection')!;
+  const crisisSection = document.getElementById('crisisSection')!;
+  const journalInput = document.getElementById('journalInput') as HTMLTextAreaElement;
+  const responseText = document.getElementById('responseText')!;
+
+  function hasCrisis(text: string): boolean {
+    const lower = text.toLowerCase();
+    return CRISIS_WORDS.some(w => lower.includes(w));
+  }
+
+  async function typeText(el: HTMLElement, text: string, delay = 18) {
+    el.textContent = '';
+    for (const ch of text) {
+      el.textContent += ch;
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  document.getElementById('submitBtn')!.addEventListener('click', async () => {
+    const text = journalInput.value.trim();
+    if (!text || text.length < 5) return;
+
+    if (hasCrisis(text)) {
+      hide(formSection);
+      show(crisisSection);
+      return;
+    }
+
+    hide(formSection);
+    show(loadingSection);
+
+    try {
+      const res = await fetch('/api/claude', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: SYSTEM_PROMPT,
+          messages: [{ role: 'user', content: text }],
+        }),
+      });
+
+      const data = await res.json();
+      const reply = data?.content?.[0]?.text || 'Что-то пошло не так. Попробуйте снова.';
+
+      hide(loadingSection);
+      show(responseSection);
+      await typeText(responseText, reply, 18);
+    } catch {
+      hide(loadingSection);
+      show(formSection);
+      alert('Не удалось получить ответ. Проверьте соединение и попробуйте снова.');
+    }
+  });
+
+  document.getElementById('resetBtn')!.addEventListener('click', () => {
+    journalInput.value = '';
+    hide(responseSection);
+    show(formSection);
+  });
+
+  document.getElementById('crisisBack')!.addEventListener('click', () => {
+    hide(crisisSection);
+    show(formSection);
+  });
+
+  // Submit on Ctrl+Enter
+  journalInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      document.getElementById('submitBtn')!.click();
+    }
+  });
+</script>

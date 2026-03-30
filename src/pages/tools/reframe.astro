@@ -1,0 +1,215 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Другой взгляд">
+  <div class="max-w-[680px] mx-auto">
+    <!-- Header -->
+    <div class="mb-10">
+      <p class="s-label">Когнитивное переосмысление</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Другой взгляд
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">
+        Напишите мысль, которая вас мучает. Получите мягкую альтернативу — не «позитивное мышление», а настоящий CBT-рефрейминг.
+      </p>
+    </div>
+
+    <!-- Input -->
+    <div id="formSection">
+      <textarea
+        id="thoughtInput"
+        placeholder="Например: «Я всегда всё порчу» или «Никто меня не понимает»..."
+        class="w-full min-h-[160px] p-6 rounded-2xl border border-[var(--color-border)] bg-white font-body text-base text-[var(--color-text)] leading-relaxed resize-none outline-none focus:border-[var(--color-primary)] transition-colors duration-300 font-light"
+        style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+      ></textarea>
+      <div class="flex items-center justify-between mt-4">
+        <p class="text-xs text-[var(--color-text-light)]">Ваши мысли не сохраняются</p>
+        <button id="submitBtn" class="btn-primary">
+          <span>Переосмыслить</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loadingSection" style="display:none;" class="text-center py-14">
+      <div class="breath-ring mx-auto mb-5"></div>
+      <p class="text-[var(--color-text-mid)] font-light text-sm">Ищу другой угол зрения...</p>
+    </div>
+
+    <!-- Crisis -->
+    <div id="crisisSection" style="display:none;" class="p-8 rounded-2xl border-2 border-[var(--color-accent)] bg-[rgba(201,168,76,0.06)]">
+      <p class="font-heading text-lg text-[var(--color-deep)] mb-4">Если вам сейчас очень тяжело — пожалуйста, позвоните. Вы не одни.</p>
+      <div class="flex flex-col gap-2 text-sm font-medium text-[var(--color-text-mid)]">
+        <span>🇮🇱 Израиль: Eran — <strong>1201</strong></span>
+        <span>🇷🇺 Россия: <strong>8-800-2000-122</strong></span>
+        <span>🆘 Экстренная помощь: <strong>112</strong></span>
+      </div>
+      <button id="crisisBack" class="btn-ghost mt-6 text-sm">← Вернуться</button>
+    </div>
+
+    <!-- Result: two columns -->
+    <div id="resultSection" style="display:none;" class="mt-2">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <!-- Original thought -->
+        <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[rgba(0,0,0,0.02)]">
+          <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-text-light)] mb-3">Ваша мысль</p>
+          <p id="originalThought" class="font-heading text-base italic leading-[1.7] text-[var(--color-text-mid)]"></p>
+        </div>
+        <!-- Reframe -->
+        <div id="reframeCard" class="p-6 rounded-2xl border border-[var(--color-primary)] bg-[rgba(27,77,92,0.04)]" style="opacity:0;transform:translateX(20px);transition:opacity 0.5s ease,transform 0.5s ease;">
+          <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-primary)] mb-3">Другой взгляд</p>
+          <p id="reframeText" class="font-heading text-base italic leading-[1.7] text-[var(--color-deep)]"></p>
+        </div>
+      </div>
+
+      <!-- Technique explanation -->
+      <div id="techniqueBox" class="p-5 rounded-xl bg-[rgba(201,168,76,0.06)] border border-[rgba(201,168,76,0.15)]" style="display:none;">
+        <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-accent)] mb-2">Что это за техника</p>
+        <p id="techniqueText" class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed"></p>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-6 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+        <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+          <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p class="text-sm text-[var(--color-text)] font-medium mb-1">Хотите разобраться с этой мыслью глубже?</p>
+          <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться к Александре →</a>
+        </div>
+      </div>
+
+      <button id="resetBtn" class="btn-ghost mt-8 text-sm">← Попробовать другую мысль</button>
+    </div>
+  </div>
+</ToolLayout>
+
+<style>
+  .breath-ring {
+    width: 60px; height: 60px; border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    animation: breathRing 2.4s ease-in-out infinite;
+  }
+  @keyframes breathRing {
+    0%, 100% { transform: scale(0.85); opacity: 0.4; }
+    50%       { transform: scale(1.15); opacity: 1; }
+  }
+</style>
+
+<script>
+  const CRISIS_WORDS = ['суицид', 'убить себя', 'не хочу жить', 'покончить', 'покончу', 'убью себя', 'хочу умереть', 'умереть хочу', 'больше не хочу жить'];
+  const SYSTEM_PROMPT = `Ты — когнитивно-поведенческий терапевт. Твоя задача — помочь человеку увидеть альтернативный взгляд на автоматическую негативную мысль. НЕ отрицай боль. НЕ говори «думай позитивно». Сначала признай, что мысль понятна. Затем предложи более сбалансированную, реалистичную альтернативу. В конце (через пустую строку) напиши 1-2 предложения: какой когнитивный паттерн ты заметил (например: катастрофизация, сверхобобщение, чтение мыслей, обесценивание). Всё на русском. Формат ответа строго:
+[REFRAME]
+Текст переосмысления (2-3 предложения)
+
+[TECHNIQUE]
+Название и краткое объяснение паттерна.`;
+
+  const formSection = document.getElementById('formSection')!;
+  const loadingSection = document.getElementById('loadingSection')!;
+  const resultSection = document.getElementById('resultSection')!;
+  const crisisSection = document.getElementById('crisisSection')!;
+  const thoughtInput = document.getElementById('thoughtInput') as HTMLTextAreaElement;
+  const originalThought = document.getElementById('originalThought')!;
+  const reframeText = document.getElementById('reframeText')!;
+  const reframeCard = document.getElementById('reframeCard')!;
+  const techniqueBox = document.getElementById('techniqueBox')!;
+  const techniqueText = document.getElementById('techniqueText')!;
+
+  function hasCrisis(text: string): boolean {
+    const lower = text.toLowerCase();
+    return CRISIS_WORDS.some(w => lower.includes(w));
+  }
+
+  async function typeText(el: HTMLElement, text: string, delay = 18) {
+    el.textContent = '';
+    for (const ch of text) {
+      el.textContent += ch;
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  document.getElementById('submitBtn')!.addEventListener('click', async () => {
+    const text = thoughtInput.value.trim();
+    if (!text || text.length < 5) return;
+
+    if (hasCrisis(text)) {
+      hide(formSection);
+      show(crisisSection);
+      return;
+    }
+
+    hide(formSection);
+    show(loadingSection);
+
+    try {
+      const res = await fetch('/api/claude', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 600,
+          system: SYSTEM_PROMPT,
+          messages: [{ role: 'user', content: text }],
+        }),
+      });
+
+      const data = await res.json();
+      const reply: string = data?.content?.[0]?.text || '';
+
+      const reframeMatch = reply.match(/\[REFRAME\]\s*([\s\S]*?)(?:\[TECHNIQUE\]|$)/);
+      const techniqueMatch = reply.match(/\[TECHNIQUE\]\s*([\s\S]*?)$/);
+
+      const reframePart = reframeMatch?.[1]?.trim() || reply;
+      const techniquePart = techniqueMatch?.[1]?.trim() || '';
+
+      hide(loadingSection);
+      show(resultSection);
+
+      originalThought.textContent = `"${text}"`;
+
+      // Type reframe, then reveal card
+      await typeText(reframeText, reframePart, 16);
+
+      // Animate reframe card in
+      reframeCard.style.opacity = '1';
+      reframeCard.style.transform = 'translateX(0)';
+
+      // Show technique after 0.6s
+      if (techniquePart) {
+        await new Promise(r => setTimeout(r, 600));
+        show(techniqueBox);
+        await typeText(techniqueText, techniquePart, 14);
+      }
+    } catch {
+      hide(loadingSection);
+      show(formSection);
+      alert('Не удалось получить ответ. Проверьте соединение и попробуйте снова.');
+    }
+  });
+
+  document.getElementById('resetBtn')!.addEventListener('click', () => {
+    thoughtInput.value = '';
+    reframeCard.style.opacity = '0';
+    reframeCard.style.transform = 'translateX(20px)';
+    hide(techniqueBox);
+    hide(resultSection);
+    show(formSection);
+  });
+
+  document.getElementById('crisisBack')!.addEventListener('click', () => {
+    hide(crisisSection);
+    show(formSection);
+  });
+
+  thoughtInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      document.getElementById('submitBtn')!.click();
+    }
+  });
+</script>

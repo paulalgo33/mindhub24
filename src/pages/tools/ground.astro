@@ -1,0 +1,205 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Заземление 5-4-3-2-1" dark={true}>
+  <div class="max-w-[560px] mx-auto" style="color:#e6edf3;">
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="s-label" style="color:var(--color-accent-light, #C9A84C);">Техника заземления</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] mb-3" style="color:#e6edf3;">5–4–3–2–1</h1>
+      <p style="color:rgba(230,237,243,0.55);font-weight:300;line-height:1.7;">Техника «заземления» помогает вернуться в настоящий момент, когда тревога или паника захлёстывают.</p>
+    </div>
+
+    <!-- Step display -->
+    <div id="startScreen" class="text-center">
+      <button id="beginBtn" class="btn-primary mx-auto" style="background:var(--color-primary);">
+        <span>Начать упражнение</span>
+      </button>
+    </div>
+
+    <!-- Exercise steps -->
+    <div id="exerciseScreen" style="display:none;">
+      <!-- Progress dots -->
+      <div class="flex justify-center gap-3 mb-10" id="progressDots">
+        {[5,4,3,2,1].map((n, i) => (
+          <div class="dot w-2.5 h-2.5 rounded-full transition-all duration-500" data-index={i} style="background:rgba(255,255,255,0.15);"></div>
+        ))}
+      </div>
+
+      <!-- Step card -->
+      <div id="stepCard" class="p-10 rounded-2xl text-center mb-6" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);">
+        <div id="stepNumber" class="font-heading text-[5rem] font-normal leading-none mb-2" style="color:rgba(42,122,145,0.9);"></div>
+        <p id="stepSense" class="font-heading text-xl mb-4" style="color:#e6edf3;"></p>
+        <p id="stepPrompt" class="text-base font-light leading-relaxed mb-8" style="color:rgba(230,237,243,0.65);"></p>
+
+        <!-- Input area -->
+        <div id="inputArea">
+          <div id="itemsList" class="flex flex-col gap-2 mb-4"></div>
+          <div class="flex gap-2">
+            <input
+              id="itemInput"
+              type="text"
+              placeholder="Назовите вслух или напишите..."
+              class="flex-1 px-4 py-3 rounded-xl font-body text-sm outline-none transition-colors duration-300"
+              style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#e6edf3;"
+            />
+            <button id="addItemBtn" class="px-4 py-3 rounded-xl font-medium text-sm transition-all duration-300 hover:opacity-80" style="background:rgba(42,122,145,0.5);color:#e6edf3;">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex items-center justify-between">
+        <button id="prevBtn" class="btn-ghost text-sm" style="color:rgba(230,237,243,0.4);display:none;">← Назад</button>
+        <button id="nextBtn" class="btn-primary ml-auto" style="background:var(--color-primary);">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Completion -->
+    <div id="completionScreen" style="display:none;" class="text-center">
+      <div class="text-4xl mb-6">✦</div>
+      <div class="p-8 rounded-2xl mb-6 text-left" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);">
+        <p id="completionText" class="font-heading text-lg italic leading-[1.8]" style="color:rgba(230,237,243,0.85);"></p>
+      </div>
+      <a href="/lp/israel#pricing" class="btn-primary w-full justify-center mb-4" style="background:var(--color-primary);">
+        <span>Хотите работать с тревогой глубже? Записаться</span>
+      </a>
+      <button id="restartBtn" class="btn-ghost w-full justify-center text-sm" style="color:rgba(230,237,243,0.4);">Повторить упражнение</button>
+    </div>
+
+  </div>
+</ToolLayout>
+
+<script>
+  const STEPS = [
+    { n: 5, sense: 'Зрение', prompt: 'Назовите 5 вещей, которые вы видите прямо сейчас.' },
+    { n: 4, sense: 'Осязание', prompt: 'Назовите 4 вещи, которые вы можете потрогать или ощущаете сейчас.' },
+    { n: 3, sense: 'Слух', prompt: 'Назовите 3 звука, которые вы слышите прямо сейчас.' },
+    { n: 2, sense: 'Запах', prompt: 'Назовите 2 запаха, которые вы чувствуете (или можете представить).' },
+    { n: 1, sense: 'Вкус', prompt: 'Назовите 1 вкус, который вы ощущаете прямо сейчас.' },
+  ];
+
+  let currentStep = 0;
+  let answers: string[][] = [[], [], [], [], []];
+
+  const startScreen = document.getElementById('startScreen')!;
+  const exerciseScreen = document.getElementById('exerciseScreen')!;
+  const completionScreen = document.getElementById('completionScreen')!;
+  const stepNumber = document.getElementById('stepNumber')!;
+  const stepSense = document.getElementById('stepSense')!;
+  const stepPrompt = document.getElementById('stepPrompt')!;
+  const itemsList = document.getElementById('itemsList')!;
+  const itemInput = document.getElementById('itemInput') as HTMLInputElement;
+  const prevBtn = document.getElementById('prevBtn') as HTMLElement;
+  const nextBtn = document.getElementById('nextBtn')!;
+  const completionText = document.getElementById('completionText')!;
+  const dots = document.querySelectorAll('.dot');
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  function renderStep() {
+    const step = STEPS[currentStep];
+    stepNumber.textContent = String(step.n);
+    stepSense.textContent = step.sense;
+    stepPrompt.textContent = step.prompt;
+
+    // Dots
+    dots.forEach((d, i) => {
+      (d as HTMLElement).style.background = i <= currentStep
+        ? 'rgba(42,122,145,0.9)'
+        : 'rgba(255,255,255,0.15)';
+      (d as HTMLElement).style.transform = i === currentStep ? 'scale(1.4)' : 'scale(1)';
+    });
+
+    // Items list
+    itemsList.innerHTML = '';
+    answers[currentStep].forEach((item, idx) => {
+      const el = document.createElement('div');
+      el.className = 'flex items-center gap-2 px-3 py-2 rounded-lg text-sm';
+      el.style.cssText = 'background:rgba(255,255,255,0.07);color:rgba(230,237,243,0.9);';
+      el.innerHTML = `<span style="color:rgba(42,122,145,0.9);font-weight:600;">${idx + 1}.</span> ${item}`;
+      itemsList.appendChild(el);
+    });
+
+    itemInput.value = '';
+    itemInput.placeholder = `Назовите вслух или напишите...`;
+
+    // Show/hide prev
+    currentStep > 0 ? show(prevBtn) : hide(prevBtn);
+
+    // Next button text
+    if (currentStep === STEPS.length - 1) {
+      nextBtn.innerHTML = '<span>Завершить</span>';
+    } else {
+      nextBtn.innerHTML = '<span>Далее →</span>';
+    }
+  }
+
+  function addItem() {
+    const val = itemInput.value.trim();
+    if (!val) return;
+    const step = STEPS[currentStep];
+    if (answers[currentStep].length >= step.n) return;
+    answers[currentStep].push(val);
+    renderStep();
+    itemInput.focus();
+  }
+
+  document.getElementById('addItemBtn')!.addEventListener('click', addItem);
+  itemInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addItem();
+  });
+
+  document.getElementById('beginBtn')!.addEventListener('click', () => {
+    hide(startScreen);
+    show(exerciseScreen);
+    renderStep();
+  });
+
+  nextBtn.addEventListener('click', async () => {
+    if (currentStep < STEPS.length - 1) {
+      currentStep++;
+      renderStep();
+    } else {
+      // Complete
+      hide(exerciseScreen);
+      show(completionScreen);
+
+      try {
+        const res = await fetch('/api/claude', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 200,
+            system: 'Человек только что завершил технику заземления 5-4-3-2-1. Напиши 2 тёплых предложения: похвали за то, что нашёл способ вернуться в настоящее, и напомни, что это — сила. Русский язык.',
+            messages: [{ role: 'user', content: 'Я завершил технику заземления.' }],
+          }),
+        });
+        const data = await res.json();
+        const reply = data?.content?.[0]?.text || 'Вы сделали что-то важное для себя. Это — сила.';
+        completionText.textContent = reply;
+      } catch {
+        completionText.textContent = 'Вы вернулись в настоящий момент. Это — именно то, что нужно.';
+      }
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentStep > 0) {
+      currentStep--;
+      renderStep();
+    }
+  });
+
+  document.getElementById('restartBtn')!.addEventListener('click', () => {
+    currentStep = 0;
+    answers = [[], [], [], [], []];
+    hide(completionScreen);
+    show(exerciseScreen);
+    renderStep();
+  });
+</script>

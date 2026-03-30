@@ -1,25 +1,23 @@
 ---
-import { Image } from 'astro:assets';
 import type { Translations } from '@/i18n/ru';
 
 interface Props {
   t: Translations;
-  heroImage: ImageMetadata;
 }
 
-const { t, heroImage } = Astro.props;
+const { t } = Astro.props;
 ---
 
 <section class="min-h-screen flex items-center relative overflow-hidden px-[clamp(1.5rem,4vw,3rem)]">
   <!-- Animated mesh gradient background -->
-  <div class="hero-mesh-a absolute w-[60vw] h-[60vw] rounded-full pointer-events-none" style="top:-10%;right:-5%;background:radial-gradient(circle,rgba(27,77,92,0.07),transparent 70%);will-change:transform;animation:meshDriftA 22s ease-in-out infinite;"></div>
-  <div class="hero-mesh-b absolute w-[50vw] h-[50vw] rounded-full pointer-events-none" style="bottom:0%;left:-8%;background:radial-gradient(circle,rgba(201,168,76,0.05),transparent 70%);will-change:transform;animation:meshDriftB 28s ease-in-out infinite;"></div>
+  <div style="position:absolute;width:60vw;height:60vw;border-radius:50%;top:-10%;right:-5%;background:radial-gradient(circle,rgba(27,77,92,0.07),transparent 70%);pointer-events:none;animation:meshDriftA 22s ease-in-out infinite;"></div>
+  <div style="position:absolute;width:50vw;height:50vw;border-radius:50%;bottom:0;left:-8%;background:radial-gradient(circle,rgba(201,168,76,0.05),transparent 70%);pointer-events:none;animation:meshDriftB 28s ease-in-out infinite;"></div>
 
-  <div class="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_0.85fr] gap-[clamp(2rem,6vw,6rem)] items-center relative z-2 pt-30 pb-20 lg:pt-32 lg:pb-20">
+  <div class="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_0.85fr] gap-[clamp(2rem,6vw,6rem)] items-center relative z-[2] pt-30 pb-20 lg:pt-32 lg:pb-20">
     <!-- Content -->
     <div class="max-w-[640px]">
       <div id="heroEyebrow" class="inline-flex items-center gap-2 mb-8">
-        <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-[breathe_3s_ease-in-out_infinite]"></span>
+        <span class="w-2 h-2 rounded-full bg-[var(--color-accent)]" style="animation:breathe 3s ease-in-out infinite;"></span>
         <span class="text-[0.78rem] tracking-[0.14em] uppercase text-[var(--color-text-mid)] font-medium">{t.hero.eyebrow}</span>
       </div>
 
@@ -66,17 +64,13 @@ const { t, heroImage } = Astro.props;
     <!-- Hero image -->
     <div id="heroImageWrapper" class="relative hide-mobile">
       <div class="rounded-3xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.1),0_0_0_1px_rgba(0,0,0,0.04)] aspect-[3/4] max-h-[620px]">
-        <Image
+        <img
           id="heroImg"
-          src={heroImage}
+          src="/images/alexandra-hero.jpeg"
           alt="MindHub24 — Александра"
           class="w-full h-full object-cover"
-          widths={[600, 900, 1200]}
-          sizes="(max-width: 900px) 100vw, 50vw"
           loading="eager"
-          format="webp"
-          quality={90}
-          style="will-change: transform;"
+          style="will-change:transform;"
         />
       </div>
       <!-- Floating badge -->

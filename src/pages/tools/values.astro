@@ -1,0 +1,139 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+
+const VALUES = [
+  'Семья', 'Свобода', 'Честность', 'Творчество', 'Безопасность',
+  'Рост', 'Любовь', 'Независимость', 'Уважение', 'Здоровье',
+  'Справедливость', 'Принадлежность', 'Достижения', 'Мир', 'Порядок',
+  'Приключения', 'Духовность', 'Служение', 'Радость', 'Мудрость',
+  'Близость', 'Успех', 'Природа', 'Верность',
+];
+---
+
+<ToolLayout title="Мои ценности">
+  <div class="max-w-[680px] mx-auto">
+
+    <div class="mb-10">
+      <p class="s-label">Ценностный компас</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Мои ценности
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">
+        Выберите до 5 ценностей, которые ощущаются как «ваши» прямо сейчас. Не думайте — доверяйте первому импульсу.
+      </p>
+    </div>
+
+    <!-- Counter -->
+    <div class="flex items-center justify-between mb-5">
+      <p class="text-sm text-[var(--color-text-mid)]">Выбрано: <span id="counter" class="font-semibold text-[var(--color-primary)]">0</span> из 5</p>
+      <button id="clearAll" class="text-xs text-[var(--color-text-light)] hover:text-[var(--color-primary)] transition-colors">Сбросить</button>
+    </div>
+
+    <!-- Cards -->
+    <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 mb-8" id="valuesGrid">
+      {VALUES.map(v => (
+        <button
+          class="value-card p-4 rounded-xl border border-[var(--color-border)] text-center font-medium text-sm text-[var(--color-text)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-primary)] hover:shadow-sm"
+          data-value={v}
+          style="background:white;"
+        >{v}</button>
+      ))}
+    </div>
+
+    <!-- Result -->
+    <div id="resultSection" style="display:none;" class="p-8 rounded-2xl border border-[var(--color-border)] bg-white mb-6" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);">
+      <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-accent)] mb-3">Ваши ключевые ценности</p>
+      <div id="selectedList" class="flex flex-wrap gap-2 mb-5"></div>
+      <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">
+        Посмотрите на этот список. Отражает ли ваша жизнь эти ценности? Там, где есть расхождение — обычно живёт тревога или неудовлетворённость.
+      </p>
+    </div>
+
+    <div id="ctaSection" style="display:none;" class="p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+      </div>
+      <div>
+        <p class="text-sm text-[var(--color-text)] font-medium mb-1">Хотите разобраться, как жить в согласии со своими ценностями?</p>
+        <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться к Александре →</a>
+      </div>
+    </div>
+
+  </div>
+</ToolLayout>
+
+<style>
+  .value-card.selected {
+    background: rgba(27,77,92,0.08) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27,77,92,0.12);
+  }
+  .value-card.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  const MAX = 5;
+  let selected: string[] = [];
+
+  const counter = document.getElementById('counter')!;
+  const resultSection = document.getElementById('resultSection')!;
+  const ctaSection = document.getElementById('ctaSection')!;
+  const selectedList = document.getElementById('selectedList')!;
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  function update() {
+    counter.textContent = String(selected.length);
+
+    document.querySelectorAll('.value-card').forEach(card => {
+      const v = (card as HTMLElement).dataset.value || '';
+      const isSelected = selected.includes(v);
+      card.classList.toggle('selected', isSelected);
+      card.classList.toggle('disabled', !isSelected && selected.length >= MAX);
+    });
+
+    if (selected.length === MAX) {
+      showResult();
+    } else {
+      hide(resultSection);
+      hide(ctaSection);
+    }
+  }
+
+  function showResult() {
+    selectedList.innerHTML = '';
+    selected.forEach(v => {
+      const el = document.createElement('span');
+      el.className = 'px-4 py-2 rounded-full font-medium text-sm';
+      el.style.cssText = 'background:rgba(27,77,92,0.1);color:var(--color-primary);border:1px solid rgba(27,77,92,0.15);';
+      el.textContent = v;
+      selectedList.appendChild(el);
+    });
+    show(resultSection);
+    show(ctaSection);
+  }
+
+  document.querySelectorAll('.value-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const v = (card as HTMLElement).dataset.value || '';
+      if (selected.includes(v)) {
+        selected = selected.filter(x => x !== v);
+      } else if (selected.length < MAX) {
+        selected.push(v);
+      }
+      update();
+    });
+  });
+
+  document.getElementById('clearAll')!.addEventListener('click', () => {
+    selected = [];
+    update();
+  });
+</script>

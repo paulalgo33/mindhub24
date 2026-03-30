@@ -1,0 +1,114 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  dark?: boolean;
+}
+
+const { title, description = 'MindHub24 — Инструменты', dark = false } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ru" data-tool-dark={dark ? 'true' : undefined}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <title>{title} — MindHub24</title>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <!-- Minimal nav -->
+  <nav id="toolNav" class="fixed top-0 left-0 right-0 z-50 px-[clamp(1.5rem,4vw,3rem)]">
+    <div class="max-w-[900px] mx-auto flex items-center justify-between h-16">
+      <a href="/lp/israel" class="font-heading text-xl font-semibold no-underline tracking-[-0.03em] flex items-baseline gap-0.5 tool-nav-logo">
+        MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+      </a>
+      <div class="flex items-center gap-4">
+        <a href="/tools" class="text-sm font-medium no-underline transition-colors duration-200 tool-nav-back">
+          ← Инструменты
+        </a>
+        <button
+          class="bg-[var(--color-deep)] text-white border-none px-5 py-2 rounded-full font-body text-sm font-medium cursor-pointer transition-all duration-300 hover:bg-[var(--color-primary)] hover:-translate-y-px"
+          onclick="window.location.href='/lp/israel#pricing'"
+        >
+          Записаться
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="pt-24 pb-20 px-[clamp(1.5rem,4vw,3rem)]">
+    <slot />
+  </main>
+
+  <!-- Crisis footer -->
+  <footer class="tool-footer border-t px-[clamp(1.5rem,4vw,3rem)] py-8 text-center">
+    <p class="text-xs leading-relaxed max-w-[520px] mx-auto tool-footer-text">
+      Это не терапия и не заменяет работу со специалистом. Ваши данные не сохраняются.<br />
+      <strong>Если вам сейчас очень тяжело:</strong>
+      Израиль: Eran 1201 · Россия: 8-800-2000-122 · Экстренная помощь: 112
+    </p>
+  </footer>
+</body>
+</html>
+
+<style>
+  /* Nav backdrop */
+  #toolNav::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(250, 247, 242, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+    z-index: -1;
+  }
+  .tool-nav-logo { color: var(--color-deep); }
+  .tool-nav-back { color: var(--color-text-mid); }
+  .tool-footer { border-color: var(--color-border); }
+  .tool-footer-text { color: var(--color-text-light); }
+
+  /* Dark variant */
+  [data-tool-dark] body, [data-tool-dark="true"] {
+    background: #0a1f28;
+    color: #e6edf3;
+  }
+  html[data-tool-dark="true"] {
+    background: #0a1f28;
+  }
+  html[data-tool-dark="true"] body {
+    background: #0a1f28;
+    color: #e6edf3;
+  }
+  html[data-tool-dark="true"] #toolNav::after {
+    background: rgba(10, 31, 40, 0.88);
+    border-bottom-color: rgba(255,255,255,0.06);
+  }
+  html[data-tool-dark="true"] .tool-nav-logo { color: #e6edf3; }
+  html[data-tool-dark="true"] .tool-nav-back { color: rgba(230,237,243,0.55); }
+  html[data-tool-dark="true"] .tool-footer { border-color: rgba(255,255,255,0.06); }
+  html[data-tool-dark="true"] .tool-footer-text { color: rgba(230,237,243,0.38); }
+
+  /* Shared loading ring */
+  .breath-ring {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    animation: breathRing 2.4s ease-in-out infinite;
+  }
+  @keyframes breathRing {
+    0%, 100% { transform: scale(0.85); opacity: 0.4; }
+    50%       { transform: scale(1.15); opacity: 1; }
+  }
+</style>

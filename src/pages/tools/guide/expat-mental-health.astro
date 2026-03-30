@@ -1,0 +1,56 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Психологическое здоровье эмигранта">
+  <div class="max-w-[660px] mx-auto">
+    <div class="mb-10">
+      <p class="s-label">Руководство · Чтение 5 мин</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Психологическое здоровье в эмиграции
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">Переезд — одно из самых больших испытаний для психики. Это нормально. И с этим можно работать.</p>
+    </div>
+
+    <div class="prose-guide">
+
+      <h2>Почему эмиграция так тяжела</h2>
+      <p>Переезд — это не просто смена места. Это потеря: привычного окружения, социальных связей, языковой среды, профессионального статуса, чувства «своего». Горе по утраченному — настоящее, даже если вы переехали добровольно и в лучшую страну.</p>
+
+      <h2>Стадии адаптации</h2>
+      <p>Психологи выделяют несколько стадий: эйфория («всё новое и интересное»), дисиллюзия («это сложнее, чем я думал»), адаптация («нахожу своё место»), стабилизация. Большинство застревают на второй стадии и думают, что «что-то не так именно с ними».</p>
+
+      <h2>Потеря идентичности</h2>
+      <p>«Кто я здесь?» — один из самых болезненных вопросов эмигранта. Профессия, язык, роль в семье — всё может измениться. Работа с идентичностью и ценностями помогает найти ответ, который не зависит от географии.</p>
+
+      <h2>Изоляция и «фасад»</h2>
+      <p>Часто эмигранты держатся за образ «у меня всё хорошо» — перед семьёй на родине, перед новыми знакомыми. Это истощает. Разрешить себе быть честным — хотя бы с одним человеком, хотя бы на консультации — уже облегчение.</p>
+
+      <h2>Язык как барьер к помощи</h2>
+      <p>Работать с психологом на неродном языке — это как плавать в одежде. Мозг занят переводом вместо того, чтобы чувствовать. Для глубокой работы нужен родной язык — это не прихоть, это физиология.</p>
+
+      <h2>Что помогает</h2>
+      <p>Принять, что адаптация — это процесс, а не провал. Поддерживать связи с теми, кто понимает ваш опыт. Не изолироваться. И — если тяжело — не ждать, пока «само пройдёт».</p>
+
+    </div>
+
+    <div class="mt-10 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+      </div>
+      <div>
+        <p class="text-sm text-[var(--color-text)] font-medium mb-1">Александра работает с русскоязычными клиентами по всему миру — онлайн.</p>
+        <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться бесплатно →</a>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <a href="/tools" class="text-sm text-[var(--color-text-light)] hover:text-[var(--color-primary)] transition-colors no-underline">← Все инструменты</a>
+    </div>
+  </div>
+</ToolLayout>
+
+<style>
+  .prose-guide h2 { font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:500;color:var(--color-deep);margin:2rem 0 0.75rem;letter-spacing:-0.01em; }
+  .prose-guide p { color:var(--color-text);font-weight:300;line-height:1.85;margin-bottom:1rem;font-size:1.025rem; }
+</style>

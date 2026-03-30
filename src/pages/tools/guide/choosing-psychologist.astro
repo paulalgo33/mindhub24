@@ -1,0 +1,56 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Как выбрать психолога">
+  <div class="max-w-[660px] mx-auto">
+    <div class="mb-10">
+      <p class="s-label">Руководство · Чтение 5 мин</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Как выбрать психолога
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">Выбор специалиста — важный шаг. Но его можно сделать проще, если знать, на что обращать внимание.</p>
+    </div>
+
+    <div class="prose-guide">
+
+      <h2>Образование и подход</h2>
+      <p>Психолог-консультант должен иметь высшее психологическое образование и дополнительную специализацию (CBT, ACT, гештальт, и др.). Уточните, какой подход использует специалист — это влияет на то, как будет строиться работа.</p>
+
+      <h2>Опыт с вашей темой</h2>
+      <p>У каждого специалиста есть области, в которых он работает чаще и лучше. Тревога, отношения, сепарация, горе, самооценка — спросите напрямую, работает ли он с этим.</p>
+
+      <h2>Язык общения</h2>
+      <p>Если русский — ваш родной, важно работать именно на нём. Нюансы, метафоры, культурный контекст — всё это теряется при переводе. Особенно важно для тех, кто живёт за рубежом.</p>
+
+      <h2>Формат: онлайн или офлайн?</h2>
+      <p>Исследования показывают, что онлайн-консультирование столь же эффективно, как очное — для большинства запросов. Для тех, кто живёт вдали от русскоязычных специалистов, онлайн часто является единственным вариантом.</p>
+
+      <h2>Красные флаги</h2>
+      <p>Стоит насторожиться, если специалист: обещает «вылечить» или гарантирует результат; советует прекратить медикаменты без консультации врача; нарушает конфиденциальность; слишком много говорит о себе; создаёт зависимость.</p>
+
+      <h2>Совместимость — это нормально проверять</h2>
+      <p>Иногда первый специалист — не ваш. Это не значит, что «психология не работает». Отношения имеют значение. Поиск подходящего человека — часть процесса, а не провал.</p>
+
+    </div>
+
+    <div class="mt-10 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+      </div>
+      <div>
+        <p class="text-sm text-[var(--color-text)] font-medium mb-1">Первая бесплатная консультация — без обязательств.</p>
+        <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться →</a>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <a href="/tools" class="text-sm text-[var(--color-text-light)] hover:text-[var(--color-primary)] transition-colors no-underline">← Все инструменты</a>
+    </div>
+  </div>
+</ToolLayout>
+
+<style>
+  .prose-guide h2 { font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:500;color:var(--color-deep);margin:2rem 0 0.75rem;letter-spacing:-0.01em; }
+  .prose-guide p { color:var(--color-text);font-weight:300;line-height:1.85;margin-bottom:1rem;font-size:1.025rem; }
+</style>

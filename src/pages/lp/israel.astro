@@ -9,12 +9,7 @@ import Footer from '@/components/Footer.astro';
 import AudioPlayer from '@/components/AudioPlayer.astro';
 import BreathingCircle from '@/components/BreathingCircle.astro';
 import MoodWeather from '@/components/MoodWeather.astro';
-import { Image } from 'astro:assets';
 import { ru } from '@/i18n/ru';
-
-import heroImg from '@/assets/images/alexandra-hero.jpeg';
-import aboutImg from '@/assets/images/alexandra-about.jpeg';
-import sessionImg from '@/assets/images/alexandra-session.jpeg';
 
 const t = ru;
 
@@ -39,7 +34,7 @@ const serviceIcons = [
 
 <Nav cta={t.nav.cta} lang="ru" />
 
-<Hero t={t} heroImage={heroImg} />
+<Hero t={t} />
 
 <!-- Night mode: animated breathing circle -->
 <BreathingCircle />
@@ -137,15 +132,11 @@ const serviceIcons = [
       </div>
     </div>
     <div class="rounded-[20px] overflow-hidden aspect-[4/5] shadow-[0_30px_60px_rgba(0,0,0,0.07)] hide-mobile">
-      <Image
-        src={sessionImg}
+      <img
+        src="/images/alexandra-session.jpeg"
         alt="MindHub24 подход"
         class="w-full h-full object-cover"
-        widths={[500, 800, 1000]}
-        sizes="(max-width: 900px) 0px, 40vw"
         loading="lazy"
-        format="webp"
-        quality={90}
       />
     </div>
   </div>
@@ -198,16 +189,12 @@ const serviceIcons = [
 <section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
   <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-[clamp(3rem,6vw,6rem)] items-center">
     <div data-about-photo class="rounded-3xl overflow-hidden aspect-[3/4] shadow-[0_40px_80px_rgba(0,0,0,0.07)] relative">
-      <Image
-        src={aboutImg}
+      <img
+        src="/images/alexandra-about.jpeg"
         alt="Александра — MindHub24"
         class="w-full h-full object-cover"
-        widths={[500, 800, 1100]}
-        sizes="(max-width: 900px) 100vw, 45vw"
         loading="lazy"
-        format="webp"
-        quality={90}
-        style="will-change: transform;"
+        style="will-change:transform;"
       />
       <div class="absolute inset-0 border border-black/[0.03] rounded-3xl"></div>
     </div>
@@ -281,14 +268,19 @@ const serviceIcons = [
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
     </a>
     <p class="text-sm text-[var(--color-text-light)] mt-4 font-light" data-reveal="d3">{t.final.micro}</p>
-    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4" data-reveal="d4">
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap" data-reveal="d4">
+      <a href="/tools" class="btn-ghost text-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Бесплатные AI-инструменты
+      </a>
+      <span class="text-[var(--color-text-light)] text-xs hide-mobile">·</span>
       <a href="/first-words" class="btn-ghost text-sm">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-        Попробовать симуляцию первой встречи
+        Симуляция первой встречи
       </a>
       <span class="text-[var(--color-text-light)] text-xs hide-mobile">·</span>
       <a href="/sounds" class="btn-ghost text-sm">
-        🎧 Бесплатные аудио-упражнения
+        🎧 Аудио-упражнения
       </a>
     </div>
   </div>

@@ -1,0 +1,56 @@
+/**
+ * Vercel Serverless Function — Claude API proxy
+ * Keeps ANTHROPIC_API_KEY server-side (set in Vercel project settings)
+ *
+ * Required env var: ANTHROPIC_API_KEY
+ */
+
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    res.status(503).json({ error: 'AI service not configured. Set ANTHROPIC_API_KEY in Vercel project settings.' });
+    return;
+  }
+
+  try {
+    // Read body stream
+    const raw = await new Promise((resolve, reject) => {
+      let data = '';
+      req.on('data', chunk => { data += chunk; });
+      req.on('end', () => resolve(data));
+      req.on('error', reject);
+    });
+
+    const payload = JSON.parse(raw);
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    console.error('Claude proxy error:', err);
+    res.status(500).json({ error: 'Failed to reach AI service. Please try again.' });
+  }
+}

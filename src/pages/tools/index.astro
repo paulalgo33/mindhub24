@@ -1,0 +1,289 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+
+const aiTools = [
+  {
+    href: '/tools/journal',
+    title: 'Дневник чувств',
+    desc: 'Напишите, что вы чувствуете. Получите тёплый, принимающий отклик — без советов, без оценок.',
+    tag: 'Рефлексия',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+  },
+  {
+    href: '/tools/breathe',
+    title: 'Дыши со мной',
+    desc: 'Персональное дыхательное упражнение под ваше состояние — тревога, бессонница, паника.',
+    tag: 'Успокоение',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+    dark: true,
+  },
+  {
+    href: '/tools/reframe',
+    title: 'Другой взгляд',
+    desc: 'Напишите мысль, которая вас мучает. Получите мягкую альтернативу — настоящий CBT-рефрейминг.',
+    tag: 'Когниции',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>`,
+  },
+  {
+    href: '/tools/unsent',
+    title: 'Неотправленное письмо',
+    desc: 'Напишите то, что никогда не скажете. Родителю, бывшему, себе — получите ответ, который заслуживаете.',
+    tag: 'Катарсис',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+  },
+  {
+    href: '/tools/mood',
+    title: 'Трекер настроения',
+    desc: 'Ведите дневник настроения 7 дней подряд. На последний день получите AI-анализ своей недели.',
+    tag: 'Трекинг',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+  },
+  {
+    href: '/tools/ground',
+    title: 'Заземление 5-4-3-2-1',
+    desc: 'Техника заземления при тревоге и панике. Возвращает в настоящий момент за несколько минут.',
+    tag: 'Тревога',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+    dark: true,
+  },
+];
+
+const interactiveTools = [
+  {
+    href: '/tools/body-scan',
+    title: 'Сканирование тела',
+    desc: 'Интерактивная карта тела. Отметьте, что вы ощущаете в каждой зоне — напряжение, тепло, боль.',
+    tag: 'Осознанность',
+    dark: true,
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v8"/><path d="M8 12l4 3 4-3"/><path d="M9 20l3-2 3 2"/></svg>`,
+  },
+  {
+    href: '/tools/worry-tree',
+    title: 'Дерево беспокойства',
+    desc: 'CBT-техника: пройдите через серию вопросов и узнайте, что делать с тревожной мыслью.',
+    tag: 'CBT',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C12 8 6 7 6 7s0 5 6 5z"/><path d="M12 12c0-4 6-5 6-5s0 5-6 5z"/></svg>`,
+  },
+  {
+    href: '/tools/values',
+    title: 'Мои ценности',
+    desc: 'Выберите 5 ценностей из 24 карточек. Визуализируйте, что для вас действительно важно.',
+    tag: 'Ценности',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+  },
+  {
+    href: '/tools/self-compassion',
+    title: 'Письмо себе',
+    desc: 'Упражнение Кристин Нефф: напишите себе так, как написали бы близкому другу в трудный момент.',
+    tag: 'Сострадание',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+  },
+  {
+    href: '/tools/gratitude',
+    title: 'Три хорошие вещи',
+    desc: 'Ежедневный трекер благодарности. Записывайте 3 хорошие вещи — наука подтверждает эффект.',
+    tag: 'Практика',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+  },
+];
+
+const guides = [
+  { href: '/tools/guide/first-session', title: 'Первая сессия', desc: 'Что ожидать и как подготовиться', time: '4 мин' },
+  { href: '/tools/guide/choosing-psychologist', title: 'Как выбрать психолога', desc: 'На что обращать внимание', time: '5 мин' },
+  { href: '/tools/guide/online-therapy', title: 'Онлайн-консультирование', desc: 'Мифы, факты и практика', time: '4 мин' },
+  { href: '/tools/guide/anxiety-101', title: 'Тревога: что происходит', desc: 'В теле, голове и как помочь себе', time: '5 мин' },
+  { href: '/tools/guide/expat-mental-health', title: 'Психика в эмиграции', desc: 'Адаптация, идентичность, поддержка', time: '5 мин' },
+];
+
+const totalTools = aiTools.length + interactiveTools.length + guides.length;
+---
+
+<ToolLayout title="Инструменты самопомощи">
+  <div class="max-w-[820px] mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="s-label">Бесплатно · Анонимно · На русском</p>
+      <h1 class="font-heading text-[clamp(2.2rem,5vw,3.4rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-4">
+        Инструменты самопомощи
+      </h1>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-relaxed max-w-[480px] mx-auto mb-6">
+        AI-упражнения, интерактивные техники и руководства — настоящая поддержка прямо сейчас.
+      </p>
+      <!-- Animated counter -->
+      <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-[var(--color-border)] bg-white text-sm font-medium text-[var(--color-text-mid)]">
+        <span class="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"></span>
+        <span id="toolCounter">0</span> ресурсов доступно
+      </div>
+    </div>
+
+    <!-- Category tabs -->
+    <div class="flex gap-2 mb-8 overflow-x-auto pb-1" id="tabs">
+      <button class="tab-btn active flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300" data-tab="all">Все</button>
+      <button class="tab-btn flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300" data-tab="ai">AI-инструменты</button>
+      <button class="tab-btn flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300" data-tab="interactive">Интерактивные</button>
+      <button class="tab-btn flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300" data-tab="guides">Руководства</button>
+    </div>
+
+    <!-- AI Tools section -->
+    <div class="tab-section" data-section="ai">
+      <div class="flex items-center gap-3 mb-5">
+        <h2 class="font-heading text-xl text-[var(--color-deep)]">AI-инструменты</h2>
+        <span class="text-xs px-2.5 py-1 rounded-full font-semibold tracking-[0.08em] uppercase" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">GPT</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        {aiTools.map(tool => (
+          <a
+            href={tool.href}
+            class="group tool-card block p-6 rounded-2xl border border-[var(--color-border)] no-underline transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.07)] hover:border-[var(--color-primary)]"
+            style="background:white;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+          >
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-[var(--color-primary)] transition-all duration-400 group-hover:bg-[var(--color-deep)] group-hover:text-white" style="background:rgba(27,77,92,0.07);" set:html={tool.icon} />
+              <div class="flex gap-1.5">
+                <span class="text-[0.6rem] tracking-[0.1em] uppercase font-semibold px-2 py-1 rounded-full" style="background:rgba(27,77,92,0.06);color:var(--color-primary);">{tool.tag}</span>
+                {tool.dark && <span class="text-[0.6rem] tracking-[0.1em] uppercase font-semibold px-2 py-1 rounded-full" style="background:rgba(10,31,40,0.07);color:var(--color-deep);">Тёмная</span>}
+              </div>
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-1.5 tracking-[-0.01em]">{tool.title}</h3>
+            <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">{tool.desc}</p>
+            <div class="mt-4 text-sm font-medium text-[var(--color-primary)] flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-300">
+              Открыть
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Interactive tools -->
+    <div class="tab-section" data-section="interactive">
+      <div class="flex items-center gap-3 mb-5">
+        <h2 class="font-heading text-xl text-[var(--color-deep)]">Интерактивные техники</h2>
+        <span class="text-xs px-2.5 py-1 rounded-full font-semibold tracking-[0.08em] uppercase" style="background:rgba(201,168,76,0.12);color:var(--color-accent);">Без AI</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        {interactiveTools.map(tool => (
+          <a
+            href={tool.href}
+            class="group tool-card block p-6 rounded-2xl border border-[var(--color-border)] no-underline transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.07)] hover:border-[var(--color-accent)]"
+            style="background:white;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+          >
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-[var(--color-accent)] transition-all duration-400 group-hover:bg-[var(--color-deep)] group-hover:text-white" style="background:rgba(201,168,76,0.1);" set:html={tool.icon} />
+              <div class="flex gap-1.5">
+                <span class="text-[0.6rem] tracking-[0.1em] uppercase font-semibold px-2 py-1 rounded-full" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">{tool.tag}</span>
+                {tool.dark && <span class="text-[0.6rem] tracking-[0.1em] uppercase font-semibold px-2 py-1 rounded-full" style="background:rgba(10,31,40,0.07);color:var(--color-deep);">Тёмная</span>}
+              </div>
+            </div>
+            <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-1.5 tracking-[-0.01em]">{tool.title}</h3>
+            <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">{tool.desc}</p>
+            <div class="mt-4 text-sm font-medium text-[var(--color-accent)] flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-300">
+              Открыть
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Guides -->
+    <div class="tab-section" data-section="guides">
+      <div class="flex items-center gap-3 mb-5">
+        <h2 class="font-heading text-xl text-[var(--color-deep)]">Руководства</h2>
+        <span class="text-xs px-2.5 py-1 rounded-full font-semibold tracking-[0.08em] uppercase" style="background:rgba(27,77,92,0.06);color:var(--color-primary);">Чтение</span>
+      </div>
+      <div class="flex flex-col gap-3 mb-10">
+        {guides.map(guide => (
+          <a
+            href={guide.href}
+            class="guide-card group flex items-center gap-5 p-5 rounded-xl border border-[var(--color-border)] no-underline transition-all duration-300 hover:border-[var(--color-primary)] hover:shadow-sm"
+            style="background:white;box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+          >
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-[var(--color-primary)]" style="background:rgba(27,77,92,0.07);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div class="flex-1">
+              <p class="font-medium text-[var(--color-deep)] text-sm mb-0.5">{guide.title}</p>
+              <p class="text-xs text-[var(--color-text-light)] font-light">{guide.desc}</p>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-[var(--color-text-light)] flex-shrink-0">
+              <span>{guide.time}</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:translate-x-0.5 transition-transform"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Crisis link -->
+    <div class="flex items-center gap-4 p-5 rounded-xl border border-[rgba(201,168,76,0.25)] bg-[rgba(201,168,76,0.06)] mb-10">
+      <span class="text-2xl">🆘</span>
+      <div class="flex-1">
+        <p class="text-sm font-medium text-[var(--color-deep)] mb-0.5">Сейчас очень тяжело?</p>
+        <p class="text-xs text-[var(--color-text-light)] font-light">Номера экстренной помощи и ресурсы для кризисных ситуаций</p>
+      </div>
+      <a href="/tools/crisis" class="text-sm font-medium text-[var(--color-accent)] no-underline hover:underline flex-shrink-0">Открыть →</a>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center p-10 rounded-2xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)]">
+      <p class="font-heading text-xl text-[var(--color-deep)] mb-3">Готовы к настоящей работе?</p>
+      <p class="text-[var(--color-text-mid)] font-light mb-6 text-sm">Эти инструменты — первый шаг. Александра поможет вам пройти путь глубже.</p>
+      <a href="/lp/israel#pricing" class="btn-primary">
+        <span>Записаться бесплатно</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+  </div>
+</ToolLayout>
+
+<style>
+  .tab-btn {
+    background: transparent;
+    color: var(--color-text-mid);
+    border: 1px solid transparent;
+  }
+  .tab-btn:hover {
+    background: rgba(27,77,92,0.05);
+    color: var(--color-primary);
+  }
+  .tab-btn.active {
+    background: var(--color-deep);
+    color: white;
+  }
+</style>
+
+<script>
+  const TOTAL = document.querySelectorAll('.tool-card, .guide-card').length;
+
+  // Animated counter
+  const counterEl = document.getElementById('toolCounter')!;
+  let count = 0;
+  const interval = setInterval(() => {
+    count = Math.min(count + 1, TOTAL);
+    counterEl.textContent = String(count);
+    if (count === TOTAL) clearInterval(interval);
+  }, 60);
+
+  // Tabs
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.tab-section');
+
+  function setTab(tab: string) {
+    tabs.forEach(t => t.classList.toggle('active', (t as HTMLElement).dataset.tab === tab));
+
+    if (tab === 'all') {
+      sections.forEach(s => (s as HTMLElement).style.display = '');
+    } else {
+      sections.forEach(s => {
+        (s as HTMLElement).style.display = (s as HTMLElement).dataset.section === tab ? '' : 'none';
+      });
+    }
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => setTab((tab as HTMLElement).dataset.tab || 'all'));
+  });
+</script>

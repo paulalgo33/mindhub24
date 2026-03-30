@@ -1,0 +1,161 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Письмо себе">
+  <div class="max-w-[620px] mx-auto">
+
+    <div class="mb-10">
+      <p class="s-label">Самосострадание</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Письмо себе с состраданием
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">
+        Упражнение Кристин Нефф: напишите себе так, как написали бы близкому другу в трудной ситуации.
+      </p>
+    </div>
+
+    <!-- Step 1: Situation -->
+    <div id="step1">
+      <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-[rgba(250,247,242,0.5)] mb-6">
+        <p class="font-heading text-base text-[var(--color-deep)] mb-2">Сначала — как вы обычно относитесь к себе</p>
+        <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">Вспомните, что вы говорите себе, когда совершаете ошибку или переживаете трудность. Часто это критика или осуждение.</p>
+      </div>
+
+      <label class="block text-sm font-medium text-[var(--color-text)] mb-2">Опишите трудную ситуацию или то, за что вы себя критикуете:</label>
+      <textarea
+        id="situationInput"
+        placeholder="Например: я снова не справился с работой, я слишком остро реагирую..."
+        class="w-full min-h-[120px] p-5 rounded-2xl border border-[var(--color-border)] bg-white font-body text-base text-[var(--color-text)] leading-relaxed resize-none outline-none focus:border-[var(--color-primary)] transition-colors duration-300 font-light mb-4"
+        style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+      ></textarea>
+      <button id="next1" class="btn-primary">Далее →</button>
+    </div>
+
+    <!-- Step 2: Friend perspective -->
+    <div id="step2" style="display:none;">
+      <div class="p-6 rounded-2xl border-l-4 border-l-[var(--color-primary)] border border-[var(--color-border)] bg-white mb-6">
+        <p class="font-heading text-base text-[var(--color-deep)] mb-2">Теперь — взгляд друга</p>
+        <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">
+          Представьте, что ваш близкий друг рассказывает вам эту же ситуацию. Что бы вы ему сказали? Как бы вы его поддержали — тепло, без осуждения?
+        </p>
+      </div>
+
+      <label class="block text-sm font-medium text-[var(--color-text)] mb-2">Напишите ответ другу (как будто это он, а не вы):</label>
+      <textarea
+        id="friendInput"
+        placeholder="Дорогой друг..."
+        class="w-full min-h-[160px] p-5 rounded-2xl border border-[var(--color-border)] bg-white font-body text-base text-[var(--color-text)] leading-relaxed resize-none outline-none focus:border-[var(--color-primary)] transition-colors duration-300 font-light mb-4"
+        style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+      ></textarea>
+      <div class="flex gap-3">
+        <button id="back1" class="btn-ghost text-sm">← Назад</button>
+        <button id="next2" class="btn-primary">Далее →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Letter to self -->
+    <div id="step3" style="display:none;">
+      <div class="p-6 rounded-2xl border-l-4 border-l-[var(--color-accent)] border border-[rgba(201,168,76,0.2)] bg-[rgba(201,168,76,0.04)] mb-6">
+        <p class="font-heading text-base text-[var(--color-deep)] mb-2">Теперь — себе</p>
+        <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">
+          Перепишите то же самое, но уже обращаясь к себе. С той же теплотой. «Дорогой(ая) [имя]...»
+        </p>
+      </div>
+
+      <!-- Paper texture -->
+      <div class="relative rounded-2xl overflow-hidden mb-4" style="box-shadow:0 8px 40px rgba(0,0,0,0.07),inset 0 1px 0 rgba(255,255,255,0.7);">
+        <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(transparent,transparent 31px,rgba(27,77,92,0.05) 31px,rgba(27,77,92,0.05) 32px);top:48px;"></div>
+        <textarea
+          id="selfInput"
+          placeholder="Дорогой(ая)..."
+          class="relative w-full min-h-[220px] p-6 bg-[#FDFAF5] font-heading text-base text-[var(--color-text)] leading-[2rem] resize-none outline-none font-light"
+          style="line-height:2rem;"
+        ></textarea>
+      </div>
+
+      <div class="flex gap-3">
+        <button id="back2" class="btn-ghost text-sm">← Назад</button>
+        <button id="finish" class="btn-primary">Завершить</button>
+      </div>
+    </div>
+
+    <!-- Completion -->
+    <div id="completion" style="display:none;">
+      <div class="text-center mb-8">
+        <div class="text-4xl mb-4">✦</div>
+        <p class="font-heading text-xl text-[var(--color-deep)] mb-2">Вы сделали это</p>
+        <p class="text-[var(--color-text-mid)] font-light">Самосострадание — это навык. Чем чаще вы его практикуете, тем легче он даётся.</p>
+      </div>
+
+      <div class="p-6 rounded-2xl border border-[var(--color-border)] bg-white mb-6">
+        <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-accent)] mb-3">Ваше письмо</p>
+        <p id="finalLetter" class="font-heading text-base italic leading-[1.9] text-[var(--color-deep)]"></p>
+      </div>
+
+      <div class="p-5 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] mb-6">
+        <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">
+          <strong class="text-[var(--color-text)]">Три компонента самосострадания</strong> (Кристин Нефф): осознанность — признать боль без подавления; общая человечность — помнить, что страдание универсально; самодоброта — относиться к себе с теплом.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+          <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p class="text-sm text-[var(--color-text)] font-medium mb-1">Хотите развить самосострадание глубже?</p>
+          <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться к Александре →</a>
+        </div>
+      </div>
+
+      <button id="restart" class="btn-ghost text-sm">← Написать ещё раз</button>
+    </div>
+
+  </div>
+</ToolLayout>
+
+<script>
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  const step1 = document.getElementById('step1')!;
+  const step2 = document.getElementById('step2')!;
+  const step3 = document.getElementById('step3')!;
+  const completion = document.getElementById('completion')!;
+  const situationInput = document.getElementById('situationInput') as HTMLTextAreaElement;
+  const friendInput = document.getElementById('friendInput') as HTMLTextAreaElement;
+  const selfInput = document.getElementById('selfInput') as HTMLTextAreaElement;
+  const finalLetter = document.getElementById('finalLetter')!;
+
+  document.getElementById('next1')!.addEventListener('click', () => {
+    if (!situationInput.value.trim()) return;
+    hide(step1); show(step2); friendInput.focus();
+  });
+
+  document.getElementById('back1')!.addEventListener('click', () => {
+    hide(step2); show(step1);
+  });
+
+  document.getElementById('next2')!.addEventListener('click', () => {
+    if (!friendInput.value.trim()) return;
+    hide(step2); show(step3); selfInput.focus();
+  });
+
+  document.getElementById('back2')!.addEventListener('click', () => {
+    hide(step3); show(step2);
+  });
+
+  document.getElementById('finish')!.addEventListener('click', () => {
+    if (!selfInput.value.trim()) return;
+    finalLetter.textContent = selfInput.value.trim();
+    hide(step3); show(completion);
+  });
+
+  document.getElementById('restart')!.addEventListener('click', () => {
+    situationInput.value = '';
+    friendInput.value = '';
+    selfInput.value = '';
+    hide(completion); show(step1);
+  });
+</script>

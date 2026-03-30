@@ -1,0 +1,260 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Дерево беспокойства">
+  <div class="max-w-[600px] mx-auto">
+
+    <div class="mb-10">
+      <p class="s-label">CBT · Дерево решений</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Дерево беспокойства
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">
+        Когнитивно-поведенческая техника для разделения «продуктивного» и «непродуктивного» беспокойства.
+      </p>
+    </div>
+
+    <!-- Step 0: Enter worry -->
+    <div id="s0">
+      <textarea
+        id="worryInput"
+        placeholder="Напишите, что вас беспокоит прямо сейчас..."
+        class="w-full min-h-[120px] p-5 rounded-2xl border border-[var(--color-border)] bg-white font-body text-base text-[var(--color-text)] leading-relaxed resize-none outline-none focus:border-[var(--color-primary)] transition-colors duration-300 font-light mb-4"
+        style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+      ></textarea>
+      <button id="startTree" class="btn-primary">
+        <span>Начать</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Tree steps -->
+    <div id="treeFlow" style="display:none;">
+      <!-- Visual path -->
+      <div id="pathTrail" class="flex items-center gap-2 flex-wrap mb-6 text-xs text-[var(--color-text-light)]"></div>
+
+      <!-- Question card -->
+      <div id="questionCard" class="p-8 rounded-2xl border border-[var(--color-border)] bg-white mb-4" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);">
+        <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-accent)] mb-3" id="qLabel"></p>
+        <p id="questionText" class="font-heading text-xl text-[var(--color-deep)] leading-[1.5] mb-6"></p>
+        <div id="answerBtns" class="flex gap-3"></div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div id="resultCard" style="display:none;" class="p-8 rounded-2xl border-2 mb-6">
+      <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold mb-3" id="resultLabel"></p>
+      <p id="resultTitle" class="font-heading text-xl mb-3"></p>
+      <p id="resultText" class="text-[var(--color-text-mid)] font-light leading-relaxed text-sm mb-6"></p>
+      <div id="actionSteps" class="flex flex-col gap-2"></div>
+    </div>
+
+    <div id="resultCta" style="display:none;">
+      <div class="mt-4 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+        <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+          <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p class="text-sm text-[var(--color-text)] font-medium mb-1">Хотите проработать беспокойство глубже?</p>
+          <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться к Александре →</a>
+        </div>
+      </div>
+      <button id="restartTree" class="btn-ghost mt-6 text-sm">← Начать заново</button>
+    </div>
+
+  </div>
+</ToolLayout>
+
+<script>
+  interface TreeNode {
+    id: string;
+    label: string;
+    question: string;
+    yes?: string;
+    no?: string;
+    result?: string;
+  }
+
+  interface Result {
+    label: string;
+    labelColor: string;
+    borderColor: string;
+    title: string;
+    text: string;
+    steps: string[];
+  }
+
+  const TREE: TreeNode[] = [
+    {
+      id: 'q1', label: 'Шаг 1',
+      question: 'Это беспокойство касается реальной проблемы, которая существует прямо сейчас?',
+      yes: 'q2', no: 'r_hypothetical',
+    },
+    {
+      id: 'q2', label: 'Шаг 2',
+      question: 'Вы можете что-то сделать с этой проблемой прямо сейчас?',
+      yes: 'q3', no: 'r_accept',
+    },
+    {
+      id: 'q3', label: 'Шаг 3',
+      question: 'Вы уже начали действовать или составили план?',
+      yes: 'r_let_go', no: 'r_action',
+    },
+  ];
+
+  const RESULTS: Record<string, Result> = {
+    r_hypothetical: {
+      label: 'Гипотетическое беспокойство',
+      labelColor: 'rgba(234,179,8,0.8)',
+      borderColor: 'rgba(234,179,8,0.3)',
+      title: 'Это беспокойство — «а вдруг...»',
+      text: 'Вы беспокоитесь о том, что может произойти, но ещё не произошло. Такое беспокойство редко помогает — оно лишь истощает.',
+      steps: ['Признайте: «Это гипотетическое — не факт»', 'Назначьте "время для беспокойства" — 10 минут вечером', 'В остальное время мягко переключайте внимание'],
+    },
+    r_accept: {
+      label: 'Принятие',
+      labelColor: 'rgba(42,122,145,0.8)',
+      borderColor: 'rgba(42,122,145,0.3)',
+      title: 'Это вне вашего контроля',
+      text: 'Проблема реальна, но вы не можете изменить ситуацию прямо сейчас. Принятие — не слабость, а мудрость.',
+      steps: ['Скажите себе: «Я не могу это контролировать, и это нормально»', 'Сфокусируйтесь на том, что вы можете сделать', 'Разрешите себе чувствовать тревогу — не борясь с ней'],
+    },
+    r_action: {
+      label: 'Время действовать',
+      labelColor: 'rgba(34,197,94,0.8)',
+      borderColor: 'rgba(34,197,94,0.3)',
+      title: 'Сделайте один маленький шаг',
+      text: 'Вы можете что-то изменить. Беспокойство — сигнал к действию, а не к размышлению.',
+      steps: ['Запишите один конкретный шаг, который вы сделаете сегодня', 'Установите время — когда именно вы это сделаете', 'После действия — отпустите беспокойство'],
+    },
+    r_let_go: {
+      label: 'Отпустите',
+      labelColor: 'rgba(27,77,92,0.8)',
+      borderColor: 'rgba(27,77,92,0.3)',
+      title: 'Вы уже сделали что могли',
+      text: 'Вы составили план или начали действовать. Продолжать беспокоиться — не поможет. Доверьтесь процессу.',
+      steps: ['Напомните себе: «Я сделал всё, что мог»', 'Позвольте мыслям проходить, не цепляясь за них', 'Направьте внимание на настоящий момент'],
+    },
+  };
+
+  let currentNode = 'q1';
+  let path: string[] = [];
+  let worryText = '';
+
+  const s0 = document.getElementById('s0')!;
+  const treeFlow = document.getElementById('treeFlow')!;
+  const resultCard = document.getElementById('resultCard')!;
+  const resultCta = document.getElementById('resultCta')!;
+  const pathTrail = document.getElementById('pathTrail')!;
+  const qLabel = document.getElementById('qLabel')!;
+  const questionText = document.getElementById('questionText')!;
+  const answerBtns = document.getElementById('answerBtns')!;
+  const worryInput = document.getElementById('worryInput') as HTMLTextAreaElement;
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  function renderNode(nodeId: string) {
+    const node = TREE.find(n => n.id === nodeId);
+    if (!node) return;
+
+    qLabel.textContent = node.label;
+    questionText.textContent = node.question;
+    answerBtns.innerHTML = '';
+
+    const yesBtn = document.createElement('button');
+    yesBtn.className = 'btn-primary flex-1 justify-center';
+    yesBtn.innerHTML = '<span>Да</span>';
+    yesBtn.addEventListener('click', () => navigate(node.yes!));
+
+    const noBtn = document.createElement('button');
+    noBtn.className = 'btn-ghost flex-1 justify-center border border-[var(--color-border)]';
+    noBtn.innerHTML = '<span>Нет</span>';
+    noBtn.addEventListener('click', () => navigate(node.no!));
+
+    answerBtns.appendChild(yesBtn);
+    answerBtns.appendChild(noBtn);
+  }
+
+  function navigate(next: string) {
+    path.push(next);
+    updateTrail();
+
+    if (next.startsWith('r_')) {
+      showResult(next);
+    } else {
+      currentNode = next;
+      renderNode(next);
+    }
+  }
+
+  function updateTrail() {
+    pathTrail.innerHTML = '';
+    path.forEach((p, i) => {
+      if (i > 0) {
+        const sep = document.createElement('span');
+        sep.textContent = '→';
+        pathTrail.appendChild(sep);
+      }
+      const el = document.createElement('span');
+      const isResult = p.startsWith('r_');
+      el.className = 'px-2 py-0.5 rounded-full text-[0.65rem]';
+      el.style.cssText = isResult
+        ? 'background:rgba(27,77,92,0.1);color:var(--color-primary);'
+        : 'background:rgba(201,168,76,0.1);color:var(--color-accent);';
+      el.textContent = p.startsWith('r_') ? 'Итог' : p.replace('q', 'Вопрос ');
+      pathTrail.appendChild(el);
+    });
+  }
+
+  function showResult(resultId: string) {
+    const r = RESULTS[resultId];
+    hide(treeFlow);
+
+    resultCard.style.borderColor = r.borderColor;
+    const labelEl = document.getElementById('resultLabel')!;
+    const titleEl = document.getElementById('resultTitle')!;
+    const textEl = document.getElementById('resultText')!;
+    const stepsEl = document.getElementById('actionSteps')!;
+
+    labelEl.textContent = r.label;
+    labelEl.style.color = r.labelColor;
+    titleEl.textContent = r.title;
+    titleEl.style.color = 'var(--color-deep)';
+    textEl.textContent = r.text;
+    stepsEl.innerHTML = '';
+
+    r.steps.forEach((step, i) => {
+      const el = document.createElement('div');
+      el.className = 'flex items-start gap-3 text-sm';
+      el.innerHTML = `<span class="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-white text-[0.65rem] font-bold mt-0.5" style="background:var(--color-primary);">${i+1}</span><span style="color:var(--color-text-mid);font-weight:300;line-height:1.6;">${step}</span>`;
+      stepsEl.appendChild(el);
+    });
+
+    show(resultCard);
+    show(resultCta);
+  }
+
+  document.getElementById('startTree')!.addEventListener('click', () => {
+    worryText = worryInput.value.trim();
+    if (!worryText) return;
+
+    path = ['q1'];
+    currentNode = 'q1';
+    updateTrail();
+
+    hide(s0);
+    show(treeFlow);
+    renderNode('q1');
+  });
+
+  document.getElementById('restartTree')!.addEventListener('click', () => {
+    worryInput.value = '';
+    path = [];
+    hide(resultCard);
+    hide(resultCta);
+    hide(treeFlow);
+    show(s0);
+  });
+</script>

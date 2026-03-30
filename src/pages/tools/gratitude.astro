@@ -1,0 +1,190 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Три хорошие вещи">
+  <div class="max-w-[580px] mx-auto">
+
+    <div class="mb-10">
+      <p class="s-label">Позитивная психология</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Три хорошие вещи
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">
+        Техника Мартина Селигмана: каждый день записывайте 3 хорошие вещи, которые произошли. Даже маленькие. Особенно маленькие.
+      </p>
+    </div>
+
+    <!-- Streak counter -->
+    <div class="flex items-center gap-4 p-5 rounded-2xl border border-[var(--color-border)] bg-white mb-8" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);">
+      <div class="text-center">
+        <p class="font-heading text-3xl text-[var(--color-primary)]" id="streakNum">0</p>
+        <p class="text-xs text-[var(--color-text-light)]">дней подряд</p>
+      </div>
+      <div class="w-px h-10 bg-[var(--color-border)]"></div>
+      <div class="text-center">
+        <p class="font-heading text-3xl text-[var(--color-accent)]" id="totalNum">0</p>
+        <p class="text-xs text-[var(--color-text-light)]">всего дней</p>
+      </div>
+      <div class="ml-auto">
+        <div id="streakFlame" class="text-2xl" style="display:none;">🔥</div>
+      </div>
+    </div>
+
+    <!-- Today's entry -->
+    <div id="todaySection">
+      <p class="text-sm font-medium text-[var(--color-text)] mb-4">
+        <span id="dateLabel"></span>
+      </p>
+
+      <div id="alreadyDone" style="display:none;" class="p-6 rounded-2xl border border-[var(--color-border)] bg-[rgba(27,77,92,0.03)] text-center mb-6">
+        <p class="font-heading text-xl text-[var(--color-deep)] mb-2">Готово на сегодня ✓</p>
+        <p class="text-sm text-[var(--color-text-mid)] font-light">Возвращайтесь завтра. Практика работает именно в регулярности.</p>
+      </div>
+
+      <div id="entryForm">
+        <div class="flex flex-col gap-3 mb-5">
+          {[1, 2, 3].map(n => (
+            <div class="flex items-start gap-3">
+              <span class="w-7 h-7 rounded-full flex items-center justify-center text-white text-sm font-semibold flex-shrink-0 mt-3" style="background:var(--color-primary);">{n}</span>
+              <input
+                type="text"
+                class={`thing-input flex-1 px-4 py-3 rounded-xl border border-[var(--color-border)] bg-white font-body text-sm text-[var(--color-text)] outline-none focus:border-[var(--color-primary)] transition-colors duration-300`}
+                placeholder={n === 1 ? 'Что-то хорошее, что произошло сегодня...' : n === 2 ? 'Ещё одна хорошая вещь...' : 'И ещё одна...'}
+                data-n={n}
+                style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"
+              />
+            </div>
+          ))}
+        </div>
+        <button id="saveEntry" class="btn-primary">
+          <span>Сохранить</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div id="historySection" class="mt-8">
+      <p class="text-sm font-medium text-[var(--color-text)] mb-3">История</p>
+      <div id="historyList" class="flex flex-col gap-3"></div>
+      <div id="emptyHistory" class="text-sm text-[var(--color-text-light)] font-light">Ещё нет записей — начните сегодня.</div>
+    </div>
+
+    <div class="mt-10 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+      </div>
+      <div>
+        <p class="text-sm text-[var(--color-text)] font-medium mb-1">Хотите развить устойчивость и работать с позитивными эмоциями?</p>
+        <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться к Александре →</a>
+      </div>
+    </div>
+
+  </div>
+</ToolLayout>
+
+<script>
+  const STORAGE_KEY = 'mh24_gratitude';
+  const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+
+  interface GratitudeEntry { date: string; things: string[]; }
+
+  function load(): GratitudeEntry[] {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function save(data: GratitudeEntry[]) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+  function todayStr() { return new Date().toISOString().slice(0, 10); }
+  function formatDate(ds: string): string {
+    const d = new Date(ds + 'T12:00:00');
+    return `${d.getDate()} ${MONTHS_RU[d.getMonth()]}`;
+  }
+
+  let data = load();
+
+  const streakNum = document.getElementById('streakNum')!;
+  const totalNum = document.getElementById('totalNum')!;
+  const streakFlame = document.getElementById('streakFlame')!;
+  const alreadyDone = document.getElementById('alreadyDone')!;
+  const entryForm = document.getElementById('entryForm')!;
+  const historyList = document.getElementById('historyList')!;
+  const emptyHistory = document.getElementById('emptyHistory')!;
+  const dateLabel = document.getElementById('dateLabel')!;
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  function calcStreak(): number {
+    if (!data.length) return 0;
+    const sorted = [...data].sort((a, b) => b.date.localeCompare(a.date));
+    let streak = 0;
+    const today = new Date();
+    for (let i = 0; i < sorted.length; i++) {
+      const expected = new Date(today);
+      expected.setDate(expected.getDate() - i);
+      if (sorted[i].date === expected.toISOString().slice(0, 10)) streak++;
+      else break;
+    }
+    return streak;
+  }
+
+  function render() {
+    const today = todayStr();
+    const d = new Date();
+    dateLabel.textContent = `${d.getDate()} ${MONTHS_RU[d.getMonth()]} — запишите три хорошие вещи`;
+
+    const hasTodayEntry = data.some(e => e.date === today);
+    if (hasTodayEntry) {
+      hide(entryForm);
+      show(alreadyDone);
+    } else {
+      show(entryForm);
+      hide(alreadyDone);
+    }
+
+    const streak = calcStreak();
+    streakNum.textContent = String(streak);
+    totalNum.textContent = String(data.length);
+    if (streak >= 3) show(streakFlame); else hide(streakFlame);
+
+    // History (last 10, newest first)
+    const sorted = [...data].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 10);
+    historyList.innerHTML = '';
+    if (sorted.length === 0) {
+      show(emptyHistory);
+    } else {
+      hide(emptyHistory);
+      sorted.forEach(entry => {
+        const el = document.createElement('div');
+        el.className = 'p-4 rounded-xl border border-[var(--color-border)] bg-white';
+        el.style.cssText = 'box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);';
+        el.innerHTML = `
+          <p class="text-xs text-[var(--color-text-light)] mb-2">${formatDate(entry.date)}</p>
+          ${entry.things.map((t, i) => `<p class="text-sm text-[var(--color-text)] font-light mb-1"><span class="font-semibold text-[var(--color-primary)]">${i+1}.</span> ${t}</p>`).join('')}
+        `;
+        historyList.appendChild(el);
+      });
+    }
+  }
+
+  document.getElementById('saveEntry')!.addEventListener('click', () => {
+    const inputs = document.querySelectorAll('.thing-input') as NodeListOf<HTMLInputElement>;
+    const things = Array.from(inputs).map(i => i.value.trim()).filter(Boolean);
+    if (things.length < 1) return;
+
+    // Fill blanks
+    while (things.length < 3) things.push('');
+    const filtered = things.filter(Boolean);
+    if (filtered.length === 0) return;
+
+    data = data.filter(e => e.date !== todayStr());
+    data.push({ date: todayStr(), things: filtered });
+    save(data);
+
+    inputs.forEach(i => i.value = '');
+    render();
+  });
+
+  render();
+</script>

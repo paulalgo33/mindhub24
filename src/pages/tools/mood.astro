@@ -1,0 +1,292 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Трекер настроения">
+  <div class="max-w-[600px] mx-auto">
+    <!-- Header -->
+    <div class="mb-10">
+      <p class="s-label">Трекер · 7 дней</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Трекер настроения
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">
+        Отмечайте настроение каждый день. На 7-й день получите AI-анализ своей недели.
+      </p>
+    </div>
+
+    <!-- Main tracker -->
+    <div id="trackerSection">
+      <!-- 7-day grid -->
+      <div id="weekGrid" class="grid grid-cols-7 gap-2 mb-8"></div>
+
+      <!-- Today's entry -->
+      <div id="todayEntry" class="p-6 rounded-2xl border border-[var(--color-border)] bg-white" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);">
+        <p class="text-sm font-medium text-[var(--color-text)] mb-4">Как вы себя чувствуете сегодня?</p>
+
+        <!-- Mood scale 1-5 -->
+        <div class="flex gap-2 mb-5" id="moodBtns">
+          {[
+            { v: 1, label: 'Очень плохо', emoji: '😔' },
+            { v: 2, label: 'Плохо', emoji: '😕' },
+            { v: 3, label: 'Нейтрально', emoji: '😐' },
+            { v: 4, label: 'Хорошо', emoji: '🙂' },
+            { v: 5, label: 'Отлично', emoji: '😊' },
+          ].map(m => (
+            <button
+              class="mood-btn flex-1 flex flex-col items-center gap-1 p-3 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:bg-[rgba(27,77,92,0.04)] transition-all duration-300"
+              data-value={m.v}
+              title={m.label}
+            >
+              <span class="text-2xl">{m.emoji}</span>
+              <span class="text-[0.6rem] text-[var(--color-text-light)]">{m.v}</span>
+            </button>
+          ))}
+        </div>
+
+        <textarea
+          id="moodNote"
+          placeholder="Добавьте заметку (необязательно)..."
+          class="w-full min-h-[80px] p-4 rounded-xl border border-[var(--color-border)] bg-[rgba(250,247,242,0.5)] font-body text-sm text-[var(--color-text)] leading-relaxed resize-none outline-none focus:border-[var(--color-primary)] transition-colors duration-300 font-light"
+        ></textarea>
+
+        <div class="flex items-center justify-between mt-4">
+          <p id="todayStatus" class="text-xs text-[var(--color-text-light)]"></p>
+          <button id="saveBtn" class="btn-primary" style="display:none;">
+            <span>Сохранить</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Already logged today -->
+      <div id="alreadySaved" style="display:none;" class="mt-4 p-4 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] text-sm text-[var(--color-text-mid)] text-center font-light">
+        Сегодня уже отмечено ✓ — возвращайтесь завтра
+      </div>
+    </div>
+
+    <!-- Loading analysis -->
+    <div id="loadingAnalysis" style="display:none;" class="text-center py-14">
+      <div class="breath-ring mx-auto mb-5"></div>
+      <p class="text-[var(--color-text-mid)] font-light text-sm">Анализирую вашу неделю...</p>
+    </div>
+
+    <!-- Analysis result -->
+    <div id="analysisSection" style="display:none;" class="mt-2">
+      <div class="p-8 rounded-2xl border border-[var(--color-border)] bg-white" style="box-shadow:0 20px 60px rgba(0,0,0,0.04);">
+        <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-accent)] mb-4">Анализ вашей недели</p>
+        <p id="analysisText" class="text-[var(--color-text)] leading-[1.9] font-light text-[1.05rem]"></p>
+      </div>
+
+      <div class="mt-6 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+        <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+          <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p class="text-sm text-[var(--color-text)] font-medium mb-1">Хотите разобраться в паттернах глубже?</p>
+          <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться к Александре →</a>
+        </div>
+      </div>
+
+      <button id="resetWeekBtn" class="btn-ghost mt-8 text-sm">Начать новую неделю</button>
+    </div>
+  </div>
+</ToolLayout>
+
+<style>
+  .breath-ring {
+    width: 60px; height: 60px; border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    animation: breathRing 2.4s ease-in-out infinite;
+  }
+  @keyframes breathRing {
+    0%, 100% { transform: scale(0.85); opacity: 0.4; }
+    50%       { transform: scale(1.15); opacity: 1; }
+  }
+  .mood-btn.selected {
+    border-color: var(--color-primary) !important;
+    background: rgba(27,77,92,0.08) !important;
+    transform: scale(1.05);
+  }
+  .day-cell {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    gap: 3px;
+    border: 1px solid var(--color-border);
+    background: rgba(250,247,242,0.5);
+    color: var(--color-text-light);
+  }
+  .day-cell.filled-1 { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); }
+  .day-cell.filled-2 { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.3); }
+  .day-cell.filled-3 { background: rgba(234,179,8,0.15); border-color: rgba(234,179,8,0.3); }
+  .day-cell.filled-4 { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); }
+  .day-cell.filled-5 { background: rgba(27,77,92,0.15); border-color: rgba(27,77,92,0.4); }
+  .day-cell.today { border-color: var(--color-primary); border-width: 2px; }
+</style>
+
+<script>
+  const STORAGE_KEY = 'mh24_mood_week';
+  const EMOJIS = ['', '😔', '😕', '😐', '🙂', '😊'];
+  const DAYS_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
+  interface DayEntry { date: string; value: number; note: string; }
+
+  function loadData(): DayEntry[] {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch { return []; }
+  }
+  function saveData(data: DayEntry[]) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+  function todayStr(): string {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  let data = loadData();
+  let selectedMood = 0;
+
+  const weekGrid = document.getElementById('weekGrid')!;
+  const saveBtn = document.getElementById('saveBtn')!;
+  const todayStatus = document.getElementById('todayStatus')!;
+  const moodNote = document.getElementById('moodNote') as HTMLTextAreaElement;
+  const todayEntry = document.getElementById('todayEntry')!;
+  const alreadySaved = document.getElementById('alreadySaved')!;
+  const loadingAnalysis = document.getElementById('loadingAnalysis')!;
+  const analysisSection = document.getElementById('analysisSection')!;
+  const analysisText = document.getElementById('analysisText')!;
+  const trackerSection = document.getElementById('trackerSection')!;
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  async function typeText(el: HTMLElement, text: string, delay = 18) {
+    el.textContent = '';
+    for (const ch of text) {
+      el.textContent += ch;
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+
+  function renderGrid() {
+    weekGrid.innerHTML = '';
+    // Show last 7 slots
+    const today = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const ds = d.toISOString().slice(0, 10);
+      const entry = data.find(e => e.date === ds);
+      const cell = document.createElement('div');
+      cell.className = `day-cell${entry ? ` filled-${entry.value}` : ''}${i === 0 ? ' today' : ''}`;
+      cell.innerHTML = `
+        <span>${DAYS_RU[d.getDay()]}</span>
+        <span>${entry ? EMOJIS[entry.value] : '·'}</span>
+      `;
+      weekGrid.appendChild(cell);
+    }
+  }
+
+  function checkTodayStatus() {
+    const already = data.find(e => e.date === todayStr());
+    if (already) {
+      hide(todayEntry);
+      show(alreadySaved);
+      todayStatus.textContent = '';
+    } else {
+      show(todayEntry);
+      hide(alreadySaved);
+    }
+    // Check if 7 days filled
+    const today = new Date();
+    let filledCount = 0;
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const ds = d.toISOString().slice(0, 10);
+      if (data.find(e => e.date === ds)) filledCount++;
+    }
+    if (filledCount >= 7) {
+      hide(trackerSection);
+      runAnalysis();
+    }
+  }
+
+  document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedMood = parseInt((btn as HTMLElement).dataset.value || '0');
+      show(saveBtn as HTMLElement);
+    });
+  });
+
+  saveBtn.addEventListener('click', () => {
+    if (!selectedMood) return;
+    const entry: DayEntry = { date: todayStr(), value: selectedMood, note: moodNote.value.trim() };
+    data = data.filter(e => e.date !== todayStr());
+    data.push(entry);
+    saveData(data);
+    selectedMood = 0;
+    moodNote.value = '';
+    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+    hide(saveBtn as HTMLElement);
+    renderGrid();
+    checkTodayStatus();
+  });
+
+  async function runAnalysis() {
+    show(loadingAnalysis);
+
+    const today = new Date();
+    const weekSummary = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const ds = d.toISOString().slice(0, 10);
+      const entry = data.find(e => e.date === ds);
+      if (entry) {
+        weekSummary.push(`${DAYS_RU[d.getDay()]}: ${entry.value}/5${entry.note ? ` (${entry.note})` : ''}`);
+      }
+    }
+
+    try {
+      const res = await fetch('/api/claude', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 500,
+          system: 'Ты — эмпатичный собеседник, анализирующий дневник настроения. Прокомментируй неделю тепло и без осуждения: отметь паттерны, дни подъёма и спада. НЕ ставь диагнозов. НЕ давай советов. Признай усилие вести трекер. 3-4 предложения. Русский язык.',
+          messages: [{ role: 'user', content: `Мой дневник настроения за неделю (1=очень плохо, 5=отлично):\n${weekSummary.join('\n')}` }],
+        }),
+      });
+      const d2 = await res.json();
+      const reply = d2?.content?.[0]?.text || 'Спасибо, что вели трекер — это само по себе важный шаг.';
+      hide(loadingAnalysis);
+      show(analysisSection);
+      await typeText(analysisText, reply, 16);
+    } catch {
+      hide(loadingAnalysis);
+      show(analysisSection);
+      analysisText.textContent = 'Спасибо, что вели трекер целую неделю — это само по себе важный шаг к осознанности.';
+    }
+  }
+
+  document.getElementById('resetWeekBtn')!.addEventListener('click', () => {
+    data = [];
+    saveData(data);
+    selectedMood = 0;
+    hide(analysisSection);
+    show(trackerSection);
+    renderGrid();
+    checkTodayStatus();
+  });
+
+  // Init
+  renderGrid();
+  checkTodayStatus();
+</script>

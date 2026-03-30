@@ -1,0 +1,53 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Онлайн-консультирование: мифы и факты">
+  <div class="max-w-[660px] mx-auto">
+    <div class="mb-10">
+      <p class="s-label">Руководство · Чтение 4 мин</p>
+      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Онлайн-консультирование: мифы и факты
+      </h1>
+      <p class="text-[var(--color-text-mid)] font-light leading-relaxed">«Это не настоящее». «Нужен живой контакт». Разбираем самые частые сомнения.</p>
+    </div>
+
+    <div class="prose-guide">
+
+      <h2>Миф 1: «Онлайн менее эффективно»</h2>
+      <p>Факт: десятки рецензируемых исследований показывают равную эффективность онлайн- и очного консультирования для большинства запросов — тревога, депрессия, отношения, самооценка. Мета-анализ 2020 года (JMIR Mental Health) подтвердил это для CBT-подходов.</p>
+
+      <h2>Миф 2: «Специалист не может понять меня через экран»</h2>
+      <p>Факт: видеосвязь передаёт мимику, интонацию, паузы. Многие клиенты отмечают, что онлайн-формат даже комфортнее — нет необходимости ехать, можно быть в своём пространстве.</p>
+
+      <h2>Миф 3: «Это не конфиденциально»</h2>
+      <p>Факт: при использовании зашифрованных платформ (Zoom, Whereby, Signal) конфиденциальность не ниже, чем в кабинете. Ответственность за конфиденциальность лежит на специалисте.</p>
+
+      <h2>Когда онлайн лучше офлайн</h2>
+      <p>Если вы живёте за рубежом — онлайн часто единственный доступ к специалисту на родном языке. Если у вас плотный график — онлайн гибче. Если вам тревожно выходить — онлайн снижает барьер входа.</p>
+
+      <h2>Технические требования</h2>
+      <p>Нужны: стабильный интернет, наушники, тихое место на час. Больше ничего. Никаких специальных приложений — обычно достаточно браузера.</p>
+
+    </div>
+
+    <div class="mt-10 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
+      </div>
+      <div>
+        <p class="text-sm text-[var(--color-text)] font-medium mb-1">Попробуйте онлайн бесплатно — первая консультация без оплаты.</p>
+        <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться →</a>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <a href="/tools" class="text-sm text-[var(--color-text-light)] hover:text-[var(--color-primary)] transition-colors no-underline">← Все инструменты</a>
+    </div>
+  </div>
+</ToolLayout>
+
+<style>
+  .prose-guide h2 { font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:500;color:var(--color-deep);margin:2rem 0 0.75rem;letter-spacing:-0.01em; }
+  .prose-guide p { color:var(--color-text);font-weight:300;line-height:1.85;margin-bottom:1rem;font-size:1.025rem; }
+</style>

@@ -1,0 +1,201 @@
+---
+import ToolLayout from '@/layouts/ToolLayout.astro';
+---
+
+<ToolLayout title="Дыши со мной" dark={true}>
+  <div class="max-w-[560px] mx-auto" style="color:#e6edf3;">
+
+    <!-- STEP 1: State selection -->
+    <div id="step1">
+      <div class="text-center mb-12">
+        <p class="s-label" style="color:var(--color-accent-light);">Персональное дыхание</p>
+        <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] mb-3" style="color:#e6edf3;">Дыши со мной</h1>
+        <p style="color:rgba(230,237,243,0.55);font-weight:300;line-height:1.7;">Выберите своё состояние — и мы начнём вместе.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        {['Тревога', 'Бессонница', 'Паника', 'Просто тяжело'].map(state => (
+          <button
+            class="state-btn p-6 rounded-2xl border text-left transition-all duration-400 hover:-translate-y-1"
+            data-state={state}
+            style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);color:#e6edf3;"
+          >
+            <span class="block font-heading text-xl font-medium mb-1">{state}</span>
+            <span class="text-xs" style="color:rgba(230,237,243,0.45);">Нажмите, чтобы начать</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- STEP 2: AI intro -->
+    <div id="step2" style="display:none;" class="text-center">
+      <div class="breath-ring mx-auto mb-6" style="border-color:rgba(42,122,145,0.6);"></div>
+      <p class="text-sm mb-8" style="color:rgba(230,237,243,0.5);">Подготавливаю для вас...</p>
+      <div id="introCard" style="display:none;" class="p-8 rounded-2xl text-left" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);">
+        <p id="introText" class="font-heading text-lg italic leading-[1.8]" style="color:rgba(230,237,243,0.85);"></p>
+        <button id="startBreathing" class="btn-primary mt-6 w-full justify-center" style="background:var(--color-primary);">
+          <span>Начать дыхание</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Breathing -->
+    <div id="step3" style="display:none;" class="text-center">
+      <div class="text-xs mb-8" style="color:rgba(230,237,243,0.3);" id="cycleCounter">1 из 5</div>
+      <div id="breathCircle" class="mx-auto mb-8" style="width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(42,122,145,0.4),rgba(27,77,92,0.15));transition:transform 0s linear;will-change:transform;box-shadow:0 0 60px rgba(42,122,145,0.2);"></div>
+      <p id="breathText" class="font-heading text-2xl tracking-[0.06em]" style="color:rgba(230,237,243,0.8);">Вдох...</p>
+    </div>
+
+    <!-- STEP 4: Closing -->
+    <div id="step4" style="display:none;" class="text-center">
+      <div class="mb-8">
+        <div class="text-4xl mb-4">✦</div>
+        <div id="closingCard" class="p-8 rounded-2xl text-left" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);">
+          <p id="closingText" class="font-heading text-lg italic leading-[1.8]" style="color:rgba(230,237,243,0.85);"></p>
+        </div>
+      </div>
+      <a href="/lp/israel#pricing" class="btn-primary w-full justify-center" style="background:var(--color-primary);">
+        <span>Хотите работать с этим глубже? Записаться</span>
+      </a>
+      <button id="restartBtn" class="btn-ghost mt-4 w-full justify-center text-sm" style="color:rgba(230,237,243,0.4);">Начать заново</button>
+    </div>
+
+  </div>
+</ToolLayout>
+
+<style>
+  .state-btn:hover { background: rgba(255,255,255,0.08) !important; border-color: rgba(42,122,145,0.5) !important; }
+</style>
+
+<script>
+  const CRISIS_WORDS = ['суицид', 'убить себя', 'не хочу жить', 'покончить', 'покончу', 'убью себя', 'хочу умереть'];
+
+  let selectedState = '';
+  let currentCycle = 0;
+  const TOTAL_CYCLES = 5;
+
+  const step1 = document.getElementById('step1')!;
+  const step2 = document.getElementById('step2')!;
+  const step3 = document.getElementById('step3')!;
+  const step4 = document.getElementById('step4')!;
+  const introCard = document.getElementById('introCard')!;
+  const introText = document.getElementById('introText')!;
+  const breathCircle = document.getElementById('breathCircle')!;
+  const breathText = document.getElementById('breathText')!;
+  const cycleCounter = document.getElementById('cycleCounter')!;
+  const closingText = document.getElementById('closingText')!;
+
+  function show(el: HTMLElement) { el.style.display = ''; }
+  function hide(el: HTMLElement) { el.style.display = 'none'; }
+
+  async function typeText(el: HTMLElement, text: string, delay = 20) {
+    el.textContent = '';
+    for (const ch of text) {
+      el.textContent += ch;
+      await new Promise(r => setTimeout(r, delay));
+    }
+  }
+
+  async function callClaude(system: string, user: string): Promise<string> {
+    const res = await fetch('/api/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 800,
+        system,
+        messages: [{ role: 'user', content: user }],
+      }),
+    });
+    const data = await res.json();
+    return data?.content?.[0]?.text || '';
+  }
+
+  // State selection
+  document.querySelectorAll('.state-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      selectedState = (btn as HTMLElement).dataset.state || '';
+      hide(step1);
+      show(step2);
+
+      try {
+        const text = await callClaude(
+          'Ты помогаешь человеку подготовиться к дыхательному упражнению. Напиши 2 тёплых предложения на русском. Признай состояние. Скажи, что сейчас вы вместе подышите. Без советов, без диагнозов.',
+          `Человек чувствует: ${selectedState}`
+        );
+        hide(step2.querySelector('.breath-ring')!.parentElement! as HTMLElement);
+        hide(document.querySelector('#step2 p')! as HTMLElement);
+        introText.textContent = '';
+        show(introCard);
+        await typeText(introText, text, 20);
+      } catch {
+        // Fallback
+        const fallback = 'Понимаю. Прямо сейчас мы просто подышим вместе. Это займёт около минуты — и вам станет немного легче.';
+        show(introCard);
+        await typeText(introText, fallback, 20);
+      }
+    });
+  });
+
+  // Start breathing
+  document.getElementById('startBreathing')!.addEventListener('click', () => {
+    hide(step2);
+    show(step3);
+    runBreathingCycles();
+  });
+
+  async function runBreathingCycles() {
+    for (let cycle = 1; cycle <= TOTAL_CYCLES; cycle++) {
+      currentCycle = cycle;
+      cycleCounter.textContent = `${cycle} из ${TOTAL_CYCLES}`;
+
+      // Inhale (4s)
+      breathText.textContent = 'Вдох...';
+      breathCircle.style.transition = 'transform 4s ease-in-out';
+      breathCircle.style.transform = 'scale(1.55)';
+      await new Promise(r => setTimeout(r, 4000));
+
+      // Hold (4s)
+      breathText.textContent = 'Задержите...';
+      breathCircle.style.transition = 'none';
+      await new Promise(r => setTimeout(r, 4000));
+
+      // Exhale (6s)
+      breathText.textContent = 'Выдох...';
+      breathCircle.style.transition = 'transform 6s ease-in-out';
+      breathCircle.style.transform = 'scale(0.7)';
+      await new Promise(r => setTimeout(r, 6000));
+    }
+
+    // Done — get closing message
+    hide(step3);
+    show(step4);
+    const loadingEl = document.createElement('p');
+    loadingEl.className = 'font-heading text-lg italic';
+    loadingEl.style.color = 'rgba(230,237,243,0.5)';
+    loadingEl.textContent = 'Готовлю завершение...';
+    closingText.replaceWith(loadingEl);
+
+    try {
+      const text = await callClaude(
+        'Человек только что сделал дыхательное упражнение. Напиши 2 мягких предложения. Похвали за то, что нашёл время для себя. Напомни, что забота о себе — это сила. Русский язык.',
+        `Человек сделал упражнение после состояния: ${selectedState}`
+      );
+      const newEl = document.createElement('p');
+      newEl.id = 'closingText';
+      newEl.className = 'font-heading text-lg italic leading-[1.8]';
+      newEl.style.color = 'rgba(230,237,243,0.85)';
+      loadingEl.replaceWith(newEl);
+      await typeText(newEl, text, 20);
+    } catch {
+      loadingEl.textContent = 'Вы сделали что-то важное для себя. Это уже шаг.';
+      loadingEl.style.color = 'rgba(230,237,243,0.85)';
+    }
+  }
+
+  document.getElementById('restartBtn')!.addEventListener('click', () => {
+    hide(step4);
+    selectedState = '';
+    currentCycle = 0;
+    show(step1);
+  });
+</script>
