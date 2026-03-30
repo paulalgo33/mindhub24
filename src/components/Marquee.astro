@@ -6,13 +6,49 @@ const { items } = Astro.props;
 const doubled = [...items, ...items];
 ---
 
-<div class="py-5 border-t border-b border-[var(--color-border)] overflow-hidden bg-[var(--color-cream)] hide-small">
+<div class="marquee-outer py-5 border-t border-b border-[var(--color-border)] bg-[var(--color-cream)] hide-small">
   <div class="marquee-track">
     {doubled.map((item) => (
-      <span class="text-[0.82rem] tracking-[0.1em] uppercase text-[var(--color-text-light)] font-medium whitespace-nowrap flex items-center gap-6">
+      <span class="text-[0.82rem] tracking-[0.1em] uppercase text-[var(--color-text-light)] font-medium whitespace-nowrap flex items-center gap-[4rem]">
         {item}
         <span class="w-1 h-1 rounded-full bg-[var(--color-accent)]"></span>
       </span>
     ))}
   </div>
 </div>
+
+<style>
+  .marquee-outer {
+    position: relative;
+    overflow: hidden;
+  }
+  /* Gradient fade masks on both edges */
+  .marquee-outer::before,
+  .marquee-outer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 20%;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .marquee-outer::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-cream), transparent);
+  }
+  .marquee-outer::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-cream), transparent);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 4rem;
+    animation: marqueeScroll 40s linear infinite;
+    width: max-content;
+  }
+  @keyframes marqueeScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>

@@ -12,33 +12,33 @@
   --color-primary-light: #2A7A91;
   --color-accent: #C9A84C;
   --color-accent-light: #D4B96A;
-  
+
   /* Neutrals */
   --color-cream: #FAF7F2;
-  --color-warm: #F3EDE4;
+  --color-warm: #F0E8DC;
   --color-sand: #E8E0D4;
   --color-text: #1A1A1A;
   --color-text-mid: #5A5A5A;
   --color-text-light: #8A8A8A;
   --color-border: rgba(0, 0, 0, 0.06);
-  
+
   /* Dark mode */
   --color-dark: #111111;
   --color-dark-surface: #1A1A1A;
   --color-dark-mid: #222222;
-  
+
   /* Typography */
   --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  
+
   /* Spacing scale */
   --spacing-section: clamp(80px, 12vw, 140px);
   --spacing-section-lg: clamp(100px, 14vw, 180px);
-  
+
   /* Easings */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  
+
   /* Radii */
   --radius-card: 20px;
   --radius-button: 100px;
@@ -48,7 +48,7 @@
 /* ================================================================
    BASE
    ================================================================ */
-   
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -100,34 +100,17 @@ body:hover .cursor-glow { opacity: 1; }
 @media (hover: none) { .cursor-glow { display: none; } }
 
 /* ================================================================
-   SCROLL REVEAL SYSTEM
+   SCROLL REVEAL — initial hidden state (GSAP takes over)
    ================================================================ */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(60px);
-  transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
-}
-[data-reveal].is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-[data-reveal="d1"] { transition-delay: 0.1s; }
-[data-reveal="d2"] { transition-delay: 0.2s; }
-[data-reveal="d3"] { transition-delay: 0.3s; }
-[data-reveal="d4"] { transition-delay: 0.4s; }
-[data-reveal="d5"] { transition-delay: 0.5s; }
-[data-reveal="d6"] { transition-delay: 0.6s; }
-
-/* Parallax helper */
-[data-parallax] {
-  will-change: transform;
 }
 
 /* ================================================================
    TYPOGRAPHY UTILITY CLASSES
    ================================================================ */
 .font-heading { font-family: var(--font-heading); }
-.font-body { font-family: var(--font-body); }
+.font-body    { font-family: var(--font-body); }
 
 .text-gradient {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
@@ -157,6 +140,7 @@ body:hover .cursor-glow { opacity: 1; }
   position: relative;
   overflow: hidden;
 }
+/* Inner gradient on hover */
 .btn-primary::before {
   content: '';
   position: absolute;
@@ -167,6 +151,25 @@ body:hover .cursor-glow { opacity: 1; }
   border-radius: var(--radius-button);
 }
 .btn-primary:hover::before { opacity: 1; }
+/* Shimmer sweep on hover */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  pointer-events: none;
+  transition: none;
+}
+.btn-primary:hover::after {
+  animation: btnShimmer 0.55s ease forwards;
+}
+@keyframes btnShimmer {
+  0%   { left: -80%; }
+  100% { left: 160%; }
+}
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(15, 46, 56, 0.3);
@@ -196,26 +199,25 @@ body:hover .cursor-glow { opacity: 1; }
    SECTION LABELS
    ================================================================ */
 .s-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-accent);
   font-weight: 600;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
+  display: block;
 }
 
 .s-title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-deep);
   letter-spacing: -0.02em;
   margin-bottom: 1.2rem;
 }
-.s-title em {
-  font-style: italic;
-}
+.s-title em { font-style: italic; }
 
 .s-subtitle {
   font-size: 1.1rem;
@@ -238,24 +240,14 @@ body:hover .cursor-glow { opacity: 1; }
 }
 @keyframes orbFloat {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(30px, -20px) scale(1.05); }
-  50% { transform: translate(-20px, 30px) scale(0.95); }
-  75% { transform: translate(20px, 20px) scale(1.02); }
+  25%       { transform: translate(30px, -20px) scale(1.05); }
+  50%       { transform: translate(-20px, 30px) scale(0.95); }
+  75%       { transform: translate(20px, 20px) scale(1.02); }
 }
 
 /* ================================================================
-   MARQUEE
+   MARQUEE (speed/gap managed in component CSS)
    ================================================================ */
-.marquee-track {
-  display: flex;
-  gap: 3rem;
-  animation: marqueeScroll 35s linear infinite;
-  width: max-content;
-}
-@keyframes marqueeScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
 
 /* ================================================================
    CARD HOVER SYSTEM
@@ -265,7 +257,53 @@ body:hover .cursor-glow { opacity: 1; }
 }
 .card-lift:hover {
   transform: translateY(-6px);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.07);
+}
+
+/* Glass edge effect on white cards */
+.card-glass {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    inset 1px 0 0 rgba(255,255,255,0.2);
+}
+
+/* Pain cards — hover border animates to accent */
+[data-pain-card] {
+  transition: all 0.5s var(--ease-out-expo);
+  border-left-color: var(--color-primary) !important;
+}
+[data-pain-card]:hover {
+  transform: translateY(-4px);
+  border-left-color: var(--color-accent) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+}
+
+/* Price cards — scale on hover */
+.price-card {
+  transition: all 0.5s var(--ease-out-expo);
+}
+.price-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.09);
+}
+
+/* Service cards — icon glow on hover */
+[data-service-card] {
+  transition: all 0.5s var(--ease-out-expo);
+}
+[data-service-card]:hover .service-icon {
+  box-shadow: 0 0 18px rgba(201,168,76,0.35), 0 0 40px rgba(201,168,76,0.12);
+  background: rgba(255,255,255,0.12) !important;
+  transition: all 0.4s ease;
+}
+
+/* Phrase pills — lifted paper effect */
+[data-phrase-pill] {
+  transition: all 0.35s var(--ease-out-expo);
+}
+[data-phrase-pill]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.1);
 }
 
 /* ================================================================
@@ -274,6 +312,46 @@ body:hover .cursor-glow { opacity: 1; }
 @keyframes waveAnim {
   0%, 100% { height: 6px; }
   50% { height: var(--wave-h, 20px); }
+}
+
+/* ================================================================
+   SERVICES SECTION — aurora effect
+   ================================================================ */
+.services-aurora-a {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(42,122,145,0.12), transparent 70%);
+  top: -10%;
+  right: -5%;
+  animation: auroraA 18s ease-in-out infinite;
+  will-change: transform;
+}
+.services-aurora-b {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(15,100,120,0.08), transparent 70%);
+  bottom: -10%;
+  left: -8%;
+  animation: auroraB 24s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes auroraA {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  40%       { transform: translate(-4%,6%) scale(1.1); }
+  70%       { transform: translate(6%,-4%) scale(0.92); }
+}
+@keyframes auroraB {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  35%       { transform: translate(5%,-5%) scale(1.08); }
+  65%       { transform: translate(-6%,4%) scale(0.95); }
 }
 
 /* ================================================================
@@ -290,11 +368,53 @@ body:hover .cursor-glow { opacity: 1; }
 }
 
 /* ================================================================
-   RESPONSIVE
+   WILL-CHANGE performance hints
+   ================================================================ */
+#heroImg,
+[data-about-photo] img,
+.hero-h1-line,
+#heroImageWrapper,
+#heroEyebrow,
+#heroFloat,
+#heroButtons {
+  will-change: transform, opacity;
+}
+
+/* ================================================================
+   RESPONSIVE — Mobile
    ================================================================ */
 @media (max-width: 900px) {
   .hide-mobile { display: none !important; }
 }
 @media (max-width: 600px) {
   .hide-small { display: none !important; }
+
+  /* Hero h1 minimum size */
+  #heroH1Day,
+  #heroH1Night {
+    font-size: clamp(2.4rem, 9vw, 3.4rem) !important;
+  }
+
+  /* Pain cards — single column, less padding */
+  .pain-grid {
+    grid-template-columns: 1fr !important;
+  }
+  [data-pain-card] {
+    padding: 1.5rem 1.5rem 1.5rem 1.75rem !important;
+  }
+
+  /* Service cards — single column */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Price cards — single column */
+  .pricing-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Voices — single column */
+  .voices-masonry {
+    columns: 1 !important;
+  }
 }
