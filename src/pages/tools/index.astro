@@ -8,38 +8,63 @@ import BookingCTA from '@/components/BookingCTA.astro';
   description="Бесплатные научно обоснованные техники самопомощи. Выберите то, что чувствуете — и попробуйте прямо сейчас. Анонимно. Без регистрации."
 >
 
-<!-- ACT 1: THE OPENING -->
-<section class="py-16 md:py-24 px-4" style="background: var(--color-cream);">
-  <div class="max-w-2xl mx-auto text-center">
-    <p class="text-sm font-medium tracking-widest uppercase mb-4" style="color: var(--color-primary);">Бесплатно · Анонимно · Без регистрации</p>
+<style>
+@keyframes floatA {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-14px) translateX(6px); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(10px) translateX(-8px); }
+}
+@keyframes floatC {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.hero-circle-a { animation: floatA 9s ease-in-out infinite; }
+.hero-circle-b { animation: floatB 7s ease-in-out infinite; }
+.hero-circle-c { animation: floatC 11s ease-in-out infinite; }
+.hero-circle-d { animation: floatB 8s ease-in-out infinite 2s; }
+</style>
 
-    <h1 class="font-heading text-3xl md:text-4xl mb-6" style="color: var(--color-deep);">
+<!-- ACT 1: HERO -->
+<section class="relative py-20 md:py-28 px-4 overflow-hidden" style="background: linear-gradient(135deg, #0F2E38 0%, #1B4D5C 60%, #2A6E82 100%);">
+  <!-- Decorative floating circles -->
+  <div class="hero-circle-a absolute top-12 left-[8%] w-48 h-48 rounded-full pointer-events-none" style="background:rgba(255,255,255,0.04);"></div>
+  <div class="hero-circle-b absolute bottom-8 right-[6%] w-72 h-72 rounded-full pointer-events-none" style="background:rgba(201,168,76,0.06);"></div>
+  <div class="hero-circle-c absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none" style="background:rgba(255,255,255,0.02);"></div>
+  <div class="hero-circle-d absolute top-8 right-[20%] w-24 h-24 rounded-full pointer-events-none" style="background:rgba(201,168,76,0.05);"></div>
+
+  <div class="relative z-10 max-w-2xl mx-auto text-center">
+    <p class="text-xs font-medium tracking-widest uppercase mb-5 text-white/60">Бесплатно · Анонимно · Без регистрации</p>
+
+    <h1 class="font-heading text-3xl md:text-[2.8rem] leading-[1.15] mb-6 text-white tracking-[-0.02em]">
       Вам не нужно записываться,<br/>чтобы получить помощь
     </h1>
 
-    <p class="text-lg leading-relaxed mb-4" style="color: var(--color-text-mid);">
-      Мы собрали техники, которые действительно работают. Каждая основана на методах доказательной психологии. Каждая бесплатна. Мы не просим email, не сохраняем данные, не отслеживаем вас.
+    <p class="text-lg leading-relaxed mb-4 text-white/70">
+      Мы собрали техники, которые действительно работают. Каждая основана на методах доказательной психологии. Каждая бесплатна.
     </p>
 
-    <p class="text-lg leading-relaxed mb-8 font-medium" style="color: var(--color-deep);">
+    <p class="text-lg leading-relaxed mb-10 font-medium text-white">
       Просто выберите, что вы чувствуете, и попробуйте.
     </p>
 
     <div class="flex flex-wrap justify-center gap-3">
-      <span class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm bg-white shadow-sm" style="color: var(--color-deep);">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      <span class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border text-white" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
         Полностью анонимно
       </span>
-      <span class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm bg-white shadow-sm" style="color: var(--color-deep);">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      <span class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border text-white" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
         Научно обоснованно
       </span>
-      <span class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm bg-white shadow-sm" style="color: var(--color-deep);">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <span class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border text-white" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         2–10 минут
       </span>
-      <span class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm bg-white shadow-sm" style="color: var(--color-deep);">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"/></svg>
+      <span class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border text-white" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.61a19.79 19.79 0 01-3.07-8.72A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.14a16 16 0 006.29 6.29l1.41-1.41a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.27z"/></svg>
         Без регистрации
       </span>
     </div>
@@ -47,327 +72,470 @@ import BookingCTA from '@/components/BookingCTA.astro';
 </section>
 
 <!-- FEELING NAV (sticky) -->
-<div class="sticky top-16 z-30 py-3 px-4 border-b overflow-x-auto" style="background: white; border-color: var(--color-border);">
+<div id="feelingNav" class="sticky top-16 z-30 py-3 px-4 border-b overflow-x-auto transition-shadow duration-300" style="background: white; border-color: var(--color-border);">
   <div class="flex gap-2 max-w-5xl mx-auto whitespace-nowrap">
-    <a href="#calm" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all hover:text-white hover:bg-[var(--color-primary)]" style="background: var(--color-warm); color: var(--color-deep);">Не могу успокоиться</a>
-    <a href="#empty" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all hover:text-white hover:bg-[var(--color-primary)]" style="background: var(--color-warm); color: var(--color-deep);">Нет сил</a>
-    <a href="#sleep" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all hover:text-white hover:bg-[var(--color-primary)]" style="background: var(--color-warm); color: var(--color-deep);">Не могу уснуть</a>
-    <a href="#pain" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all hover:text-white hover:bg-[var(--color-primary)]" style="background: var(--color-warm); color: var(--color-deep);">Больно внутри</a>
-    <a href="#lonely" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all hover:text-white hover:bg-[var(--color-primary)]" style="background: var(--color-warm); color: var(--color-deep);">Одиноко</a>
-    <a href="#angry" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all hover:text-white hover:bg-[var(--color-primary)]" style="background: var(--color-warm); color: var(--color-deep);">Всё раздражает</a>
-    <a href="#lost" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all hover:text-white hover:bg-[var(--color-primary)]" style="background: var(--color-warm); color: var(--color-deep);">Не знаю, кто я</a>
-    <a href="#quiet" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all hover:text-white hover:bg-[var(--color-primary)]" style="background: var(--color-warm); color: var(--color-deep);">Хочу тишины</a>
+    <a href="#calm" data-nav="calm" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-[var(--color-border)] hover:text-white hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]" style="color: var(--color-deep);">Не могу успокоиться</a>
+    <a href="#empty" data-nav="empty" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-[var(--color-border)] hover:text-white hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]" style="color: var(--color-deep);">Нет сил</a>
+    <a href="#sleep" data-nav="sleep" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-[var(--color-border)] hover:text-white hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]" style="color: var(--color-deep);">Не могу уснуть</a>
+    <a href="#pain" data-nav="pain" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-[var(--color-border)] hover:text-white hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]" style="color: var(--color-deep);">Больно внутри</a>
+    <a href="#lonely" data-nav="lonely" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-[var(--color-border)] hover:text-white hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]" style="color: var(--color-deep);">Одиноко</a>
+    <a href="#angry" data-nav="angry" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-[var(--color-border)] hover:text-white hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]" style="color: var(--color-deep);">Всё раздражает</a>
+    <a href="#lost" data-nav="lost" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-[var(--color-border)] hover:text-white hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]" style="color: var(--color-deep);">Не знаю, кто я</a>
+    <a href="#quiet" data-nav="quiet" class="feeling-pill px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border border-[var(--color-border)] hover:text-white hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]" style="color: var(--color-deep);">Хочу тишины</a>
   </div>
 </div>
 
-<!-- ACT 2: THE 8 FEELING SECTIONS -->
+<!-- ACT 2: 8 FEELING SECTIONS -->
 
 <!-- SECTION 1: Не могу успокоиться -->
 <section id="calm" class="py-14 px-4" style="background: var(--color-cream);">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-heading text-2xl md:text-3xl mb-2" style="color: var(--color-deep);">«Не могу успокоиться»</h2>
-    <p class="text-base mb-3" style="color: var(--color-text-mid);">Сердце колотится. Мысли по кругу. Тело не отпускает.</p>
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#E07A5F20;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E07A5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl md:text-3xl" style="color: var(--color-deep); border-left: 4px solid #E07A5F; padding-left: 12px;">«Не могу успокоиться»</h2>
+        <p class="text-base mt-1" style="color: var(--color-text-mid);">Сердце колотится. Мысли по кругу. Тело не отпускает.</p>
+      </div>
+    </div>
     <p class="text-xs px-3 py-1.5 rounded-lg inline-block mb-8" style="background: var(--color-warm); color: var(--color-text-light);">
       Методы: когнитивно-поведенческий подход, диафрагмальное дыхание, техники заземления
     </p>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <a href="/tools/breathe" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+    <div class="tools-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <a href="/tools/breathe" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #E07A5F;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Подышать</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">3 минуты. Вдох, пауза, выдох. Тело успокоится само.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">3 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#E07A5F;">3 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#E07A5F;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/ground" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/ground" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #E07A5F;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Вернуться в тело</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">5 вещей вижу, 4 слышу, 3 чувствую. Техника заземления.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">5 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#E07A5F;">5 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#E07A5F;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/reframe" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/reframe" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #E07A5F;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Посмотреть иначе</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Запишите тревожную мысль. Получите мягкий взгляд со стороны.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">5 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#E07A5F;">5 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#E07A5F;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #E07A5F;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Включить дождь</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Звуки природы + частота 396 Гц. Просто слушайте.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">∞ · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">∞ · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#E07A5F;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
     </div>
-
-    <p class="text-sm italic" style="color: var(--color-accent);">
-      <a href="/services/anxiety" class="hover:underline" style="color:inherit;">Если тревога не отпускает неделями — поговорите с Александрой →</a>
-    </p>
+    <p class="text-sm italic"><a href="/services/anxiety" class="hover:underline" style="color:#E07A5F;">Если тревога не отпускает неделями — поговорите с Александрой →</a></p>
   </div>
 </section>
+
+<!-- IMAGE BREAK 1 -->
+<div class="my-0 max-w-5xl mx-auto px-4 py-6 section-image">
+  <img src="/images/stock/anxious.jpg" alt="" class="w-full h-48 md:h-64 object-cover rounded-2xl opacity-80" loading="lazy" />
+</div>
 
 <!-- SECTION 2: Нет сил -->
 <section id="empty" class="py-14 px-4" style="background: white;">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-heading text-2xl md:text-3xl mb-2" style="color: var(--color-deep);">«Нет сил»</h2>
-    <p class="text-base mb-3" style="color: var(--color-text-mid);">Утром не хочется вставать. Ничего не радует. Внутри — пусто.</p>
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#8B9DC320;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8B9DC3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="2" ry="2"/><path d="M22 11V9a2 2 0 00-2-2H4a2 2 0 00-2 2v2"/><line x1="6" y1="12" x2="10" y2="12" stroke-width="2.5"/></svg>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl md:text-3xl" style="color: var(--color-deep); border-left: 4px solid #8B9DC3; padding-left: 12px;">«Нет сил»</h2>
+        <p class="text-base mt-1" style="color: var(--color-text-mid);">Утром не хочется вставать. Ничего не радует. Внутри — пусто.</p>
+      </div>
+    </div>
     <p class="text-xs px-3 py-1.5 rounded-lg inline-block mb-8" style="background: var(--color-warm); color: var(--color-text-light);">
       Методы: поведенческая активация, практика благодарности, журналирование
     </p>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <a href="/tools/journal" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+    <div class="tools-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <a href="/tools/journal" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #8B9DC3;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Написать, что чувствую</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Не нужно формулировать красиво. Просто выплесните.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">5 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#8B9DC3;">5 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#8B9DC3;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/gratitude" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/gratitude" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #8B9DC3;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Заметить хорошее</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Одна маленькая хорошая вещь в день. Это работает.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">2 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#8B9DC3;">2 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#8B9DC3;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/mood" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/mood" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #8B9DC3;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Проследить за настроением</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">7 дней наблюдений. На седьмой — персональный анализ.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">1 мин/день</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#8B9DC3;">1 мин/день</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#8B9DC3;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #8B9DC3;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Медитация благодарности</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">3 минуты тишины и внимания к хорошему.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">3 мин · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">3 мин · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#8B9DC3;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
     </div>
-
-    <p class="text-sm italic">
-      <a href="/services/depression" class="hover:underline" style="color:var(--color-accent);">Если пустота длится недели — вы заслуживаете поддержки →</a>
-    </p>
+    <p class="text-sm italic"><a href="/services/depression" class="hover:underline" style="color:#8B9DC3;">Если пустота длится недели — вы заслуживаете поддержки →</a></p>
   </div>
 </section>
 
 <!-- SECTION 3: Не могу уснуть -->
 <section id="sleep" class="py-14 px-4" style="background: var(--color-cream);">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-heading text-2xl md:text-3xl mb-2" style="color: var(--color-deep);">«Не могу уснуть»</h2>
-    <p class="text-base mb-3" style="color: var(--color-text-mid);">3 часа ночи. Мысли не выключаются. Тело устало, голова — нет.</p>
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#6C5B7B20;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6C5B7B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl md:text-3xl" style="color: var(--color-deep); border-left: 4px solid #6C5B7B; padding-left: 12px;">«Не могу уснуть»</h2>
+        <p class="text-base mt-1" style="color: var(--color-text-mid);">3 часа ночи. Мысли не выключаются. Тело устало, голова — нет.</p>
+      </div>
+    </div>
     <p class="text-xs px-3 py-1.5 rounded-lg inline-block mb-8" style="background: var(--color-warm); color: var(--color-text-light);">
       Методы: когнитивная терапия бессонницы, прогрессивная релаксация, дыхательные техники
     </p>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <a href="/tools/breathe" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+    <div class="tools-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <a href="/tools/breathe" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #6C5B7B;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Дыхание для сна</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Техника 4-7-8. Естественный способ замедлить нервную систему.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">3 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#6C5B7B;">3 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#6C5B7B;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/body-scan" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/body-scan" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #6C5B7B;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Расслабить тело</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Пройдите вниманием от макушки до стоп. Тело отпустит.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">7 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#6C5B7B;">7 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#6C5B7B;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #6C5B7B;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Звуки для сна</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Дождь, низкие частоты, ритм глубокого сна.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">30 мин · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">30 мин · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#6C5B7B;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #6C5B7B;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Медитация: сканирование тела</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Лучше снотворного. Без побочных эффектов.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">5 мин · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">5 мин · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#6C5B7B;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
     </div>
-
-    <p class="text-sm italic">
-      <a href="/services/anxiety" class="hover:underline" style="color:var(--color-accent);">Если бессонница длится дольше двух недель →</a>
-    </p>
+    <p class="text-sm italic"><a href="/services/anxiety" class="hover:underline" style="color:#6C5B7B;">Если бессонница длится дольше двух недель →</a></p>
   </div>
 </section>
+
+<!-- IMAGE BREAK 2 -->
+<div class="max-w-5xl mx-auto px-4 py-6 section-image">
+  <img src="/images/stock/Copying-Skill.jpg" alt="" class="w-full h-48 md:h-64 object-cover rounded-2xl opacity-80" loading="lazy" />
+</div>
 
 <!-- SECTION 4: Больно внутри -->
 <section id="pain" class="py-14 px-4" style="background: white;">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-heading text-2xl md:text-3xl mb-2" style="color: var(--color-deep);">«Больно внутри»</h2>
-    <p class="text-base mb-3" style="color: var(--color-text-mid);">Что-то тяжёлое внутри. Может быть, из прошлого. Может — из настоящего.</p>
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#C06C8420;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C06C84" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/><line x1="12" y1="8" x2="12" y2="13" stroke-width="2"/></svg>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl md:text-3xl" style="color: var(--color-deep); border-left: 4px solid #C06C84; padding-left: 12px;">«Больно внутри»</h2>
+        <p class="text-base mt-1" style="color: var(--color-text-mid);">Что-то тяжёлое внутри. Может быть, из прошлого. Может — из настоящего.</p>
+      </div>
+    </div>
     <p class="text-xs px-3 py-1.5 rounded-lg inline-block mb-4" style="background: var(--color-warm); color: var(--color-text-light);">
       Методы: техники стабилизации и ресурсирования, используемые в работе с травмой
     </p>
     <div class="mb-6 px-4 py-3 rounded-xl text-sm" style="background: rgba(220,38,38,0.05); border: 1px solid rgba(220,38,38,0.12); color: #991b1b;">
       Эти техники помогают стабилизировать состояние. Глубокая работа с травмой требует специалиста.
     </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <a href="/tools/ground" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+    <div class="tools-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <a href="/tools/ground" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #C06C84;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Вернуться в безопасность</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Заземление. 5 чувств. Вы здесь. Вы в безопасности.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">5 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#C06C84;">5 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#C06C84;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/unsent" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/unsent" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #C06C84;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Написать то, что не сказал(а)</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Напишите письмо тому, кому не смогли сказать.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">10 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#C06C84;">10 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#C06C84;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #C06C84;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Безопасное место</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Визуализация пространства, где вам спокойно.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">5 мин · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">5 мин · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#C06C84;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/breathe" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/breathe" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #C06C84;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Просто дышать</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Когда больно — начните с дыхания. Остальное потом.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">3 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#C06C84;">3 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#C06C84;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
     </div>
-
-    <p class="text-sm italic">
-      <a href="/services/trauma" class="hover:underline" style="color:var(--color-accent);">Вы пережили многое. Мы можем быть рядом. →</a>
-    </p>
+    <p class="text-sm italic"><a href="/services/trauma" class="hover:underline" style="color:#C06C84;">Вы пережили многое. Мы можем быть рядом. →</a></p>
   </div>
 </section>
 
 <!-- SECTION 5: Одиноко -->
 <section id="lonely" class="py-14 px-4" style="background: var(--color-cream);">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-heading text-2xl md:text-3xl mb-2" style="color: var(--color-deep);">«Одиноко»</h2>
-    <p class="text-base mb-3" style="color: var(--color-text-mid);">Рядом люди, но поговорить не с кем. Особенно на родном языке.</p>
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#5B8C8520;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5B8C85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl md:text-3xl" style="color: var(--color-deep); border-left: 4px solid #5B8C85; padding-left: 12px;">«Одиноко»</h2>
+        <p class="text-base mt-1" style="color: var(--color-text-mid);">Рядом люди, но поговорить не с кем. Особенно на родном языке.</p>
+      </div>
+    </div>
     <p class="text-xs px-3 py-1.5 rounded-lg inline-block mb-8" style="background: var(--color-warm); color: var(--color-text-light);">
       Методы: нарративные практики, работа с идентичностью
     </p>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <a href="/tools/journal" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+    <div class="tools-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <a href="/tools/journal" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #5B8C85;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Написать, что на душе</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Здесь можно на русском. Без осуждения. Без советов.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">5 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#5B8C85;">5 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#5B8C85;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/unsent" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/unsent" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #5B8C85;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Письмо тому, кого не хватает</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Маме. Другу. Городу, которого больше нет.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">10 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#5B8C85;">10 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#5B8C85;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/values" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/values" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #5B8C85;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Понять, что важно</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">24 карточки. Что вам по-настоящему важно в жизни?</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">10 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#5B8C85;">10 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#5B8C85;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #5B8C85;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Медитация: самосострадание</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Побудьте добры к себе. Хотя бы 4 минуты.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">4 мин · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">4 мин · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#5B8C85;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
     </div>
-
-    <p class="text-sm italic">
-      <a href="/services/relocation" class="hover:underline" style="color:var(--color-accent);">Скучать по дому — не слабость →</a>
-    </p>
+    <p class="text-sm italic"><a href="/services/relocation" class="hover:underline" style="color:#5B8C85;">Скучать по дому — не слабость →</a></p>
   </div>
 </section>
+
+<!-- IMAGE BREAK 3 -->
+<div class="max-w-5xl mx-auto px-4 py-6 section-image">
+  <img src="/images/stock/service-img.jpg" alt="" class="w-full h-48 md:h-64 object-cover rounded-2xl opacity-80" loading="lazy" />
+</div>
 
 <!-- SECTION 6: Всё раздражает -->
 <section id="angry" class="py-14 px-4" style="background: white;">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-heading text-2xl md:text-3xl mb-2" style="color: var(--color-deep);">«Всё раздражает»</h2>
-    <p class="text-base mb-3" style="color: var(--color-text-mid);">Вы на пределе. Любая мелочь выводит. И вы злитесь на себя за злость.</p>
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#D4726A20;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D4726A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl md:text-3xl" style="color: var(--color-deep); border-left: 4px solid #D4726A; padding-left: 12px;">«Всё раздражает»</h2>
+        <p class="text-base mt-1" style="color: var(--color-text-mid);">Вы на пределе. Любая мелочь выводит. И вы злитесь на себя за злость.</p>
+      </div>
+    </div>
     <p class="text-xs px-3 py-1.5 rounded-lg inline-block mb-8" style="background: var(--color-warm); color: var(--color-text-light);">
       Методы: эмоциональная регуляция, осознанность
     </p>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <a href="/tools/breathe" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+    <div class="tools-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <a href="/tools/breathe" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #D4726A;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Выдохнуть</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Прежде чем что-то делать — просто выдохните.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">3 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#D4726A;">3 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#D4726A;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/journal" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/journal" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #D4726A;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Выплеснуть на бумагу</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Злость тоже можно записать. Здесь можно всё.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">5 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#D4726A;">5 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#D4726A;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/reframe" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/reframe" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #D4726A;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Посмотреть иначе</h3>
-        <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Мысль, которая бесит — можно ли на неё взглянуть по-другому?</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">5 мин</span>
+        <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Мысль, которая бесит — можно ли взглянуть иначе?</p>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#D4726A;">5 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#D4726A;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #D4726A;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Звуки для перезагрузки</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Частота ясности + фоновый шум. Мозг переключится.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">∞ · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">∞ · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#D4726A;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
     </div>
-
-    <p class="text-sm italic">
-      <a href="/services/burnout" class="hover:underline" style="color:var(--color-accent);">Если раздражение не проходит — это сигнал →</a>
-    </p>
+    <p class="text-sm italic"><a href="/services/burnout" class="hover:underline" style="color:#D4726A;">Если раздражение не проходит — это сигнал →</a></p>
   </div>
 </section>
 
 <!-- SECTION 7: Не знаю, кто я -->
 <section id="lost" class="py-14 px-4" style="background: var(--color-cream);">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-heading text-2xl md:text-3xl mb-2" style="color: var(--color-deep);">«Не знаю, кто я»</h2>
-    <p class="text-base mb-3" style="color: var(--color-text-mid);">Потерялись между ролями. Между странами. Между «кем я был» и «кем стал».</p>
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#C9A84C20;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl md:text-3xl" style="color: var(--color-deep); border-left: 4px solid #C9A84C; padding-left: 12px;">«Не знаю, кто я»</h2>
+        <p class="text-base mt-1" style="color: var(--color-text-mid);">Потерялись между ролями. Между странами. Между «кем я был» и «кем стал».</p>
+      </div>
+    </div>
     <p class="text-xs px-3 py-1.5 rounded-lg inline-block mb-8" style="background: var(--color-warm); color: var(--color-text-light);">
       Методы: терапия принятия и ответственности (ACT), нарративный подход
     </p>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <a href="/tools/values" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+    <div class="tools-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <a href="/tools/values" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #C9A84C;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Что мне важно</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">24 ценности. Разложите по приоритету. Увидите себя.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">10 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#C9A84C;">10 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#C9A84C;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/self-compassion" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/self-compassion" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #C9A84C;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Написать себе</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Письмо от имени лучшего друга — самому себе.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">7 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#C9A84C;">7 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#C9A84C;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/journal" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/journal" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #C9A84C;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Дневник</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Кто я сегодня? Что я чувствую? Без правильных ответов.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">5 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#C9A84C;">5 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#C9A84C;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #C9A84C;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Медитация: самосострадание</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Вы не сломаны. Вы — человек, которому нужна опора.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">4 мин · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">4 мин · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#C9A84C;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
     </div>
-
-    <p class="text-sm italic">
-      <a href="/services/life-transitions" class="hover:underline" style="color:var(--color-accent);">Перемены не обязательно переживать в одиночку →</a>
-    </p>
+    <p class="text-sm italic"><a href="/services/life-transitions" class="hover:underline" style="color:#C9A84C;">Перемены не обязательно переживать в одиночку →</a></p>
   </div>
 </section>
+
+<!-- IMAGE BREAK 4 -->
+<div class="max-w-5xl mx-auto px-4 py-6 section-image">
+  <img src="/images/stock/life-transition.jpg" alt="" class="w-full h-48 md:h-64 object-cover rounded-2xl opacity-80" loading="lazy" />
+</div>
 
 <!-- SECTION 8: Хочу тишины -->
 <section id="quiet" class="py-14 px-4" style="background: white;">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-heading text-2xl md:text-3xl mb-2" style="color: var(--color-deep);">«Хочу тишины»</h2>
-    <p class="text-base mb-3" style="color: var(--color-text-mid);">Не обязательно что-то чувствовать. Иногда просто хочется покоя.</p>
+    <div class="flex items-center gap-4 mb-4">
+      <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background:#7BA09920;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7BA099" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 20.44a.5.5 0 00.74.63C7.35 19.2 11 18 17 18"/><path d="M17 8c1 2 2 4 2 6s-1 4-2 6"/><path d="M17 8V4"/></svg>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl md:text-3xl" style="color: var(--color-deep); border-left: 4px solid #7BA099; padding-left: 12px;">«Хочу тишины»</h2>
+        <p class="text-base mt-1" style="color: var(--color-text-mid);">Не обязательно что-то чувствовать. Иногда просто хочется покоя.</p>
+      </div>
+    </div>
     <p class="text-xs px-3 py-1.5 rounded-lg inline-block mb-8" style="background: var(--color-warm); color: var(--color-text-light);">
       Методы: практика осознанности (mindfulness) — MBSR
     </p>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+    <div class="tools-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #7BA099;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Студия покоя</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Дождь, океан, камин, птицы. Смешайте свой звуковой фон.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">∞</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#7BA099;">∞</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#7BA099;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #7BA099;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Частоты гармонии</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">9 частот для разных состояний. Просто слушайте.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">∞ · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">∞ · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#7BA099;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/studio" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/studio" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #7BA099;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Направленные медитации</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">5 медитаций от 3 до 7 минут. Выберите своё.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">3–7 мин · Студия покоя</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">3–7 мин · Студия</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#7BA099;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
-      <a href="/tools/breathe" class="feeling-tool-card group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block">
+      <a href="/tools/breathe" class="group p-5 bg-white rounded-2xl shadow-sm border border-[var(--color-border)] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 no-underline block" style="border-top: 3px solid #7BA099;">
         <h3 class="font-heading text-sm font-semibold mb-1" style="color: var(--color-deep);">Дыхание</h3>
         <p class="text-xs leading-snug mb-3" style="color: var(--color-text-mid);">Вдох. Пауза. Выдох. Больше ничего не нужно.</p>
-        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(201,168,76,0.1);color:var(--color-accent);">3 мин</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium text-white" style="background:#7BA099;">3 мин</span>
+          <span class="inline-flex items-center gap-1 text-xs transition-all duration-200 group-hover:gap-2" style="color:#7BA099;">Попробовать <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
       </a>
     </div>
   </div>
 </section>
 
 <!-- ACT 3: THE TRANSITION -->
-<section class="py-20 md:py-28 px-4" style="background: linear-gradient(180deg, white 0%, var(--color-warm) 100%);">
-  <div class="max-w-2xl mx-auto text-center">
+<section class="py-20 md:py-28 px-4 relative overflow-hidden" style="background: linear-gradient(180deg, var(--color-warm) 0%, #1B4D5C 100%);">
+  <div class="max-w-2xl mx-auto text-center relative z-10">
 
     <h2 class="font-heading text-2xl md:text-3xl mb-6" style="color: var(--color-deep);">
       Техники помогают.<br/>Правда помогают.
@@ -377,33 +545,33 @@ import BookingCTA from '@/components/BookingCTA.astro';
       Дыхание снижает пульс. Дневник разгружает голову. Заземление возвращает в момент. Это не плацебо. Это работает.
     </p>
 
-    <p class="text-lg leading-relaxed mb-4 font-medium" style="color: var(--color-deep);">
+    <p class="text-lg leading-relaxed mb-4 font-semibold" style="color: var(--color-deep);">
       Но иногда этого недостаточно.
     </p>
 
-    <p class="text-lg leading-relaxed mb-10" style="color: var(--color-text-mid);">
+    <p class="text-lg leading-relaxed mb-10 text-white/70">
       Иногда нужен не инструмент, а человек. Который выслушает. Который поймёт контекст. Который увидит то, что вы сами не замечаете. На вашем языке. В вашем темпе.
     </p>
 
-    <div class="max-w-md mx-auto p-6 rounded-2xl bg-white shadow-lg text-left mb-8">
+    <div class="max-w-md mx-auto p-6 rounded-2xl bg-white shadow-xl text-left mb-8">
       <div class="flex items-center gap-4 mb-4">
-        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow" />
+        <img src="/images/alexandra-couch.jpeg" alt="Александра — психолог-консультант MindHub24" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow" />
         <div>
           <p class="font-heading text-lg" style="color: var(--color-deep);">Александра</p>
           <p class="text-sm" style="color: var(--color-text-mid);">Психолог-консультант · 5+ лет</p>
         </div>
       </div>
-      <p class="text-base mb-4" style="color: var(--color-text-mid);">
+      <p class="text-base mb-5 italic" style="color: var(--color-text-mid);">
         «Инструменты на этом сайте я подбирала лично. Они работают. Но если вы чувствуете, что вам нужно больше, я здесь. 15 минут. Бесплатно. Просто поговорим.»
       </p>
-      <a href="/book" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-medium text-white rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5" style="background: linear-gradient(135deg, #1B4D5C 0%, #2A6E82 100%);">
+      <a href="/book" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-medium rounded-full transition-all duration-300 hover:-translate-y-0.5" style="background: var(--color-accent); color: var(--color-deep); box-shadow: 0 4px 16px rgba(201,168,76,0.25);" onmouseover="this.style.boxShadow='0 0 20px rgba(201,168,76,0.4)'" onmouseout="this.style.boxShadow='0 4px 16px rgba(201,168,76,0.25)'">
         Записаться на бесплатный 15-минутный звонок
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <p class="text-center mt-3 text-xs" style="color: var(--color-text-light);">Онлайн · Конфиденциально · Без обязательств</p>
     </div>
 
-    <p class="text-sm italic" style="color: var(--color-text-light);">
+    <p class="text-sm italic text-white/50">
       «Я начала с дыхательного упражнения. Потом попробовала дневник. А через неделю записалась к Александре. Лучшее решение за год.»
     </p>
 
@@ -413,3 +581,80 @@ import BookingCTA from '@/components/BookingCTA.astro';
 <BookingCTA quote="Первый шаг не должен быть трудным. Мы сделали его маленьким специально для вас." />
 
 </MainLayout>
+
+<script>
+  // ── Active nav pill via IntersectionObserver ──
+  const sections = document.querySelectorAll('section[id]');
+  const navBar = document.getElementById('feelingNav');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        document.querySelectorAll('.feeling-pill').forEach(pill => {
+          const active = (pill as HTMLElement).dataset.nav === id;
+          if (active) {
+            pill.classList.add('text-white', 'bg-[var(--color-primary)]', 'border-[var(--color-primary)]');
+            pill.classList.remove('border-[var(--color-border)]');
+            (pill as HTMLElement).style.background = 'var(--color-primary)';
+            (pill as HTMLElement).style.color = 'white';
+            (pill as HTMLElement).style.borderColor = 'var(--color-primary)';
+          } else {
+            (pill as HTMLElement).style.background = '';
+            (pill as HTMLElement).style.color = 'var(--color-deep)';
+            (pill as HTMLElement).style.borderColor = 'var(--color-border)';
+          }
+        });
+      }
+    });
+  }, { threshold: 0.25, rootMargin: '-64px 0px -30% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ── Nav shadow on scroll ──
+  window.addEventListener('scroll', () => {
+    if (navBar) {
+      navBar.style.boxShadow = window.scrollY > 80 ? '0 4px 16px rgba(0,0,0,0.07)' : 'none';
+    }
+  }, { passive: true });
+
+  // ── GSAP scroll animations ──
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    // Section h2 headers slide from left
+    document.querySelectorAll('section[id] h2').forEach((h2: any) => {
+      gsap.from(h2.closest('.flex.items-center.gap-4') || h2, {
+        opacity: 0, x: -24, duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: h2, start: 'top 88%' },
+      });
+    });
+
+    // Tool card grids stagger in
+    document.querySelectorAll('.tools-grid').forEach((grid: any) => {
+      gsap.from(Array.from(grid.children), {
+        opacity: 0, y: 24, duration: 0.5, stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: grid, start: 'top 88%' },
+      });
+    });
+
+    // Image breaks scale in
+    document.querySelectorAll('.section-image').forEach((el: any) => {
+      gsap.from(el.querySelector('img') || el, {
+        opacity: 0, scale: 0.95, duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 92%' },
+      });
+    });
+
+    // ACT 3 transition section
+    const act3 = document.querySelector('section.py-20');
+    if (act3) {
+      gsap.from(act3.querySelectorAll('h2, p, .max-w-md'), {
+        opacity: 0, y: 20, duration: 0.6, stagger: 0.12,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: act3, start: 'top 85%' },
+      });
+    }
+  }
+</script>
