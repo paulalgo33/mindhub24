@@ -209,38 +209,64 @@ const jsonLd = {
   </div>
 </section>
 
-<!-- =================== TESTIMONIALS PLACEHOLDER =================== -->
-<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+<!-- =================== TESTIMONIALS =================== -->
+<section id="testimonials" class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
   <div class="max-w-[1000px] mx-auto">
     <p class="s-label text-center" data-reveal>Отзывы</p>
     <h2 class="s-title text-center" data-reveal>Истории клиентов</h2>
     <p class="text-center text-[var(--color-text-mid)] font-light mb-12 max-w-[500px] mx-auto" data-reveal>
-      Мы собираем отзывы с согласия каждого клиента. Скоро здесь появятся реальные истории.
+      Реальные слова людей, которые уже сделали первый шаг.
     </p>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {[1,2,3].map(() => (
-        <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
-          <div class="flex gap-1 mb-4">
-            {[1,2,3,4,5].map(() => (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--color-accent)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            ))}
-          </div>
-          <p class="text-[var(--color-text-mid)] font-light italic leading-relaxed text-sm mb-5">«Отзыв скоро появится здесь. Мы публикуем только с согласия клиента.»</p>
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-[rgba(27,77,92,0.07)] flex items-center justify-center">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div>
-              <p class="text-xs font-medium text-[var(--color-deep)]">Клиент</p>
-              <p class="text-[0.65rem] text-[var(--color-text-light)]">Онлайн-консультация</p>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Testimonial 1 — Марина, Tel Aviv -->
+      <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass">
+        <svg class="w-8 h-8 mb-4" style="color:var(--color-accent);" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.598-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.598-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="font-heading text-lg italic leading-[1.8] text-[var(--color-text)] mb-6">«Я живу в Израиле 8 лет, но до сих пор не могла объяснить на иврите то, что чувствую внутри. С Александрой я наконец говорю о важном — на своём языке.»</p>
+        <div class="flex items-center gap-3">
+          <div>
+            <p class="font-medium text-sm text-[var(--color-deep)]">Марина, 34 · Тель-Авив 🇮🇱</p>
+            <span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(27,77,92,0.1);color:var(--color-primary);">Адаптация к переезду</span>
           </div>
         </div>
-      ))}
+      </div>
+
+      <!-- Testimonial 2 — Anonymous, Berlin -->
+      <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass">
+        <svg class="w-8 h-8 mb-4" style="color:var(--color-accent);" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.598-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.598-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="font-heading text-lg italic leading-[1.8] text-[var(--color-text)] mb-6">«Никто на работе не знает, что я работаю с психологом. Онлайн из дома, в наушниках — это невидимо. И это было для меня решающим.»</p>
+        <div class="flex items-center gap-3">
+          <div>
+            <p class="font-medium text-sm text-[var(--color-deep)]">🔒 Имя скрыто, 29 · Берлин 🇩🇪</p>
+            <span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(27,77,92,0.1);color:var(--color-primary);">Тревога</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 — Анна, Warsaw -->
+      <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass">
+        <svg class="w-8 h-8 mb-4" style="color:var(--color-accent);" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.598-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.598-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="font-heading text-lg italic leading-[1.8] text-[var(--color-text)] mb-6">«Я записалась в 2 часа ночи. Не могла дышать от тревоги. Утром пришло подтверждение. Через 3 дня была первая встреча. Не через месяц. Через 3 дня.»</p>
+        <div class="flex items-center gap-3">
+          <div>
+            <p class="font-medium text-sm text-[var(--color-deep)]">Анна, 31 · Варшава 🇵🇱</p>
+            <span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(27,77,92,0.1);color:var(--color-primary);">Тревога и стресс</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 4 — Дмитрий, Tallinn -->
+      <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass">
+        <svg class="w-8 h-8 mb-4" style="color:var(--color-accent);" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.598-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.598-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="font-heading text-lg italic leading-[1.8] text-[var(--color-text)] mb-6">«Я думал, что психолог — это для тех, кто сломался. Оказалось, это для тех, кто хочет разобраться. Жалею только, что не пришёл раньше.»</p>
+        <div class="flex items-center gap-3">
+          <div>
+            <p class="font-medium text-sm text-[var(--color-deep)]">Дмитрий, 35 · Таллин 🇪🇪</p>
+            <span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(27,77,92,0.1);color:var(--color-primary);">Самооценка</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <p class="text-xs text-[var(--color-text-light)] text-center mt-6 max-w-[600px] mx-auto">
-      * Имена и детали изменены для защиты конфиденциальности. Отзывы основаны на реальном опыте клиентов.
-    </p>
+    <p class="text-xs text-[var(--color-text-light)] text-center mt-6">* Имена и детали изменены для защиты конфиденциальности.</p>
     <div class="text-center mt-6" data-reveal>
       <a href="/testimonials/" class="btn-ghost">Все отзывы →</a>
     </div>

@@ -46,6 +46,19 @@ import MainLayout from '@/layouts/MainLayout.astro';
   </div>
 </section>
 
+<!-- Photo break -->
+<div class="px-[clamp(1.5rem,4vw,3rem)] py-2 bg-[var(--color-cream)]">
+  <div class="max-w-[900px] mx-auto">
+    <img
+      src="/images/alexandra-session.jpeg"
+      alt="Александра — MindHub24"
+      class="w-full max-h-[380px] object-cover rounded-2xl"
+      style="object-position:center 20%;box-shadow:0 20px 60px rgba(0,0,0,0.07);"
+      loading="lazy"
+    />
+  </div>
+</div>
+
 <!-- Outcomes -->
 <section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
   <div class="max-w-[720px] mx-auto">
@@ -66,6 +79,19 @@ import MainLayout from '@/layouts/MainLayout.astro';
     </div>
   </div>
 </section>
+
+<!-- Online advantage callout -->
+<div class="px-[clamp(1.5rem,4vw,3rem)] py-6">
+  <div class="max-w-[760px] mx-auto flex items-start gap-4 p-6 rounded-2xl" style="background:rgba(27,77,92,0.05);border:1px solid rgba(27,77,92,0.1);">
+    <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full" style="background:rgba(27,77,92,0.1);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    </div>
+    <div>
+      <p class="font-medium text-[var(--color-deep)] mb-1">Полностью онлайн</p>
+      <p class="text-sm text-[var(--color-text-mid)] font-light">Вы можете быть дома, в машине, в другой стране — главное, чтобы Вам было комфортно. Никто не увидит, что Вы обратились к психологу.</p>
+    </div>
+  </div>
+</div>
 
 <!-- Related tools -->
 <section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
@@ -92,24 +118,6 @@ import MainLayout from '@/layouts/MainLayout.astro';
     <div class="flex flex-wrap gap-3 mt-4" data-reveal>
       <a href="/services/depression" class="py-2 px-5 bg-white rounded-full border border-[var(--color-border)] text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all no-underline">Сниженное настроение</a>
       <a href="/services/burnout" class="py-2 px-5 bg-white rounded-full border border-[var(--color-border)] text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all no-underline">Выгорание</a>
-    </div>
-  </div>
-</section>
-
-<!-- Free tools -->
-<section class="py-10 px-[clamp(1.5rem,4vw,3rem)]">
-  <div class="max-w-[760px] mx-auto">
-    <p class="s-label">Бесплатные инструменты</p>
-    <h3 class="font-heading text-2xl text-[var(--color-deep)] mb-6">Попробуйте прямо сейчас</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <a href="/tools/breathe" class="p-5 rounded-xl border border-[var(--color-border)] bg-white card-glass hover:-translate-y-1 transition-all duration-300 block">
-        <p class="font-heading text-lg text-[var(--color-primary)] mb-1">Дыши со мной</p>
-        <p class="text-sm text-[var(--color-text-mid)] font-light">Дыхательное упражнение для снятия тревоги. 3 минуты.</p>
-      </a>
-      <a href="/tools/reframe" class="p-5 rounded-xl border border-[var(--color-border)] bg-white card-glass hover:-translate-y-1 transition-all duration-300 block">
-        <p class="font-heading text-lg text-[var(--color-primary)] mb-1">Другой взгляд</p>
-        <p class="text-sm text-[var(--color-text-mid)] font-light">Переформулируйте мысль, которая держит Вас.</p>
-      </a>
     </div>
   </div>
 </section>
