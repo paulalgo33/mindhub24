@@ -110,7 +110,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
   </main>
 
   <!-- =================== FOOTER =================== -->
-  <footer style="background:#111;">
+  <footer style="background:#0F2E38;">
     <!-- Main footer grid -->
     <div class="max-w-[1200px] mx-auto px-[clamp(1.5rem,4vw,3rem)] py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
       <!-- Col 1: Brand -->
@@ -193,11 +193,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
     </div>
   </footer>
 
-  <!-- Night mode detection -->
-  <script>
-    const h = new Date().getHours();
-    if (h >= 23 || h < 5) document.body.setAttribute('data-night', 'true');
-  </script>
+  <!-- Night mode: main site always uses light theme — night mode is landing-page only -->
 
   <!-- Core scripts -->
   <script>
@@ -311,9 +307,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
     opacity: 1;
     border-bottom-color: var(--color-border);
   }
-  [data-night="true"] #mainNav::after {
-    background: rgba(11, 15, 19, 0.92);
-  }
+  /* Main site is always light — no night mode override needed */
   .nav-inner {
     position: relative;
     z-index: 1;
