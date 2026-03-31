@@ -12,7 +12,7 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
 >
 
 <section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
-  <div class="max-w-[800px] mx-auto">
+  <div class="max-w-[1100px] mx-auto">
     <p class="s-label" data-reveal>Блог</p>
     <h1 class="s-title" data-reveal>Статьи</h1>
     <p class="s-subtitle" data-reveal>Практичные материалы о психологии, написанные на русском — без жаргона и без снисхождения.</p>
@@ -20,22 +20,29 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
 </section>
 
 <section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
-  <div class="max-w-[800px] mx-auto">
+  <div class="max-w-[1100px] mx-auto">
     {posts.length > 0 ? (
-      <div class="flex flex-col gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {posts.map((post) => (
-          <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
-            <div class="flex items-center gap-3 mb-4">
-              <span class="text-[0.65rem] tracking-[0.1em] uppercase bg-[rgba(27,77,92,0.07)] text-[var(--color-primary)] py-1 px-2.5 rounded-full font-semibold">{post.data.category}</span>
-              <span class="text-xs text-[var(--color-text-light)]">{new Date(post.data.date).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-            </div>
-            <h2 class="font-heading text-xl font-semibold text-[var(--color-deep)] mb-3">{post.data.title}</h2>
-            <p class="text-[var(--color-text-mid)] font-light leading-relaxed mb-5">{post.data.excerpt}</p>
-            {post.data.published ? (
-              <a href={`/blog/${post.slug}`} class="btn-ghost text-sm">Читать →</a>
-            ) : (
-              <span class="text-xs text-[var(--color-text-light)]">Скоро</span>
+          <div class="bg-white rounded-2xl border border-[var(--color-border)] card-glass overflow-hidden flex flex-col" data-reveal>
+            {post.data.coverImage && (
+              <div class="h-48 overflow-hidden">
+                <img src={post.data.coverImage} alt={post.data.title} class="w-full h-full object-cover" loading="lazy" />
+              </div>
             )}
+            <div class="p-7 flex flex-col flex-1">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="text-[0.65rem] tracking-[0.1em] uppercase bg-[rgba(27,77,92,0.07)] text-[var(--color-primary)] py-1 px-2.5 rounded-full font-semibold">{post.data.category}</span>
+                <span class="text-xs text-[var(--color-text-light)]">{new Date(post.data.date).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </div>
+              <h2 class="font-heading text-xl font-normal text-[var(--color-deep)] mb-3 leading-snug">{post.data.title}</h2>
+              <p class="text-[var(--color-text-mid)] font-light leading-relaxed mb-5 flex-1">{post.data.excerpt}</p>
+              {post.data.published ? (
+                <a href={`/blog/${post.slug}`} class="btn-ghost text-sm self-start">Читать →</a>
+              ) : (
+                <span class="text-xs text-[var(--color-text-light)]">Скоро</span>
+              )}
+            </div>
           </div>
         ))}
       </div>
