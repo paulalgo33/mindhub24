@@ -67,13 +67,18 @@ import ToolLayout from '@/layouts/ToolLayout.astro';
       </div>
     </div>
 
-    <!-- Finish -->
-    <div class="mt-10 text-center">
-      <a href="/lp/israel#pricing" class="btn-primary justify-center" style="background:var(--color-primary);">
-        <span>Хотите работать с телом глубже? Записаться</span>
-      </a>
-      <button id="clearBtn" class="btn-ghost mt-4 text-sm w-full justify-center" style="color:rgba(230,237,243,0.3);">Сбросить</button>
+    <!-- CTA -->
+    <div class="mt-10 p-6 rounded-2xl" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);">
+      <div class="flex items-start gap-4">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-12 h-12 rounded-full object-cover flex-shrink-0" style="box-shadow:0 2px 8px rgba(0,0,0,0.2);" />
+        <div>
+          <p class="font-heading text-base mb-1" style="color:#e6edf3;">Инструменты помогают. Но иногда нужен человек.</p>
+          <p class="text-sm font-light mb-4" style="color:rgba(230,237,243,0.6);">Александра здесь — когда будете готовы.</p>
+          <a href="/lp/israel#pricing" class="btn-primary" style="display:inline-flex;background:rgba(42,122,145,0.7);"><span>Записаться бесплатно</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-left:6px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
     </div>
+    <button id="clearBtn" class="btn-ghost mt-4 text-sm w-full justify-center" style="color:rgba(230,237,243,0.3);">Сбросить</button>
   </div>
 </ToolLayout>
 
