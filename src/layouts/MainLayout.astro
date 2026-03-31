@@ -61,7 +61,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
   <div class="grain"></div>
 
   <!-- =================== NAVIGATION =================== -->
-  <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="will-change:transform;">
+  <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="will-change:transform;background:rgba(250,247,242,0.97);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.06);">
     <div class="nav-inner max-w-[1400px] mx-auto flex items-center justify-between px-[clamp(1.5rem,4vw,3rem)] h-[70px]">
       <!-- Logo -->
       <a href="/" class="flex items-center flex-shrink-0">
@@ -292,22 +292,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
 </html>
 
 <style>
-  #mainNav::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(250, 247, 242, 0.92);
-    backdrop-filter: blur(30px) saturate(1.8);
-    -webkit-backdrop-filter: blur(30px) saturate(1.8);
-    opacity: 0;
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    border-bottom: 1px solid transparent;
-    z-index: -1;
-  }
-  #mainNav.scrolled::after {
-    opacity: 1;
-    border-bottom-color: var(--color-border);
-  }
+  /* Nav is always solid — no pseudo-element needed */
   @keyframes gentlePulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(27, 77, 92, 0.3); }
     50% { box-shadow: 0 0 0 8px rgba(27, 77, 92, 0); }
