@@ -56,9 +56,24 @@ const jsonLd = {
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
-      <p class="text-xs text-[var(--color-text-light)] font-light leading-relaxed" data-reveal>
-        🔒 Конфиденциально &nbsp;·&nbsp; 🌍 Из любой страны &nbsp;·&nbsp; 💻 Полностью онлайн &nbsp;·&nbsp; 🎁 Первая встреча бесплатно
-      </p>
+      <div class="flex flex-wrap gap-3 mt-6" data-reveal>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span class="text-sm font-medium text-[var(--color-deep)]">Конфиденциально</span>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <span class="text-sm font-medium text-[var(--color-deep)]">Из любой страны</span>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span class="text-sm font-medium text-[var(--color-deep)]">Полностью онлайн</span>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[var(--color-border)] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/><polyline points="12 3 12 15"/><path d="M8 8l4-5 4 5"/></svg>
+          <span class="text-sm font-medium text-[var(--color-deep)]">Первая встреча бесплатно</span>
+        </div>
+      </div>
     </div>
 
     <!-- Photo right -->
@@ -132,7 +147,7 @@ const jsonLd = {
       ))}
     </div>
     <div class="my-12 md:my-16" data-reveal>
-      <img src="/images/stock/callout-3.jpg" alt="Бесплатная онлайн-встреча" class="w-full h-64 md:h-80 object-cover rounded-2xl" loading="lazy" />
+      <img src="/images/stock/freepik__the-style-is-candid-image-photography-with-natural__55850.png" alt="Бесплатная онлайн-встреча" class="w-full h-64 md:h-80 object-cover rounded-2xl" loading="lazy" />
     </div>
     <div class="text-center mt-12" data-reveal>
       <a href="/book/" class="btn-primary">
