@@ -1,0 +1,8 @@
+<svg viewBox="0 0 260 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="24" cy="24" r="20" stroke="#D4C8B0" stroke-width="1.5" fill="none"/>
+<circle cx="24" cy="24" r="13" stroke="#D4C8B0" stroke-width="1.2" fill="none" opacity="0.35"/>
+<circle cx="24" cy="24" r="6.5" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.6"/>
+<circle cx="24" cy="24" r="3" fill="#C9A84C"/>
+<text x="54" y="29" font-family="Playfair Display,Georgia,serif" font-weight="700" font-size="25" fill="#FAF7F2" letter-spacing="-0.5">Mind</text>
+<text x="120" y="29" font-family="Playfair Display,Georgia,serif" font-weight="400" font-size="25" fill="#D4C8B0" letter-spacing="-0.5">Hub24</text>
+</svg>

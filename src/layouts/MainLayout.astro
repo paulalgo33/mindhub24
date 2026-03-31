@@ -36,6 +36,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={`https://mindhub24.com${image}`} />
 
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="theme-color" content="#1B4D5C" />
 
@@ -63,8 +64,8 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
   <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="will-change:transform;">
     <div class="nav-inner max-w-[1400px] mx-auto flex items-center justify-between px-[clamp(1.5rem,4vw,3rem)] h-[70px]">
       <!-- Logo -->
-      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-deep)] no-underline tracking-[-0.03em] flex items-center gap-1 flex-shrink-0">
-        MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+      <a href="/" class="flex items-center flex-shrink-0">
+        <img src="/images/logo.svg" alt="MindHub24" class="h-7 md:h-8" />
       </a>
 
       <!-- Desktop menu -->
@@ -115,8 +116,8 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
     <div class="max-w-[1200px] mx-auto px-[clamp(1.5rem,4vw,3rem)] py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
       <!-- Col 1: Brand -->
       <div>
-        <div class="font-heading text-xl font-semibold text-white/80 mb-3 flex items-center gap-1">
-          MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+        <div class="mb-3">
+          <img src="/images/logo-dark.svg" alt="MindHub24" class="h-5" />
         </div>
         <p class="text-sm text-white/40 font-light leading-relaxed mb-6">Психологическое консультирование онлайн</p>
         <div class="flex flex-col gap-2.5">

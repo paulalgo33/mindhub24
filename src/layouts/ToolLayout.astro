@@ -17,6 +17,7 @@ const { title, description = 'MindHub24 — Инструменты', dark = fals
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
@@ -28,8 +29,9 @@ const { title, description = 'MindHub24 — Инструменты', dark = fals
   <!-- Minimal nav -->
   <nav id="toolNav" class="fixed top-0 left-0 right-0 z-50 px-[clamp(1.5rem,4vw,3rem)]">
     <div class="max-w-[900px] mx-auto flex items-center justify-between h-16">
-      <a href="/lp/israel" class="font-heading text-xl font-semibold no-underline tracking-[-0.03em] flex items-baseline gap-0.5 tool-nav-logo">
-        MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+      <a href="/lp/israel" class="flex items-center flex-shrink-0">
+        <img src="/images/logo.svg" alt="MindHub24" class="h-7 logo-light" />
+        <img src="/images/logo-dark.svg" alt="MindHub24" class="h-7 logo-dark" style="display:none;" />
       </a>
       <div class="flex items-center gap-4">
         <a href="/tools" class="text-sm font-medium no-underline transition-colors duration-200 tool-nav-back">
@@ -73,7 +75,6 @@ const { title, description = 'MindHub24 — Инструменты', dark = fals
     border-bottom: 1px solid var(--color-border);
     z-index: -1;
   }
-  .tool-nav-logo { color: var(--color-deep); }
   .tool-nav-back { color: var(--color-text-mid); }
   .tool-footer { border-color: var(--color-border); }
   .tool-footer-text { color: var(--color-text-light); }
@@ -94,7 +95,8 @@ const { title, description = 'MindHub24 — Инструменты', dark = fals
     background: rgba(10, 31, 40, 0.88);
     border-bottom-color: rgba(255,255,255,0.06);
   }
-  html[data-tool-dark="true"] .tool-nav-logo { color: #e6edf3; }
+  html[data-tool-dark="true"] .logo-light { display: none; }
+  html[data-tool-dark="true"] .logo-dark { display: block !important; }
   html[data-tool-dark="true"] .tool-nav-back { color: rgba(230,237,243,0.55); }
   html[data-tool-dark="true"] .tool-footer { border-color: rgba(255,255,255,0.06); }
   html[data-tool-dark="true"] .tool-footer-text { color: rgba(230,237,243,0.38); }
