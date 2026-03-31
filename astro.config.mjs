@@ -8,9 +8,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  redirects: {
-    '/': '/lp/israel',
-  },
+  redirects: {},
   image: {
     domains: [],
     service: {

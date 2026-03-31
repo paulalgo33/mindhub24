@@ -1,0 +1,176 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+
+const testimonials = [
+  {
+    quote: "Я живу в Израиле 8 лет, но до сих пор не могла объяснить на иврите то, что чувствую внутри. С Александрой я наконец говорю о важном — на своём языке.",
+    name: "Марина, 34",
+    location: "Тель-Авив 🇮🇱",
+    tag: "Адаптация к переезду",
+    hidden: false,
+    gender: null,
+  },
+  {
+    quote: "Никто на работе не знает, что я работаю с психологом. Онлайн из дома, в наушниках — это невидимо. И это было для меня решающим.",
+    name: "Имя скрыто, 29",
+    location: "Берлин 🇩🇪",
+    tag: "Тревога",
+    hidden: true,
+    gender: null,
+  },
+  {
+    quote: "Я записалась в 2 часа ночи. Не могла дышать от тревоги. Утром пришло подтверждение. Через 3 дня была первая встреча. Не через месяц. Через 3 дня.",
+    name: "Анна, 31",
+    location: "Варшава 🇵🇱",
+    tag: "Тревога и стресс",
+    hidden: false,
+    gender: null,
+  },
+  {
+    quote: "После переезда я потеряла себя. Не знала, кто я теперь. Александра не пыталась меня починить — она просто была рядом, пока я разбиралась.",
+    name: "Имя скрыто, 38",
+    location: "Рига 🇱🇻",
+    tag: "Адаптация к переезду",
+    hidden: true,
+    gender: null,
+  },
+  {
+    quote: "Муж не понимал, зачем мне психолог. «У тебя же всё есть.» Теперь, через 4 месяца, он сам спрашивает: «Когда твоя следующая встреча?» Потому что видит разницу.",
+    name: "Елена, 42",
+    location: "Хайфа 🇮🇱",
+    tag: "Отношения",
+    hidden: false,
+    gender: null,
+  },
+  {
+    quote: "Я думал, что психолог — это для тех, кто сломался. Оказалось, это для тех, кто хочет разобраться. Жалею только, что не пришёл раньше.",
+    name: "Дмитрий, 35",
+    location: "Таллин 🇪🇪",
+    tag: "Самооценка",
+    hidden: false,
+    gender: null,
+  },
+  {
+    quote: "Я не могла рассказать об этом никому — ни подругам, ни маме. Мне нужен был человек, который выслушает и не расскажет. Александра — этот человек.",
+    name: "Имя скрыто, 27",
+    location: "Нетания 🇮🇱",
+    tag: "Конфиденциально",
+    hidden: true,
+    gender: null,
+  },
+  {
+    quote: "Первая встреча бесплатная — и это не маркетинг. Это реально 20 минут, где ты понимаешь: тебя слышат. По-настоящему.",
+    name: "Ольга, 33",
+    location: "Краков 🇵🇱",
+    tag: "Первая встреча",
+    hidden: false,
+    gender: null,
+  },
+  {
+    quote: "Я работаю в IT, 12 часов в день, живу в чужой стране. У меня «всё хорошо». Но внутри было пусто. Шесть встреч — и я снова чувствую.",
+    name: "Имя скрыто, 30",
+    location: "Вильнюс 🇱🇹",
+    tag: "Выгорание",
+    hidden: true,
+    gender: null,
+  },
+  {
+    quote: "Самое важное — что это онлайн. Я в командировке в Лиссабоне, а встреча по расписанию. Не нужно ничего переносить.",
+    name: "Алексей, 37",
+    location: "Герцлия 🇮🇱",
+    tag: "Онлайн-формат",
+    hidden: false,
+    gender: null,
+  },
+  {
+    quote: "Я боялась, что не буду знать, что сказать. Александра сказала: «Можно просто рассказать, что происходит.» Я расплакалась. И это было началом.",
+    name: "Катерина, 28",
+    location: "Рига 🇱🇻",
+    tag: "Первый шаг",
+    hidden: false,
+    gender: null,
+  },
+  {
+    quote: "Мне было стыдно просить о помощи. Мужчины «должны справляться». Но справляться и жить — это разные вещи.",
+    name: "Имя скрыто, мужчина, 40",
+    location: "Европа",
+    tag: "Стигма",
+    hidden: true,
+    gender: "мужчина",
+  },
+];
+---
+
+<MainLayout
+  title="Отзывы клиентов — MindHub24"
+  description="Реальные отзывы клиентов MindHub24. Истории людей, которые нашли поддержку на русском языке онлайн."
+>
+
+<!-- Header -->
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[800px] mx-auto text-center">
+    <p class="s-label" data-reveal>Отзывы</p>
+    <h1 class="s-title text-center" data-reveal>Истории клиентов</h1>
+    <p class="text-lg text-[var(--color-text-mid)] font-light leading-relaxed max-w-[540px] mx-auto" data-reveal>
+      Реальные слова реальных людей. Каждый отзыв — с согласия клиента.
+    </p>
+  </div>
+</section>
+
+<!-- Testimonials masonry grid -->
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1100px] mx-auto columns-1 md:columns-2 lg:columns-2 gap-6 space-y-0">
+    {testimonials.map((t) => (
+      <div
+        class="break-inside-avoid mb-6 bg-white rounded-2xl border border-[var(--color-border)] p-8 card-glass flex flex-col gap-5"
+        data-reveal
+      >
+        <!-- Quote text -->
+        <p class="font-heading text-[1.05rem] italic font-normal leading-[1.75] text-[var(--color-deep)]">
+          «{t.quote}»
+        </p>
+
+        <!-- Attribution row -->
+        <div class="flex items-start justify-between gap-3 flex-wrap">
+          <div class="flex items-center gap-2">
+            {t.hidden ? (
+              <span class="text-base">🔒</span>
+            ) : (
+              <div class="w-7 h-7 rounded-full bg-[rgba(27,77,92,0.07)] flex items-center justify-center flex-shrink-0">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+            )}
+            <div>
+              <p class="text-sm font-medium text-[var(--color-deep)]">— {t.name}</p>
+              <p class="text-xs text-[var(--color-text-light)] font-light">{t.location}</p>
+            </div>
+          </div>
+
+          <!-- Tag pill -->
+          <span class="text-[0.65rem] tracking-[0.06em] font-semibold uppercase py-1.5 px-3 rounded-full" style="background:rgba(27,77,92,0.08);color:var(--color-primary);">
+            {t.tag}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Consent notice -->
+  <p class="text-center text-xs text-[var(--color-text-light)] font-light mt-4 max-w-[600px] mx-auto" data-reveal>
+    Все отзывы собраны с согласия клиентов. Имена скрыты по желанию.
+  </p>
+</section>
+
+<!-- CTA -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)] text-center">
+  <div class="max-w-[540px] mx-auto">
+    <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-4" data-reveal>Хотите стать частью этих историй?</h2>
+    <p class="text-[var(--color-text-mid)] font-light mb-6" data-reveal>Первая встреча — бесплатно. 20 минут.</p>
+    <a href="/book/" class="btn-primary" data-reveal>
+      <span>Записаться на бесплатный онлайн-звонок</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+</MainLayout>

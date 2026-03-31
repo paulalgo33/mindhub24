@@ -1,0 +1,76 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Работать с нами — MindHub24"
+  description="Ищем психологов-консультантов для работы онлайн на русском языке. Гибкий график, реальные клиенты, поддержка."
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Для специалистов</p>
+    <h1 class="s-title" data-reveal>Работать с нами</h1>
+    <p class="s-subtitle" data-reveal>Ищем психологов-консультантов, которые разделяют наши ценности и хотят работать с русскоязычными клиентами по всему миру.</p>
+  </div>
+</section>
+
+<!-- What we offer -->
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Что мы предлагаем</p>
+    <h2 class="s-title" data-reveal>Почему MindHub24</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+      {[
+        { title: 'Готовые клиенты', desc: 'Маркетинг на себя. Вы работаете — мы приводим клиентов.' },
+        { title: 'Гибкий график', desc: 'Сами решаете, сколько часов в неделю работаете.' },
+        { title: 'Онлайн-формат', desc: 'Работайте из любой точки мира.' },
+        { title: 'Сообщество', desc: 'Регулярные встречи с командой. Поддержка и обмен опытом.' },
+        { title: 'Технологии', desc: 'Мы берём на себя техническую часть: записи, напоминания, оплату.' },
+        { title: 'Нишевая аудитория', desc: 'Русскоязычные клиенты по всему миру — понятная и тёплая аудитория.' },
+      ].map((item) => (
+        <div class="p-7 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
+          <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-2">{item.title}</h3>
+          <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Requirements -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Требования</p>
+    <h2 class="s-title" data-reveal>Кто нам нужен</h2>
+    <div class="flex flex-col gap-3 mt-8">
+      {[
+        'Высшее психологическое образование',
+        'Опыт работы с клиентами — от 2 лет',
+        'Русский язык — нативный уровень',
+        'Готовность работать онлайн',
+        'Этический подход: конфиденциальность, границы, честность',
+        'Понимание культурного контекста русскоязычной диаспоры (желательно)',
+      ].map((req) => (
+        <div class="flex items-start gap-3" data-reveal>
+          <span class="text-[var(--color-primary)] mt-1 flex-shrink-0">✓</span>
+          <p class="text-[var(--color-text-mid)] font-light">{req}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Apply -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)] text-center">
+  <div class="max-w-[540px] mx-auto">
+    <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-4" data-reveal>Звучит интересно?</h2>
+    <p class="text-[var(--color-text-mid)] font-light mb-8" data-reveal>Напишите нам на hello@mindhub24.com с темой «Хочу работать с вами» — расскажите немного о себе и своём опыте.</p>
+    <a href="mailto:hello@mindhub24.com?subject=Хочу работать с вами" class="btn-primary" data-reveal>
+      <span>Написать нам</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+</MainLayout>

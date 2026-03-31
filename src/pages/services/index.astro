@@ -1,0 +1,57 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+
+const services = [
+  { slug: 'anxiety', name: 'Тревога и стресс', desc: 'Панические атаки, бессонница, постоянное напряжение.' },
+  { slug: 'depression', name: 'Сниженное настроение', desc: 'Когда нет сил даже на то, что раньше приносило радость.' },
+  { slug: 'relationships', name: 'Отношения', desc: 'Конфликты, потеря близости, выстраивание границ.' },
+  { slug: 'trauma', name: 'Сложный опыт', desc: 'Когда прошлое всё ещё живёт в настоящем.' },
+  { slug: 'burnout', name: 'Выгорание', desc: 'Истощение, цинизм, потеря смысла в работе.' },
+  { slug: 'relocation', name: 'Адаптация к переезду', desc: 'Между двух миров. Поиск себя на новом месте.', badge: 'Наш профиль' },
+  { slug: 'life-transitions', name: 'Жизненные перемены', desc: 'Развод, потеря работы, рождение ребёнка, потеря близкого.' },
+  { slug: 'womens-support', name: 'Поддержка женщин', desc: 'Ролевая перегрузка, перфекционизм, потеря себя.' },
+  { slug: 'adolescents', name: 'Подростки', desc: 'Для родителей, которые хотят помочь, но не знают как.' },
+];
+---
+
+<MainLayout
+  title="Направления работы — MindHub24"
+  description="Онлайн-консультации по тревоге, отношениям, выгоранию, переезду, жизненным переменам. На русском языке, везде в мире."
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1000px] mx-auto">
+    <p class="s-label" data-reveal>Услуги</p>
+    <h1 class="s-title" data-reveal>Направления работы</h1>
+    <p class="s-subtitle" data-reveal>Каждый запрос уникален. Работаем вместе, в вашем темпе, без универсальных советов.</p>
+  </div>
+</section>
+
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {services.map((srv) => (
+      <a href={`/services/${srv.slug}`} class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift no-underline block relative group" data-reveal>
+        {srv.badge && (
+          <span class="absolute top-4 right-4 text-[0.6rem] tracking-[0.1em] uppercase bg-[rgba(201,168,76,0.1)] text-[var(--color-accent)] py-1 px-2.5 rounded-full font-semibold">{srv.badge}</span>
+        )}
+        <h2 class="font-heading text-xl font-semibold text-[var(--color-deep)] mb-3 group-hover:text-[var(--color-primary)] transition-colors">{srv.name}</h2>
+        <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed mb-5">{srv.desc}</p>
+        <span class="text-xs text-[var(--color-accent)] font-medium">Подробнее →</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)] text-center">
+  <div class="max-w-[540px] mx-auto">
+    <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-4" data-reveal>Не знаете, с чего начать?</h2>
+    <p class="text-[var(--color-text-mid)] font-light mb-6" data-reveal>Запишитесь на бесплатную встречу — вместе разберёмся.</p>
+    <a href="/book/" class="btn-primary" data-reveal>
+      <span>Первая встреча бесплатно</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+</MainLayout>

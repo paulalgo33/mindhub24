@@ -1,0 +1,114 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Подростки — MindHub24"
+  description="Психологические консультации для подростков. Для родителей, которые хотят помочь своему ребёнку, но не знают как. Начинаем с родителей."
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <a href="/services/" class="text-xs text-[var(--color-text-light)] hover:text-[var(--color-primary)] transition-colors mb-6 inline-block">← Все направления</a>
+    <p class="s-label" data-reveal>Направление</p>
+    <h1 class="font-heading text-[clamp(2.6rem,5vw,3.8rem)] font-normal leading-[1.12] text-[var(--color-deep)] tracking-[-0.03em] mb-4" data-reveal>Подростки</h1>
+    <p class="text-xl text-[var(--color-text-mid)] font-light leading-[1.7]" data-reveal>Для родителей, которые хотят помочь — но не знают как</p>
+  </div>
+</section>
+
+<!-- Important note -->
+<section class="py-10 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <div class="p-6 rounded-2xl border-2" style="background:rgba(27,77,92,0.04);border-color:rgba(27,77,92,0.2);" data-reveal>
+      <div class="flex items-start gap-3">
+        <svg class="flex-shrink-0 mt-0.5 text-[var(--color-primary)]" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <div>
+          <p class="font-semibold text-[var(--color-deep)] mb-1">Важно знать</p>
+          <p class="text-[var(--color-text-mid)] font-light leading-relaxed">Работа с подростками начинается с консультации для родителей. Первый контакт — с вами. Мы вместе разбираемся в ситуации и решаем, как лучше выстроить дальнейшую работу.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>С чем сталкиваются семьи</p>
+    <h2 class="s-title" data-reveal>Знакомо ли это?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+      {['Замкнутость: ребёнок перестал разговаривать', 'Конфликты в семье, которые нарастают', 'Академическое давление и тревога об учёбе', 'Вопросы идентичности и самооценки', 'Трудности с друзьями, одиночество', 'Смена поведения, которая пугает'].map((item) => (
+        <div class="p-6 pl-7 bg-white rounded-2xl border border-[var(--color-border)] border-l-[3px] card-glass text-[var(--color-text-mid)] font-light leading-relaxed" data-pain-card>
+          {item}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Как мы работаем</p>
+    <h2 class="s-title" data-reveal>Наш подход</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      {[
+        { step: '01', title: 'Консультация родителей', desc: 'Вы рассказываете ситуацию. Разбираемся вместе. Определяем, что происходит и что нужно.' },
+        { step: '02', title: 'Знакомство с подростком', desc: 'По желанию и готовности — онлайн-встреча с подростком напрямую. Без давления.' },
+        { step: '03', title: 'Работа с семьёй', desc: 'При необходимости — работаем со всей системой отношений, не только с «проблемным» ребёнком.' },
+        { step: '04', title: 'Поддержка родителя', desc: 'Параллельная работа с вами — вы тоже заслуживаете поддержки в этот период.' },
+      ].map((item) => (
+        <div class="p-7 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
+          <div class="font-heading text-3xl text-[rgba(15,46,56,0.07)] font-bold mb-3">{item.step}</div>
+          <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-2">{item.title}</h3>
+          <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Результаты</p>
+    <h2 class="s-title" data-reveal>Что может измениться</h2>
+    <div class="flex flex-col gap-4 mt-8">
+      {['Лучшее самопонимание подростка', 'Улучшение коммуникации в семье', 'Снижение напряжения и конфликтов', 'Устойчивость в сложный период взросления'].map((item) => (
+        <div class="flex items-start gap-3 py-3" data-reveal>
+          <span class="text-[var(--color-accent)] font-medium flex-shrink-0 mt-0.5">✓</span>
+          <p class="text-[var(--color-text-mid)] font-light leading-relaxed">{item}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Также работаем с</p>
+    <div class="flex flex-wrap gap-3 mt-4" data-reveal>
+      <a href="/services/relationships" class="py-2 px-5 bg-white rounded-full border border-[var(--color-border)] text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all no-underline">Отношения</a>
+      <a href="/services/womens-support" class="py-2 px-5 bg-white rounded-full border border-[var(--color-border)] text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all no-underline">Поддержка женщин</a>
+    </div>
+  </div>
+</section>
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <div class="p-8 rounded-2xl" style="background:linear-gradient(135deg,rgba(27,77,92,0.06),rgba(201,168,76,0.04));border:1px solid rgba(27,77,92,0.12);">
+      <div class="flex items-start gap-5">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-14 h-14 rounded-full object-cover flex-shrink-0" style="box-shadow:0 2px 8px rgba(0,0,0,0.12);" />
+        <div>
+          <p class="font-heading text-xl text-[var(--color-deep)] mb-1">Начнём с вас</p>
+          <p class="text-[var(--color-text-mid)] font-light mb-5">Первая консультация для родителей — бесплатно, 20 минут.</p>
+          <a href="/book/" class="btn-primary" style="display:inline-flex;"><span>Записаться</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-left:6px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 p-6 rounded-2xl text-center" style="background:rgba(220,38,38,0.05);border:1px solid rgba(220,38,38,0.15);">
+      <p class="text-sm font-medium" style="color:#dc2626;">Если вы в кризисе — немедленно позвоните по номеру экстренной помощи</p>
+      <p class="text-sm mt-1" style="color:#991b1b;">Россия: 112 · Израиль: 112 · ЕС: 112</p>
+      <p class="text-xs mt-2 text-[var(--color-text-light)]">MindHub24 — не экстренная служба. <a href="/crisis/" class="underline">Кризисные ресурсы →</a></p>
+    </div>
+  </div>
+</section>
+
+</MainLayout>

@@ -1,0 +1,80 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Кризисная помощь — MindHub24"
+  description="Экстренные номера помощи для разных стран. Если вы в кризисе — позвоните прямо сейчас."
+>
+
+<!-- Red warning banner -->
+<div class="py-8 px-[clamp(1.5rem,4vw,3rem)] text-center" style="background:rgba(220,38,38,0.08);border-bottom:2px solid rgba(220,38,38,0.2);">
+  <p class="text-base font-medium" style="color:#dc2626;">Если вы прямо сейчас в кризисе — позвоните по номеру экстренной помощи вашей страны.</p>
+  <p class="text-sm mt-1 font-bold text-2xl" style="color:#991b1b;">📞 112</p>
+</div>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label text-red-500" data-reveal>Важно</p>
+    <h1 class="font-heading text-[clamp(2.4rem,5vw,3.2rem)] font-normal leading-[1.12] text-[var(--color-deep)] tracking-[-0.03em] mb-4" data-reveal>Кризисная помощь</h1>
+    <p class="text-xl text-[var(--color-text-mid)] font-light leading-[1.7]" data-reveal>
+      MindHub24 — не экстренная служба. Если вы в кризисе, пожалуйста, обратитесь за немедленной помощью.
+    </p>
+  </div>
+</section>
+
+<!-- Emergency numbers by country -->
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Номера по странам</p>
+    <h2 class="s-title" data-reveal>Экстренные номера</h2>
+    <div class="flex flex-col gap-4 mt-8">
+      {[
+        { country: 'Израиль', numbers: [{ name: 'Экстренная помощь', num: '112' }, { name: 'ЕРЕН (кризисная линия)', num: '1201' }, { name: 'ЭРАН (эмоциональная поддержка)', num: '1201' }] },
+        { country: 'Россия', numbers: [{ name: 'Экстренная помощь', num: '112' }, { name: 'Детский телефон доверия', num: '8-800-2000-122' }, { name: 'Психологическая помощь (бесплатно)', num: '8-800-2000-122' }] },
+        { country: 'Германия', numbers: [{ name: 'Экстренная помощь', num: '112' }, { name: 'Telefon Seelsorge (кризисная линия)', num: '0800 111 0 111' }] },
+        { country: 'Нидерланды', numbers: [{ name: 'Экстренная помощь', num: '112' }, { name: 'SOS Telefonische Hulpdienst', num: '0900-0767' }] },
+        { country: 'Польша', numbers: [{ name: 'Экстренная помощь', num: '112' }, { name: 'Телефон доверия', num: '116 123' }] },
+        { country: 'Латвия / Эстония', numbers: [{ name: 'Экстренная помощь', num: '112' }] },
+        { country: 'Канада', numbers: [{ name: 'Экстренная помощь', num: '911' }, { name: 'Crisis Services Canada', num: '1-833-456-4566' }] },
+        { country: 'США', numbers: [{ name: 'Экстренная помощь', num: '911' }, { name: 'Suicide & Crisis Lifeline', num: '988' }] },
+      ].map((row) => (
+        <div class="p-6 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
+          <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-3">{row.country}</h3>
+          <div class="flex flex-col gap-2">
+            {row.numbers.map((n) => (
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-[var(--color-text-mid)] font-light">{n.name}</span>
+                <a href={`tel:${n.num}`} class="font-heading text-lg font-semibold text-[var(--color-primary)] no-underline hover:text-[var(--color-deep)] transition-colors">{n.num}</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Tools + booking -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Если не кризис, но тяжело</p>
+    <h2 class="s-title" data-reveal>Поддержка прямо сейчас</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+      <a href="/tools/breathe" class="p-7 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift no-underline" data-reveal>
+        <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-2">Дышать</h3>
+        <p class="text-sm text-[var(--color-text-mid)] font-light">Техника дыхания при панике — прямо в браузере.</p>
+      </a>
+      <a href="/tools/ground" class="p-7 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift no-underline" data-reveal>
+        <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-2">Заземлиться</h3>
+        <p class="text-sm text-[var(--color-text-mid)] font-light">Техника 5-4-3-2-1 для возвращения в настоящий момент.</p>
+      </a>
+      <a href="/book/" class="p-7 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift no-underline md:col-span-2" data-reveal>
+        <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-2">Поговорить со специалистом</h3>
+        <p class="text-sm text-[var(--color-text-mid)] font-light">Первая встреча бесплатно. Запишитесь онлайн.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+</MainLayout>

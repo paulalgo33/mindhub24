@@ -1,0 +1,137 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Александра",
+  "jobTitle": "Психолог-консультант",
+  "worksFor": { "@type": "Organization", "name": "MindHub24", "url": "https://mindhub24.com" },
+  "description": "Психолог-консультант с 7+ летним опытом. Онлайн-консультации на русском языке для русскоязычных людей по всему миру.",
+  "knowsLanguage": "Russian",
+  "url": "https://mindhub24.com/about/alexandra"
+};
+---
+
+<MainLayout
+  title="Александра — Психолог-консультант | MindHub24"
+  description="Познакомьтесь с Александрой — психологом-консультантом и основателем MindHub24. 7+ лет опыта, работа с русскоязычными клиентами по всему миру."
+  jsonLd={jsonLd}
+>
+
+<!-- Hero -->
+<section class="pt-[120px] pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-[clamp(3rem,6vw,6rem)] items-center">
+    <div class="rounded-3xl overflow-hidden aspect-[3/4] shadow-[0_40px_80px_rgba(0,0,0,0.08)] relative" data-reveal>
+      <img src="/images/alexandra-hero.jpeg" alt="Александра — психолог-консультант" class="w-full h-full object-cover" loading="eager" />
+      <div class="absolute inset-0 border border-black/[0.03] rounded-3xl"></div>
+    </div>
+    <div>
+      <p class="s-label" data-reveal>Основатель MindHub24</p>
+      <h1 class="font-heading text-[clamp(2.8rem,5vw,4rem)] font-normal leading-[1.1] text-[var(--color-deep)] tracking-[-0.03em] mb-3" data-reveal>Александра</h1>
+      <p class="text-xl text-[var(--color-text-mid)] font-light mb-8" data-reveal>Психолог-консультант · Основатель MindHub24</p>
+
+      <div class="flex flex-wrap gap-2 mb-8" data-reveal>
+        {['7+ лет опыта', 'Израиль · Европа · Америка', 'Практичный подход', 'На русском языке', 'Онлайн'].map((tag) => (
+          <span class="py-2 px-4 bg-[rgba(15,46,56,0.06)] rounded-full text-xs text-[var(--color-primary)] font-medium">{tag}</span>
+        ))}
+      </div>
+
+      <a href="/book/" class="btn-primary" data-reveal>
+        <span>Записаться на встречу</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Bio -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>История</p>
+    <h2 class="s-title" data-reveal>Немного обо мне</h2>
+    <div class="flex flex-col gap-6 text-lg text-[var(--color-text-mid)] font-light leading-[1.85]">
+      <p data-reveal>
+        Я получила психологическое образование в России и больше 7 лет работаю с людьми, которые переживают тревогу, переходные периоды жизни и сложности в отношениях. Мой подход — практичный, тёплый и ориентированный на вашу конкретную ситуацию.
+      </p>
+      <p data-reveal>
+        MindHub24 я создала, потому что сама понимаю, каково это — искать психолога в чужой стране и не находить специалиста, который говорит с тобой на одном языке — не только буквально, но и культурно. Я работаю с русскоязычными людьми по всему миру: в Израиле, Европе, Северной Америке.
+      </p>
+      <p data-reveal>
+        На наших встречах нет домашних заданий и лекций. Есть разговор, который постепенно помогает увидеть то, что трудно разглядеть в одиночку. Я не даю советов — я помогаю вам найти собственные ответы.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Specializations -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1000px] mx-auto">
+    <p class="s-label" data-reveal>Специализации</p>
+    <h2 class="s-title" data-reveal>С чем я работаю</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
+      {[
+        { title: 'Тревога и стресс', desc: 'Паническое состояние, постоянное напряжение, бессонница.' },
+        { title: 'Адаптация к переезду', desc: 'Потеря идентичности, тоска по дому, «между двух миров».' },
+        { title: 'Отношения', desc: 'Паттерны привязанности, конфликты, выстраивание границ.' },
+        { title: 'Сложный опыт', desc: 'Навязчивые воспоминания, избегание, работа с прошлым.' },
+        { title: 'Выгорание', desc: 'Полное истощение, потеря смысла, восстановление ресурса.' },
+        { title: 'Жизненные перемены', desc: 'Развод, потеря работы, рождение ребёнка, потеря близкого.' },
+      ].map((spec) => (
+        <div class="p-7 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift" data-reveal>
+          <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-2">{spec.title}</h3>
+          <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed">{spec.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Credentials -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Образование и подход</p>
+    <h2 class="s-title" data-reveal>Квалификация</h2>
+    <div class="flex flex-col gap-4 mt-8">
+      {[
+        { label: 'Образование', value: 'Психологическое образование, Россия' },
+        { label: 'Опыт', value: 'Более 7 лет практики психологического консультирования' },
+        { label: 'Подход', value: 'Интегративный: когнитивно-поведенческий, клиент-центрированный, работа с нарративом' },
+        { label: 'Язык', value: 'Русский (нативный)' },
+        { label: 'Формат', value: 'Только онлайн, видеозвонки' },
+        { label: 'Клиенты', value: 'Израиль, Германия, Нидерланды, Польша, Латвия, Эстония, Канада, США' },
+      ].map((item) => (
+        <div class="flex items-start gap-4 py-4 border-b border-[var(--color-border)]" data-reveal>
+          <span class="text-xs tracking-[0.1em] uppercase text-[var(--color-text-light)] font-semibold min-w-[120px] pt-1">{item.label}</span>
+          <span class="text-[var(--color-text-mid)] font-light">{item.value}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Approach link -->
+<section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto text-center">
+    <p class="text-[var(--color-text-mid)] font-light mb-4" data-reveal>Хотите узнать подробнее о том, как я работаю?</p>
+    <a href="/about/approach" class="btn-ghost text-base" data-reveal>Наш подход →</a>
+  </div>
+</section>
+
+<!-- Alexandra CTA -->
+<section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <div class="mt-0 p-8 rounded-2xl" style="background:linear-gradient(135deg,rgba(27,77,92,0.06),rgba(201,168,76,0.04));border:1px solid rgba(27,77,92,0.12);">
+      <div class="flex items-start gap-5">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-14 h-14 rounded-full object-cover flex-shrink-0" style="box-shadow:0 2px 8px rgba(0,0,0,0.12);" />
+        <div>
+          <p class="font-heading text-xl text-[var(--color-deep)] mb-1">Готовы поговорить?</p>
+          <p class="text-[var(--color-text-mid)] font-light mb-5">Первая встреча бесплатно — 20 минут, без обязательств.</p>
+          <a href="/book/" class="btn-primary" style="display:inline-flex;"><span>Записаться бесплатно</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-left:6px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</MainLayout>

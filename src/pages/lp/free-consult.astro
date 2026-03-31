@@ -1,0 +1,134 @@
+---
+import LandingLayout from '@/layouts/LandingLayout.astro';
+---
+
+<LandingLayout
+  title="Бесплатная консультация — MindHub24"
+  description="Запишитесь на бесплатную встречу с психологом на русском языке. 20 минут онлайн. Без обязательств."
+>
+
+<!-- Nav -->
+<nav class="fixed top-0 left-0 right-0 z-50 px-[clamp(1.5rem,4vw,3rem)] transition-all duration-600" id="mainNav" style="will-change:transform;">
+  <div class="max-w-[1400px] mx-auto flex items-center justify-between h-20">
+    <a href="/" class="font-heading text-2xl font-semibold text-[var(--color-deep)] no-underline tracking-[-0.03em] flex items-baseline gap-0.5">
+      MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+    </a>
+    <a href="#cta" class="bg-[var(--color-deep)] text-white border-none px-6 py-2.5 rounded-full font-body text-sm font-medium no-underline transition-all duration-400 hover:bg-[var(--color-primary)] hover:shadow-[0_4px_24px_rgba(15,46,56,0.25)] hover:-translate-y-px">
+      Записаться
+    </a>
+  </div>
+</nav>
+
+<!-- Hero — conversion-focused -->
+<section class="min-h-screen flex items-center pt-24 pb-20 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)] relative overflow-hidden">
+  <div class="max-w-[800px] mx-auto text-center w-full">
+    <div class="inline-block bg-[rgba(201,168,76,0.1)] text-[var(--color-accent)] text-[0.7rem] tracking-[0.15em] uppercase font-semibold py-1.5 px-4 rounded-full mb-8" id="heroEyebrow">
+      Запись открыта
+    </div>
+    <h1 class="font-heading text-[clamp(2.8rem,6vw,4.5rem)] font-normal leading-[1.1] text-[var(--color-deep)] tracking-[-0.03em] mb-6" id="heroH1Day">
+      20 минут. Бесплатно. <em>Без обязательств.</em>
+    </h1>
+    <p class="text-xl text-[var(--color-text-mid)] font-light leading-[1.8] mb-10 max-w-[520px] mx-auto" id="heroDesc">
+      Познакомьтесь с психологом-консультантом на русском языке. Расскажите, что вас беспокоит. Никаких анкет и диагнозов.
+    </p>
+    <div id="heroButtons">
+      <a href="#cta" class="btn-primary text-lg py-5 px-10">
+        <span>Записаться на бесплатную встречу</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <p class="text-xs text-[var(--color-text-light)] mt-5">Конфиденциально · Онлайн · На русском</p>
+
+    <!-- Trust row -->
+    <div class="flex justify-center gap-8 mt-12 flex-wrap" id="heroFloat">
+      {[
+        { num: '7+', label: 'лет опыта' },
+        { num: '€0', label: 'первая встреча' },
+        { num: '100%', label: 'конфиденциально' },
+      ].map((item) => (
+        <div class="text-center">
+          <div class="font-heading text-3xl font-semibold text-[var(--color-deep)]">{item.num}</div>
+          <div class="text-xs text-[var(--color-text-light)] mt-1">{item.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Pain recognition -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[900px] mx-auto">
+    <p class="s-label text-center" data-reveal>Узнаёте себя?</p>
+    <h2 class="s-title text-center" data-reveal>Вы здесь потому что...</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10 mb-10">
+      {[
+        'Тревога стала постоянным фоном жизни',
+        'Что-то изменилось — и вы ещё не поняли что',
+        'Рядом некому выговориться по-настоящему',
+        'Вы держитесь — но устали держаться',
+      ].map((card) => (
+        <div class="p-8 pl-9 bg-white rounded-2xl border border-[var(--color-border)] border-l-[3px] card-glass text-[1.05rem] leading-[1.75] font-light text-[var(--color-text)]" data-pain-card>
+          {card}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[900px] mx-auto grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
+    <div class="rounded-3xl overflow-hidden aspect-[3/4] shadow-[0_40px_80px_rgba(0,0,0,0.07)] relative hide-mobile" data-about-photo>
+      <img src="/images/alexandra-about.jpeg" alt="Александра — MindHub24" class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <div>
+      <p class="s-label" data-reveal>О специалисте</p>
+      <h2 class="font-heading text-3xl font-normal text-[var(--color-deep)] mb-2" data-reveal>Александра</h2>
+      <p class="text-sm text-[var(--color-text-mid)] mb-6" data-reveal>Психолог-консультант · 7+ лет опыта</p>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-[1.85] mb-6" data-reveal>
+        Работаю с тревогой, переходными периодами и отношениями. Моя аудитория — русскоязычные люди по всему миру.
+      </p>
+      <div class="flex flex-wrap gap-2" data-reveal>
+        {['Онлайн', 'На русском', 'Конфиденциально'].map((tag) => (
+          <span class="py-2 px-4 bg-[rgba(15,46,56,0.06)] rounded-full text-xs text-[var(--color-primary)] font-medium">{tag}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="py-[var(--spacing-section-lg)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)] text-center relative overflow-hidden" id="cta">
+  <div class="absolute w-[500px] h-[500px] rounded-full blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style="background:radial-gradient(circle,rgba(27,77,92,0.07),transparent 70%);"></div>
+  <div class="relative z-10 max-w-[600px] mx-auto">
+    <h2 class="font-heading text-[clamp(2.5rem,5vw,3.8rem)] font-normal text-[var(--color-deep)] mb-4 leading-[1.1] tracking-[-0.03em]" data-reveal>
+      Готовы? Первая встреча — бесплатно.
+    </h2>
+    <p class="text-lg text-[var(--color-text-mid)] font-light mb-10" data-reveal>20 минут. Онлайн. На русском.</p>
+    <a href="https://t.me/mindhub24" class="btn-primary text-lg py-5 px-10" data-reveal target="_blank" rel="noopener">
+      <span>Записаться через Telegram</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="text-sm text-[var(--color-text-light)] mt-4" data-reveal>Или напишите на <a href="mailto:hello@mindhub24.com" class="underline text-[var(--color-primary)]">hello@mindhub24.com</a></p>
+  </div>
+</section>
+
+<!-- Crisis footer -->
+<div class="py-8 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)] text-center border-t border-[var(--color-border)]">
+  <p class="text-sm text-[var(--color-text-mid)] font-light max-w-[600px] mx-auto leading-relaxed">
+    <strong class="font-medium text-[var(--color-text)]">Если вы в кризисе:</strong> звоните 112 (Россия: 8-800-2000-122 · Израиль: 1201)<br />
+    MindHub24 — не экстренная служба. <a href="/crisis/" class="underline">Кризисные ресурсы →</a>
+  </p>
+</div>
+
+<footer class="py-10 px-[clamp(1.5rem,4vw,3rem)] bg-[#111] text-center">
+  <div class="font-heading text-xl font-semibold text-white/70 mb-4">MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span></div>
+  <div class="flex justify-center gap-6 mb-4 flex-wrap">
+    <a href="/privacy/" class="text-xs text-white/30 no-underline hover:text-white/70 transition-colors">Конфиденциальность</a>
+    <a href="/terms/" class="text-xs text-white/30 no-underline hover:text-white/70 transition-colors">Условия</a>
+    <a href="/disclaimer/" class="text-xs text-white/30 no-underline hover:text-white/70 transition-colors">Отказ от ответственности</a>
+  </div>
+  <p class="text-[0.65rem] text-white/15">© 2024–2026 MindHub24. Психологическое консультирование — не медицинская помощь.</p>
+</footer>
+
+</LandingLayout>

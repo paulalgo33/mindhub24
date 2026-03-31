@@ -1,0 +1,60 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Команда — MindHub24"
+  description="Познакомьтесь с командой MindHub24. Психологи-консультанты, работающие онлайн на русском языке."
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1000px] mx-auto">
+    <p class="s-label" data-reveal>Команда</p>
+    <h1 class="s-title" data-reveal>Наши специалисты</h1>
+    <p class="s-subtitle" data-reveal>Психологи-консультанты, которым можно доверять.</p>
+  </div>
+</section>
+
+<!-- Alexandra card -->
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1000px] mx-auto">
+    <div class="bg-white rounded-3xl border border-[var(--color-border)] card-glass overflow-hidden grid grid-cols-1 lg:grid-cols-[300px_1fr]" data-reveal>
+      <div class="aspect-square lg:aspect-auto overflow-hidden">
+        <img src="/images/alexandra-about.jpeg" alt="Александра" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+      <div class="p-10 flex flex-col justify-center">
+        <p class="text-[0.65rem] tracking-[0.15em] uppercase text-[var(--color-accent)] font-semibold mb-3">Основатель</p>
+        <h2 class="font-heading text-3xl font-normal text-[var(--color-deep)] mb-2">Александра</h2>
+        <p class="text-sm text-[var(--color-text-mid)] mb-6">Психолог-консультант · 7+ лет опыта</p>
+        <p class="text-base text-[var(--color-text-mid)] font-light leading-[1.85] mb-6">
+          Работаю с тревогой, переходными периодами жизни и отношениями. Специализируюсь на поддержке русскоязычных людей, живущих за рубежом.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-8">
+          {['Тревога', 'Переезд', 'Отношения', 'Выгорание', 'Жизненные перемены'].map((tag) => (
+            <span class="py-1.5 px-3 bg-[rgba(15,46,56,0.06)] rounded-full text-xs text-[var(--color-primary)] font-medium">{tag}</span>
+          ))}
+        </div>
+        <div class="flex gap-4">
+          <a href="/about/alexandra" class="btn-ghost text-sm">Подробнее →</a>
+          <a href="/book/" class="btn-primary" style="padding:0.6rem 1.5rem;font-size:0.875rem;"><span>Записаться</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Coming soon -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[600px] mx-auto text-center">
+    <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-6 text-[var(--color-primary)]" style="background:rgba(27,77,92,0.07);">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-3" data-reveal>Скоро появятся новые специалисты</h2>
+    <p class="text-[var(--color-text-mid)] font-light leading-relaxed mb-8" data-reveal>
+      Мы растём медленно и внимательно. Каждый специалист в команде — это человек, которому мы доверяем.
+    </p>
+    <a href="/join/" class="btn-ghost" data-reveal>Хотите работать с нами? →</a>
+  </div>
+</section>
+
+</MainLayout>

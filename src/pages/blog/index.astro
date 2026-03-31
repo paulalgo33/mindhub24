@@ -1,0 +1,64 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<MainLayout
+  title="Блог — MindHub24"
+  description="Статьи о психологическом консультировании, тревоге, переезде, отношениях и жизненных переменах. На русском языке."
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[800px] mx-auto">
+    <p class="s-label" data-reveal>Блог</p>
+    <h1 class="s-title" data-reveal>Статьи</h1>
+    <p class="s-subtitle" data-reveal>Практичные материалы о психологии, написанные на русском — без жаргона и без снисхождения.</p>
+  </div>
+</section>
+
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[800px] mx-auto">
+    {posts.length > 0 ? (
+      <div class="flex flex-col gap-6">
+        {posts.map((post) => (
+          <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-[0.65rem] tracking-[0.1em] uppercase bg-[rgba(27,77,92,0.07)] text-[var(--color-primary)] py-1 px-2.5 rounded-full font-semibold">{post.data.category}</span>
+              <span class="text-xs text-[var(--color-text-light)]">{new Date(post.data.date).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            <h2 class="font-heading text-xl font-semibold text-[var(--color-deep)] mb-3">{post.data.title}</h2>
+            <p class="text-[var(--color-text-mid)] font-light leading-relaxed mb-5">{post.data.excerpt}</p>
+            {post.data.published ? (
+              <a href={`/blog/${post.slug}`} class="btn-ghost text-sm">Читать →</a>
+            ) : (
+              <span class="text-xs text-[var(--color-text-light)]">Скоро</span>
+            )}
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-16" data-reveal>
+        <p class="text-[var(--color-text-mid)] font-light">Статьи скоро появятся здесь.</p>
+      </div>
+    )}
+  </div>
+</section>
+
+<!-- Newsletter placeholder -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[540px] mx-auto text-center">
+    <p class="s-label text-center" data-reveal>Подписка</p>
+    <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-3" data-reveal>Получайте новые статьи</h2>
+    <p class="text-[var(--color-text-mid)] font-light mb-8" data-reveal>Без спама. Только когда есть что сказать.</p>
+    <div class="flex gap-3 max-w-[400px] mx-auto" data-reveal>
+      <input type="email" placeholder="ваш@email.com" class="flex-1 px-4 py-3 rounded-full border border-[var(--color-border)] bg-white text-sm outline-none focus:border-[var(--color-primary)] transition-colors" />
+      <button class="btn-primary" style="padding:0.75rem 1.5rem;font-size:0.875rem;white-space:nowrap;"><span>Подписаться</span></button>
+    </div>
+    <p class="text-xs text-[var(--color-text-light)] mt-3" data-reveal>Подписываясь, вы принимаете <a href="/privacy/" class="underline">политику конфиденциальности</a>.</p>
+  </div>
+</section>
+
+</MainLayout>

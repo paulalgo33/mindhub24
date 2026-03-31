@@ -1,3 +1,353 @@
 ---
-// Redirect handled by astro.config.mjs redirects config
+import MainLayout from '@/layouts/MainLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "MindHub24",
+      "url": "https://mindhub24.com",
+      "logo": "https://mindhub24.com/images/alexandra-hero.jpeg",
+      "description": "Онлайн-консультации с психологом на русском языке.",
+      "contactPoint": { "@type": "ContactPoint", "email": "hello@mindhub24.com", "availableLanguage": "Russian" },
+      "sameAs": ["https://t.me/mindhub24", "https://instagram.com/mindhub24"]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Как проходит первая встреча?", "acceptedAnswer": { "@type": "Answer", "text": "Это 20-минутный видеозвонок. Мы знакомимся, вы рассказываете, что привело вас ко мне. Без анкет, без диагнозов. Просто разговор." } },
+        { "@type": "Question", "name": "Это конфиденциально?", "acceptedAnswer": { "@type": "Answer", "text": "Абсолютно. Всё, что происходит в рамках наших встреч, остаётся между нами." } },
+        { "@type": "Question", "name": "Первая встреча бесплатно?", "acceptedAnswer": { "@type": "Answer", "text": "Да, первая ознакомительная встреча (20 минут) полностью бесплатна, без обязательств." } }
+      ]
+    }
+  ]
+};
 ---
+
+<MainLayout
+  title="MindHub24 — Психологическое консультирование онлайн на русском"
+  description="Онлайн-консультации с психологом на русском языке. Для тех, кто живёт за рубежом или просто ищет поддержку. Первая встреча бесплатно."
+  jsonLd={jsonLd}
+>
+
+<!-- =================== HERO =================== -->
+<section class="pt-[120px] pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <!-- Text left -->
+    <div>
+      <p class="s-label" data-reveal>Психологическое консультирование · Онлайн</p>
+      <h1 class="font-heading text-[clamp(2.6rem,5vw,3.8rem)] font-normal leading-[1.12] tracking-[-0.03em] text-[var(--color-deep)] mb-6" data-reveal>
+        Психологическая помощь на русском языке. <em>Полностью онлайн.</em>
+      </h1>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-[1.8] mb-8 max-w-[520px]" data-reveal>
+        Из Израиля, Германии, Польши, Латвии — где бы вы ни были. Первая встреча — бесплатно.
+      </p>
+      <div class="flex flex-wrap gap-4 mb-6" data-reveal>
+        <a href="/book/" class="btn-primary">
+          <span>Записаться на бесплатный онлайн-звонок</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/about/alexandra" class="btn-ghost text-base">
+          Узнать больше
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <p class="text-xs text-[var(--color-text-light)] font-light leading-relaxed" data-reveal>
+        🔒 Конфиденциально &nbsp;·&nbsp; 🌍 Из любой страны &nbsp;·&nbsp; 💻 Полностью онлайн &nbsp;·&nbsp; 🎁 Первая встреча бесплатно
+      </p>
+    </div>
+
+    <!-- Photo right -->
+    <div class="rounded-3xl overflow-hidden aspect-[4/5] shadow-[0_40px_80px_rgba(0,0,0,0.08)] relative" data-reveal>
+      <img src="/images/alexandra-hero.jpeg" alt="Александра — психолог-консультант MindHub24" class="w-full h-full object-cover" loading="eager" />
+      <div class="absolute inset-0 border border-black/[0.03] rounded-3xl"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TRUST BAR =================== -->
+<section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-white border-y border-[var(--color-border)]">
+  <div class="max-w-[1100px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-5">
+    {[
+      { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>`, title: 'Полностью онлайн', sub1: 'Из дома, из офиса, из другой страны.', sub2: 'Никуда не нужно ехать.' },
+      { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`, title: 'На русском языке', sub1: 'Чувства живут на родном языке.', sub2: 'Здесь вас поймут.' },
+      { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`, title: 'Конфиденциально', sub1: 'Никто не узнает.', sub2: 'Ни при каких обстоятельствах.' },
+      { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`, title: 'Первая встреча бесплатно', sub1: '20 минут. Без обязательств.', sub2: 'Просто познакомимся.' },
+    ].map((item) => (
+      <div class="p-6 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift text-center" data-reveal>
+        <div class="w-11 h-11 rounded-xl flex items-center justify-center mx-auto mb-4 text-[var(--color-primary)]" style="background:rgba(27,77,92,0.07);" set:html={item.icon} />
+        <p class="font-heading text-base font-semibold text-[var(--color-deep)] mb-1">{item.title}</p>
+        <p class="text-xs text-[var(--color-text-mid)] font-light">{item.sub1}</p>
+        <p class="text-xs text-[var(--color-accent)] font-medium">{item.sub2}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- =================== PAIN → OUTCOME =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[1100px] mx-auto">
+    <p class="s-label" data-reveal>Вы здесь не одни</p>
+    <h2 class="s-title" data-reveal>Узнаёте себя?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+      {[
+        { pain: 'Тревога не отпускает', work: 'Находим корень — что стоит за тревогой', outcome: 'Спокойствие и ясность' },
+        { pain: 'Жизнь изменилась — вы не узнаёте себя', work: 'Работаем с потерями и переходами', outcome: 'Ощущение опоры и нового смысла' },
+        { pain: 'Отношения болят', work: 'Разбираемся в паттернах привязанности', outcome: 'Более здоровые связи' },
+      ].map((card) => (
+        <div class="bg-white rounded-2xl p-8 border border-[var(--color-border)] card-glass card-lift" data-reveal>
+          <p class="text-base font-medium text-[var(--color-deep)] mb-3">{card.pain}</p>
+          <div class="w-8 h-px bg-[var(--color-accent)] mb-3"></div>
+          <p class="text-sm text-[var(--color-text-mid)] font-light mb-5 leading-relaxed">{card.work}</p>
+          <div class="flex items-center gap-2">
+            <span class="text-[var(--color-accent)] text-base">→</span>
+            <p class="text-sm font-medium text-[var(--color-primary)]">{card.outcome}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- =================== HOW IT WORKS =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1000px] mx-auto">
+    <p class="s-label" data-reveal>Как это работает</p>
+    <h2 class="s-title" data-reveal>Три шага до первого разговора</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+      {[
+        { num: '01', title: 'Запишитесь', desc: 'Онлайн, за 2 минуты. Выберите удобное время в календаре.' },
+        { num: '02', title: 'Поговорите', desc: '20-минутная бесплатная встреча. Знакомимся, обсуждаем ваш запрос.' },
+        { num: '03', title: 'Работайте', desc: 'В вашем темпе. Еженедельно или по мере необходимости.' },
+      ].map((step) => (
+        <div class="p-10 rounded-[20px] border border-[var(--color-border)] bg-white card-glass" data-reveal>
+          <div class="font-heading text-5xl font-bold leading-none text-[rgba(15,46,56,0.07)] mb-6">{step.num}</div>
+          <h3 class="font-heading text-xl font-semibold mb-3 text-[var(--color-deep)]">{step.title}</h3>
+          <p class="text-base text-[var(--color-text-mid)] font-light leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-12" data-reveal>
+      <a href="/book/" class="btn-primary">
+        <span>Записаться бесплатно</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SERVICES (Dark) =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] text-white relative overflow-hidden" style="background:linear-gradient(160deg,#0a1f28 0%,#0F2E38 100%);">
+  <div class="services-aurora-a"></div>
+  <div class="services-aurora-b"></div>
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[rgba(201,168,76,0.4)] to-transparent"></div>
+  <div class="max-w-[1200px] mx-auto relative z-10">
+    <p class="s-label text-[var(--color-accent-light)]" data-reveal>Направления работы</p>
+    <h2 class="font-heading text-[clamp(2rem,4vw,3rem)] font-normal leading-snug text-white tracking-[-0.02em] mb-4" data-reveal>С чем мы работаем</h2>
+    <p class="text-lg text-white/50 font-light leading-relaxed mb-12 max-w-[600px]" data-reveal>Каждый запрос уникален. Работаем вместе, в вашем темпе.</p>
+
+    <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+      {[
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 21v-2a5 5 0 0 1-4-5c0-1.5.6-2.8 1.5-3.8A4 4 0 0 1 9 3a3 3 0 0 1 3 2.3A3 3 0 0 1 15 3a4 4 0 0 1 2.5 7.2A5 5 0 0 1 19 14a5 5 0 0 1-4 5v2"/></svg>`, name: 'Тревога и стресс', desc: 'Панические атаки, бессонница, постоянное напряжение.', href: '/services/anxiety' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-18 0"/><path d="M12 3v9l4 4"/></svg>`, name: 'Сниженное настроение', desc: 'Когда нет сил даже на то, что раньше приносило радость.', href: '/services/depression' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8.5" cy="12" r="5.5"/><circle cx="15.5" cy="12" r="5.5"/></svg>`, name: 'Отношения', desc: 'Конфликты, потеря близости, выстраивание границ.', href: '/services/relationships' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 12l10 5 10-5"/><path d="M2 17l10 5 10-5"/></svg>`, name: 'Сложный опыт', desc: 'Когда прошлое всё ещё живёт в настоящем.', href: '/services/trauma' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="8" width="16" height="8" rx="2"/><path d="M20 11v2" stroke-width="2"/></svg>`, name: 'Выгорание', desc: 'Истощение, цинизм, потеря смысла в работе.', href: '/services/burnout' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="15" r="6"/><path d="M15 5.5c0 2.2-3 5.5-3 5.5S9 7.7 9 5.5a3 3 0 0 1 6 0z"/></svg>`, name: 'Адаптация к переезду', desc: 'Между двух миров. Поиск себя на новом месте.', href: '/services/relocation', badge: 'Наш профиль' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>`, name: 'Жизненные перемены', desc: 'Развод, потеря работы, рождение ребёнка, потеря близкого.', href: '/services/life-transitions' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`, name: 'Поддержка женщин', desc: 'Ролевая перегрузка, перфекционизм, потеря себя.', href: '/services/womens-support' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`, name: 'Подростки', desc: 'Для родителей, которые хотят помочь, но не знают как.', href: '/services/adolescents' },
+      ].map((srv) => (
+        <a
+          href={srv.href}
+          class="p-8 rounded-[18px] bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] hover:border-[rgba(201,168,76,0.2)] hover:-translate-y-1 transition-all duration-500 no-underline block relative"
+          data-reveal
+        >
+          {srv.badge && (
+            <span class="absolute top-4 right-4 text-[0.6rem] tracking-[0.1em] uppercase bg-[rgba(201,168,76,0.15)] text-[var(--color-accent-light)] py-1 px-2.5 rounded-full font-semibold">{srv.badge}</span>
+          )}
+          <div class="service-icon w-11 h-11 flex items-center justify-center bg-white/[0.07] rounded-[14px] mb-5 text-white" set:html={srv.icon} />
+          <h3 class="font-heading text-lg font-semibold mb-2 text-white">{srv.name}</h3>
+          <p class="text-sm text-white/50 font-light leading-relaxed mb-4">{srv.desc}</p>
+          <span class="text-xs text-[var(--color-accent-light)] font-medium">Подробнее →</span>
+        </a>
+      ))}
+    </div>
+
+    <div class="text-center" data-reveal>
+      <a href="/services/" class="btn-ghost text-white/60 hover:text-white text-sm">
+        Все направления →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== ABOUT PREVIEW =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-[clamp(3rem,6vw,6rem)] items-center">
+    <div data-about-photo class="rounded-3xl overflow-hidden aspect-[3/4] shadow-[0_40px_80px_rgba(0,0,0,0.07)] relative hide-mobile">
+      <img src="/images/alexandra-about.jpeg" alt="Александра — MindHub24" class="w-full h-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 border border-black/[0.03] rounded-3xl"></div>
+    </div>
+    <div>
+      <p class="s-label" data-reveal>Об Александре</p>
+      <h2 class="font-heading text-[clamp(2rem,4vw,2.8rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.02em] mb-4" data-reveal>Ваш психолог-консультант</h2>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-[1.85] mb-4" data-reveal>
+        Я получила психологическое образование в России и больше 7 лет работаю с людьми, которые переживают тревогу, переходные периоды жизни и сложности в отношениях.
+      </p>
+      <p class="text-lg text-[var(--color-text-mid)] font-light leading-[1.85] mb-8" data-reveal>
+        Работаю с русскоязычными людьми по всему миру: в Израиле, Европе, Северной Америке. Понимаю, каково это — искать поддержку на чужбине.
+      </p>
+      <a href="/about/alexandra" class="btn-ghost text-base" data-reveal>
+        Познакомиться поближе →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TESTIMONIALS PLACEHOLDER =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[1000px] mx-auto">
+    <p class="s-label text-center" data-reveal>Отзывы</p>
+    <h2 class="s-title text-center" data-reveal>Истории клиентов</h2>
+    <p class="text-center text-[var(--color-text-mid)] font-light mb-12 max-w-[500px] mx-auto" data-reveal>
+      Мы собираем отзывы с согласия каждого клиента. Скоро здесь появятся реальные истории.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[1,2,3].map(() => (
+        <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
+          <div class="flex gap-1 mb-4">
+            {[1,2,3,4,5].map(() => (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--color-accent)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ))}
+          </div>
+          <p class="text-[var(--color-text-mid)] font-light italic leading-relaxed text-sm mb-5">«Отзыв скоро появится здесь. Мы публикуем только с согласия клиента.»</p>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-[rgba(27,77,92,0.07)] flex items-center justify-center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-light)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-[var(--color-deep)]">Клиент</p>
+              <p class="text-[0.65rem] text-[var(--color-text-light)]">Онлайн-консультация</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-8" data-reveal>
+      <a href="/testimonials/" class="btn-ghost">Все отзывы →</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TOOLS PREVIEW =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[1000px] mx-auto">
+    <p class="s-label" data-reveal>Бесплатные AI-инструменты</p>
+    <h2 class="s-title" data-reveal>Попробуйте прямо сейчас</h2>
+    <p class="s-subtitle" data-reveal>Простые инструменты для самопознания — анонимно, без регистрации.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`, name: 'Дневник чувств', desc: 'Запишите, что сейчас — AI поможет найти слова.', href: '/tools/journal' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`, name: 'Другой взгляд', desc: 'Reframe тяжёлых мыслей — мягко, без осуждения.', href: '/tools/reframe' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`, name: 'Неотправленное письмо', desc: 'Скажите то, что трудно сказать вслух.', href: '/tools/unsent' },
+      ].map((tool) => (
+        <a href={tool.href} class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift no-underline block" data-reveal>
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-5 text-[var(--color-primary)]" style="background:rgba(27,77,92,0.07);" set:html={tool.icon} />
+          <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-2">{tool.name}</h3>
+          <p class="text-sm text-[var(--color-text-mid)] font-light leading-relaxed mb-4">{tool.desc}</p>
+          <span class="text-xs text-[var(--color-accent)] font-medium">Попробовать →</span>
+        </a>
+      ))}
+    </div>
+    <div class="text-center mt-8" data-reveal>
+      <a href="/tools/" class="btn-ghost">Все инструменты →</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FAQ ACCORDION =================== -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label text-center" data-reveal>Частые вопросы</p>
+    <h2 class="s-title text-center" data-reveal>FAQ</h2>
+    <div class="mt-10 flex flex-col gap-3" id="faqList">
+      {[
+        { q: 'Как проходит первая встреча?', a: 'Это 20-минутный видеозвонок. Мы знакомимся, вы рассказываете, что привело вас ко мне. Без анкет, без диагнозов. Просто разговор. В конце вместе решаем, хотим ли продолжить.' },
+        { q: 'Сколько стоит консультация?', a: 'Ознакомительная встреча — бесплатно. Консультация (50 минут) — €50. Пакеты: 4 сессии €190, 8 сессий €360.' },
+        { q: 'Это конфиденциально?', a: 'Абсолютно. Я не рассказываю о вас никому. Ни при каких обстоятельствах. Всё, что происходит в рамках наших встреч, остаётся между нами.' },
+        { q: 'Мне нужно готовиться к встрече?', a: 'Нет. Вам не нужно знать, что сказать. Вам не нужно формулировать проблему. Просто приходите — мы разберёмся вместе.' },
+        { q: 'Сколько сессий мне понадобится?', a: 'Зависит от запроса. Обычно 6–12 сессий. Мы обсуждаем это вместе на третьей встрече, когда уже понятен контекст и задача.' },
+      ].map((item, i) => (
+        <div class="border border-[var(--color-border)] rounded-2xl overflow-hidden bg-white" data-reveal>
+          <button
+            class="faq-btn w-full text-left px-7 py-5 flex items-center justify-between gap-4 font-medium text-[var(--color-deep)] text-base hover:text-[var(--color-primary)] transition-colors duration-200"
+            data-index={i}
+          >
+            <span>{item.q}</span>
+            <svg class="faq-icon flex-shrink-0 transition-transform duration-300 text-[var(--color-accent)]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-body overflow-hidden transition-all duration-400 ease-out" style="max-height:0;">
+            <p class="px-7 pb-6 text-[var(--color-text-mid)] font-light leading-relaxed">{item.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-8" data-reveal>
+      <a href="/faq/" class="btn-ghost">Все вопросы →</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FINAL CTA =================== -->
+<section class="py-[var(--spacing-section-lg)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)] text-center relative overflow-hidden">
+  <div class="absolute w-[500px] h-[500px] rounded-full blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style="background:radial-gradient(circle,rgba(27,77,92,0.07),transparent 70%);"></div>
+  <div class="relative z-10 max-w-[580px] mx-auto">
+    <h2 class="font-heading text-[clamp(2.5rem,5.5vw,4rem)] font-normal text-[var(--color-deep)] mb-4 leading-[1.1] tracking-[-0.03em]" data-reveal>
+      Готовы? Первая встреча — бесплатно.
+    </h2>
+    <p class="text-lg text-[var(--color-text-mid)] font-light mb-10" data-reveal>
+      20 минут. Без обязательств. Без диагнозов. Просто разговор.
+    </p>
+    <a href="/book/" class="btn-primary text-lg py-5 px-10" data-reveal>
+      <span>Записаться</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="text-xs text-[var(--color-text-light)] mt-5 font-light" data-reveal>Конфиденциально · Онлайн · На русском</p>
+  </div>
+</section>
+
+<!-- =================== CRISIS DISCLAIMER =================== -->
+<div class="mt-0 p-6 text-center" style="background:rgba(220,38,38,0.05);border-top:1px solid rgba(220,38,38,0.12);">
+  <p class="text-sm font-medium" style="color:#dc2626;">Если вы в кризисе — немедленно позвоните по номеру экстренной помощи</p>
+  <p class="text-sm mt-1" style="color:#991b1b;">Россия: 112 · Израиль: 112 · ЕС: 112</p>
+  <p class="text-xs mt-2 text-[var(--color-text-light)]">MindHub24 — не экстренная служба. <a href="/crisis/" class="underline">Кризисные ресурсы →</a></p>
+</div>
+
+</MainLayout>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling as HTMLElement;
+      const icon = btn.querySelector('.faq-icon') as HTMLElement;
+      const isOpen = body.style.maxHeight !== '0px' && body.style.maxHeight !== '';
+
+      // Close all
+      document.querySelectorAll('.faq-body').forEach((b) => {
+        (b as HTMLElement).style.maxHeight = '0';
+      });
+      document.querySelectorAll('.faq-icon').forEach((ic) => {
+        (ic as HTMLElement).style.transform = '';
+      });
+
+      // Open clicked (if it was closed)
+      if (!isOpen) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>

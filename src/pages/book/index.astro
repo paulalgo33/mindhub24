@@ -1,0 +1,110 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Записаться — MindHub24"
+  description="Запишитесь на бесплатную первую встречу с психологом-консультантом. 20 минут, онлайн, без обязательств."
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[800px] mx-auto text-center">
+    <p class="s-label" data-reveal>Запись</p>
+    <h1 class="font-heading text-[clamp(2.4rem,5vw,3.5rem)] font-normal leading-[1.12] text-[var(--color-deep)] tracking-[-0.03em] mb-4" data-reveal>
+      Первая встреча — бесплатно
+    </h1>
+    <p class="text-xl text-[var(--color-text-mid)] font-light max-w-[500px] mx-auto" data-reveal>
+      20 минут. Знакомимся, обсуждаем ваш запрос. Без анкет, без диагнозов.
+    </p>
+  </div>
+</section>
+
+<!-- Pricing cards -->
+<section class="pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[700px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
+    {[
+      { type: 'Знакомство', price: 'Бесплатно', duration: '20 минут', desc: 'Первая встреча. Без обязательств.', cta: 'Записаться', featured: false },
+      { type: 'Консультация', price: 'Индивидуально', duration: '50 минут', desc: 'Стоимость обсуждается индивидуально. Оплата: Wise, PayPal (международные клиенты), Prodamus (Россия — скоро). Реквизиты обсуждаются после первой встречи.', cta: 'Записаться', featured: true },
+      { type: 'Пакет сессий', price: 'Пакет', duration: '4–8 сессий', desc: 'Стоимость пакетов обсуждается на первой встрече.', cta: 'Выбрать', featured: false },
+    ].map((card) => (
+      <div
+        class:list={[
+          "p-8 rounded-3xl text-center price-card card-glass relative",
+          card.featured
+            ? "border-2 border-[var(--color-deep)] bg-[rgba(27,77,92,0.03)]"
+            : "bg-white border border-[var(--color-border)]"
+        ]}
+        data-reveal
+      >
+        {card.featured && (
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--color-deep)] text-white text-[0.65rem] tracking-[0.08em] uppercase py-1 px-4 rounded-full font-medium">Популярный</span>
+        )}
+        <div class="text-xs tracking-[0.12em] uppercase text-[var(--color-text-light)] font-semibold mb-4">{card.type}</div>
+        <div class="font-heading text-[2.5rem] font-semibold text-[var(--color-deep)] mb-1 leading-none">{card.price}</div>
+        <div class="text-sm text-[var(--color-text-light)] mb-3">{card.duration}</div>
+        <div class="text-sm text-[var(--color-text-mid)] font-light mb-6">{card.desc}</div>
+        <button class="btn-primary w-full justify-center"><span>{card.cta}</span></button>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Cal.com placeholder -->
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[700px] mx-auto">
+    <p class="s-label text-center" data-reveal>Выберите время</p>
+    <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] text-center mb-8" data-reveal>Доступное расписание</h2>
+    <!-- Cal.com embed placeholder -->
+    <div class="bg-white rounded-3xl border border-[var(--color-border)] p-12 text-center card-glass" data-reveal>
+      <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 text-[var(--color-primary)]" style="background:rgba(27,77,92,0.07);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <h3 class="font-heading text-xl text-[var(--color-deep)] mb-2">Календарь подключается</h3>
+      <p class="text-[var(--color-text-mid)] font-light mb-6 max-w-[400px] mx-auto">Интеграция с Cal.com в процессе настройки. Пока напишите нам напрямую — ответим в течение нескольких часов.</p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="https://t.me/mindhub24" class="btn-primary" target="_blank" rel="noopener">
+          <span>Написать в Telegram</span>
+        </a>
+        <a href="mailto:hello@mindhub24.com" class="btn-ghost">
+          hello@mindhub24.com
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What to expect -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[700px] mx-auto">
+    <p class="s-label" data-reveal>Что ожидать</p>
+    <h2 class="s-title" data-reveal>После записи</h2>
+    <div class="flex flex-col gap-4 mt-8">
+      {[
+        { step: '1', title: 'Подтверждение на email', desc: 'В течение нескольких часов вы получите письмо с подтверждением и ссылкой на встречу.' },
+        { step: '2', title: 'Напоминание за 24 часа', desc: 'Мы напомним о встрече. Если нужно перенести — ссылка будет в письме.' },
+        { step: '3', title: 'Встреча в видеозвонке', desc: 'Просто нажмите ссылку в удобное время. Ничего устанавливать не нужно.' },
+      ].map((item) => (
+        <div class="flex items-start gap-5 py-5 border-b border-[var(--color-border)]" data-reveal>
+          <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-heading font-semibold text-sm text-white" style="background:var(--color-primary);">{item.step}</div>
+          <div>
+            <p class="font-medium text-[var(--color-deep)] mb-1">{item.title}</p>
+            <p class="text-sm text-[var(--color-text-mid)] font-light">{item.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Crisis disclaimer -->
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[700px] mx-auto">
+    <div class="p-6 rounded-2xl text-center" style="background:rgba(220,38,38,0.05);border:1px solid rgba(220,38,38,0.15);">
+      <p class="text-sm font-medium" style="color:#dc2626;">Если вы в кризисе — немедленно позвоните по номеру экстренной помощи</p>
+      <p class="text-sm mt-1" style="color:#991b1b;">Россия: 112 · Израиль: 112 · ЕС: 112</p>
+      <p class="text-xs mt-2 text-[var(--color-text-light)]">MindHub24 — не экстренная служба. <a href="/crisis/" class="underline">Кризисные ресурсы →</a></p>
+    </div>
+  </div>
+</section>
+
+</MainLayout>

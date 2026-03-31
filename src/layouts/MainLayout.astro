@@ -1,0 +1,310 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  jsonLd?: object;
+}
+
+const { title, description, image = '/images/alexandra-hero.jpeg', jsonLd } = Astro.props;
+const canonical = `https://mindhub24.com${Astro.url.pathname}`;
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonical} />
+
+  <!-- OG Tags -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={`https://mindhub24.com${image}`} />
+  <meta property="og:site_name" content="MindHub24" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`https://mindhub24.com${image}`} />
+
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#1B4D5C" />
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD -->
+  {jsonLd && (
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  )}
+
+  <title>{title}</title>
+</head>
+<body>
+  <!-- Scroll progress bar -->
+  <div id="scrollProgress" style="position:fixed;top:0;left:0;right:0;height:2px;background:var(--color-accent);transform-origin:left;transform:scaleX(0);z-index:9999;pointer-events:none;"></div>
+
+  <!-- Ambient effects -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="grain"></div>
+
+  <!-- =================== NAVIGATION =================== -->
+  <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="will-change:transform;">
+    <div class="nav-inner max-w-[1400px] mx-auto flex items-center justify-between px-[clamp(1.5rem,4vw,3rem)] h-[70px]">
+      <!-- Logo -->
+      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-deep)] no-underline tracking-[-0.03em] flex items-center gap-1 flex-shrink-0">
+        MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+      </a>
+
+      <!-- Desktop menu -->
+      <div class="hidden lg:flex items-center gap-1">
+        <a href="/services/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">Услуги</a>
+        <a href="/about/alexandra" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">О нас</a>
+        <a href="/team/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">Команда</a>
+        <a href="/testimonials/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">Отзывы</a>
+        <a href="/blog/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">Блог</a>
+        <a href="/tools/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">Инструменты</a>
+        <a href="/faq/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">FAQ</a>
+        <a href="/book/" class="btn-primary ml-3" style="padding:0.5rem 1.3rem;font-size:0.875rem;">
+          <span>Записаться</span>
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="mobileMenuBtn" class="lg:hidden flex flex-col gap-[5px] p-2 cursor-pointer bg-none border-none" aria-label="Меню">
+        <span class="block w-6 h-[1.5px] bg-[var(--color-deep)] transition-all duration-300 origin-center" id="ham1"></span>
+        <span class="block w-6 h-[1.5px] bg-[var(--color-deep)] transition-all duration-300 origin-center" id="ham2"></span>
+        <span class="block w-6 h-[1.5px] bg-[var(--color-deep)] transition-all duration-300 origin-center" id="ham3"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="lg:hidden overflow-hidden transition-all duration-500 ease-out" style="max-height:0;opacity:0;">
+      <div class="px-[clamp(1.5rem,4vw,3rem)] py-6 flex flex-col gap-1 border-t border-[var(--color-border)]" style="background:rgba(250,247,242,0.98);backdrop-filter:blur(20px);">
+        <a href="/services/" class="py-3 text-base text-[var(--color-text-mid)] hover:text-[var(--color-primary)] no-underline transition-colors border-b border-[var(--color-border)]">Услуги</a>
+        <a href="/about/alexandra" class="py-3 text-base text-[var(--color-text-mid)] hover:text-[var(--color-primary)] no-underline transition-colors border-b border-[var(--color-border)]">О нас</a>
+        <a href="/team/" class="py-3 text-base text-[var(--color-text-mid)] hover:text-[var(--color-primary)] no-underline transition-colors border-b border-[var(--color-border)]">Команда</a>
+        <a href="/testimonials/" class="py-3 text-base text-[var(--color-text-mid)] hover:text-[var(--color-primary)] no-underline transition-colors border-b border-[var(--color-border)]">Отзывы</a>
+        <a href="/blog/" class="py-3 text-base text-[var(--color-text-mid)] hover:text-[var(--color-primary)] no-underline transition-colors border-b border-[var(--color-border)]">Блог</a>
+        <a href="/tools/" class="py-3 text-base text-[var(--color-text-mid)] hover:text-[var(--color-primary)] no-underline transition-colors border-b border-[var(--color-border)]">Инструменты</a>
+        <a href="/faq/" class="py-3 text-base text-[var(--color-text-mid)] hover:text-[var(--color-primary)] no-underline transition-colors border-b border-[var(--color-border)]">FAQ</a>
+        <a href="/book/" class="btn-primary mt-4 text-center justify-center"><span>Записаться бесплатно</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page content -->
+  <main>
+    <slot />
+  </main>
+
+  <!-- =================== FOOTER =================== -->
+  <footer style="background:#111;">
+    <!-- Main footer grid -->
+    <div class="max-w-[1200px] mx-auto px-[clamp(1.5rem,4vw,3rem)] py-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <!-- Col 1: Brand -->
+      <div>
+        <div class="font-heading text-xl font-semibold text-white/80 mb-3 flex items-center gap-1">
+          MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
+        </div>
+        <p class="text-sm text-white/40 font-light leading-relaxed mb-6">Психологическое консультирование онлайн</p>
+        <div class="flex flex-col gap-2.5">
+          <a href="https://t.me/mindhub24" class="text-xs text-white/35 hover:text-white/70 no-underline transition-colors flex items-center gap-2" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+            Telegram @mindhub24
+          </a>
+          <a href="https://instagram.com/mindhub24" class="text-xs text-white/35 hover:text-white/70 no-underline transition-colors flex items-center gap-2" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            Instagram @mindhub24
+          </a>
+          <a href="mailto:hello@mindhub24.com" class="text-xs text-white/35 hover:text-white/70 no-underline transition-colors flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 7 10-7"/></svg>
+            hello@mindhub24.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 2: Pages -->
+      <div>
+        <p class="text-[0.65rem] tracking-[0.15em] uppercase text-white/30 font-semibold mb-5">Страницы</p>
+        <div class="flex flex-col gap-2">
+          <a href="/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Главная</a>
+          <a href="/services/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Услуги</a>
+          <a href="/about/alexandra" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">О нас</a>
+          <a href="/team/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Команда</a>
+          <a href="/testimonials/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Отзывы</a>
+          <a href="/blog/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Блог</a>
+          <a href="/faq/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">FAQ</a>
+          <a href="/tools/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Инструменты</a>
+          <a href="/book/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Записаться</a>
+        </div>
+      </div>
+
+      <!-- Col 3: Legal -->
+      <div>
+        <p class="text-[0.65rem] tracking-[0.15em] uppercase text-white/30 font-semibold mb-5">Информация</p>
+        <div class="flex flex-col gap-2">
+          <a href="/privacy/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Политика конфиденциальности</a>
+          <a href="/terms/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Условия использования</a>
+          <a href="/disclaimer/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Отказ от ответственности</a>
+          <a href="/cancellation/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Политика отмены</a>
+          <a href="/cookies/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Куки</a>
+          <a href="/contact/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors mt-2">Контакты</a>
+          <a href="/join/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Работать с нами</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright line -->
+    <div class="border-t border-white/[0.05] px-[clamp(1.5rem,4vw,3rem)] py-5 flex items-center justify-between flex-wrap gap-2 max-w-[1200px] mx-auto">
+      <p class="text-[0.65rem] text-white/15 font-light">© 2024–2026 MindHub24. Все права защищены.</p>
+      <p class="text-[0.65rem] text-white/10 font-light">Психологическое консультирование — не медицинская помощь</p>
+    </div>
+
+    <!-- Crisis band -->
+    <div class="py-4 px-[clamp(1.5rem,4vw,3rem)] text-center" style="background:rgba(220,38,38,0.08);border-top:1px solid rgba(220,38,38,0.15);">
+      <p class="text-xs leading-relaxed" style="color:#fca5a5;">
+        Если вы в кризисе — немедленно звоните: <strong>112</strong> (Израиль) · <strong>8-800-2000-122</strong> (Россия) · <strong>112</strong> (ЕС) &nbsp;·&nbsp;
+        MindHub24 не является экстренной службой.&nbsp;
+        <a href="/crisis/" class="underline hover:text-white transition-colors" style="color:#fca5a5;">Кризисные ресурсы →</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Night mode detection -->
+  <script>
+    const h = new Date().getHours();
+    if (h >= 23 || h < 5) document.body.setAttribute('data-night', 'true');
+  </script>
+
+  <!-- Core scripts -->
+  <script>
+    // ── Cursor glow (desktop only) ──────────────────────────────────────
+    if (window.matchMedia('(hover: hover)').matches) {
+      const glow = document.getElementById('cursorGlow');
+      let mx = 0, my = 0, gx = 0, gy = 0;
+      document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+      (function moveGlow() {
+        gx += (mx - gx) * 0.06;
+        gy += (my - gy) * 0.06;
+        if (glow) { glow.style.left = gx + 'px'; glow.style.top = gy + 'px'; }
+        requestAnimationFrame(moveGlow);
+      })();
+    }
+
+    // ── Scroll progress bar ─────────────────────────────────────────────
+    const progressBar = document.getElementById('scrollProgress');
+    const nav = document.getElementById('mainNav');
+
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (progressBar && total > 0) {
+        progressBar.style.transform = `scaleX(${scrolled / total})`;
+      }
+      if (nav) {
+        if (scrolled > 60) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }
+    }, { passive: true });
+
+    // ── Scroll reveal (IntersectionObserver) ──────────────────────────
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) {
+      document.querySelectorAll('[data-reveal]').forEach((el) => {
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.transform = 'none';
+      });
+    } else {
+      document.querySelectorAll('[data-reveal]').forEach((el) => {
+        (el as HTMLElement).style.transform = 'translateY(30px)';
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            const delay = el.dataset.delay || '0';
+            setTimeout(() => {
+              el.style.transition = 'opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+              el.style.opacity = '1';
+              el.style.transform = 'translateY(0)';
+            }, parseFloat(delay) * 1000);
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+      document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+    }
+
+    // ── Mobile menu ────────────────────────────────────────────────────
+    const btn = document.getElementById('mobileMenuBtn');
+    const menu = document.getElementById('mobileMenu');
+    const ham1 = document.getElementById('ham1');
+    const ham2 = document.getElementById('ham2');
+    const ham3 = document.getElementById('ham3');
+    let menuOpen = false;
+
+    btn?.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menu) {
+        menu.style.maxHeight = menuOpen ? menu.scrollHeight + 'px' : '0';
+        menu.style.opacity = menuOpen ? '1' : '0';
+      }
+      if (ham1 && ham2 && ham3) {
+        if (menuOpen) {
+          ham1.style.transform = 'rotate(45deg) translate(5px, 5px)';
+          ham2.style.opacity = '0';
+          ham3.style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+          ham1.style.transform = '';
+          ham2.style.opacity = '';
+          ham3.style.transform = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
+<style>
+  #mainNav::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(250, 247, 242, 0.92);
+    backdrop-filter: blur(30px) saturate(1.8);
+    -webkit-backdrop-filter: blur(30px) saturate(1.8);
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border-bottom: 1px solid transparent;
+    z-index: -1;
+  }
+  #mainNav.scrolled::after {
+    opacity: 1;
+    border-bottom-color: var(--color-border);
+  }
+  [data-night="true"] #mainNav::after {
+    background: rgba(11, 15, 19, 0.92);
+  }
+  .nav-inner {
+    position: relative;
+    z-index: 1;
+  }
+</style>

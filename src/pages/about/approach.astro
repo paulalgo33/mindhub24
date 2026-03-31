@@ -1,0 +1,120 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Наш подход — MindHub24"
+  description="Как мы работаем: психологическое консультирование онлайн. Не терапия, не диагнозы — разговор, который помогает увидеть ситуацию иначе."
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Подход</p>
+    <h1 class="font-heading text-[clamp(2.4rem,5vw,3.5rem)] font-normal leading-[1.12] text-[var(--color-deep)] tracking-[-0.03em] mb-4" data-reveal>
+      Как мы работаем
+    </h1>
+    <p class="text-xl text-[var(--color-text-mid)] font-light leading-[1.8]" data-reveal>
+      Без лекций, без домашних заданий, без диагнозов. Просто разговор — который постепенно меняет многое.
+    </p>
+  </div>
+</section>
+
+<!-- What is counseling -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Что это такое</p>
+    <h2 class="s-title" data-reveal>Психологическое консультирование — не терапия</h2>
+    <div class="flex flex-col gap-5 text-lg text-[var(--color-text-mid)] font-light leading-[1.85]">
+      <p data-reveal>
+        Психологическое консультирование — это профессиональная поддержка в решении конкретных жизненных сложностей. Это не медицинская помощь, не диагностика и не лечение. Мы работаем с вашим опытом, восприятием и поведением — не с симптомами.
+      </p>
+      <p data-reveal>
+        Консультант — не советчик и не тренер. Я не буду говорить вам, что делать. Я помогаю вам увидеть собственные ресурсы, паттерны и возможности — то, что уже есть внутри, но трудно разглядеть в одиночку.
+      </p>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="p-6 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
+        <p class="text-xs tracking-[0.1em] uppercase text-[var(--color-accent)] font-semibold mb-3">Что мы делаем</p>
+        <ul class="flex flex-col gap-2.5">
+          {['Работаем с тревогой, стрессом, отношениями', 'Помогаем в переходные периоды жизни', 'Исследуем паттерны поведения', 'Поддерживаем в сложных ситуациях'].map((item) => (
+            <li class="text-sm text-[var(--color-text-mid)] font-light flex items-start gap-2">
+              <span class="text-[var(--color-primary)] mt-0.5 flex-shrink-0">✓</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="p-6 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
+        <p class="text-xs tracking-[0.1em] uppercase text-red-400 font-semibold mb-3">Что мы НЕ делаем</p>
+        <ul class="flex flex-col gap-2.5">
+          {['Не ставим диагнозы', 'Не назначаем лекарства', 'Не заменяем психиатра при тяжёлых состояниях', 'Не работаем в экстренных кризисных ситуациях'].map((item) => (
+            <li class="text-sm text-[var(--color-text-mid)] font-light flex items-start gap-2">
+              <span class="text-red-400 mt-0.5 flex-shrink-0">×</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How sessions work -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Формат</p>
+    <h2 class="s-title" data-reveal>Как проходят сессии</h2>
+    <div class="flex flex-col gap-6 mt-8">
+      {[
+        { label: 'Формат', value: 'Видеозвонок. Зашифрованный, не записывается.' },
+        { label: 'Длительность', value: '50 минут. Первая встреча-знакомство — 20 минут, бесплатно.' },
+        { label: 'Периодичность', value: 'Обычно раз в неделю. По договорённости — реже или чаще.' },
+        { label: 'Язык', value: 'Только русский.' },
+        { label: 'Подготовка', value: 'Ничего не нужно готовить. Просто приходите.' },
+      ].map((item) => (
+        <div class="flex items-start gap-4 py-4 border-b border-[var(--color-border)]" data-reveal>
+          <span class="text-xs tracking-[0.1em] uppercase text-[var(--color-text-light)] font-semibold min-w-[130px] pt-1 flex-shrink-0">{item.label}</span>
+          <span class="text-[var(--color-text-mid)] font-light">{item.value}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- First 3 sessions -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Что ожидать</p>
+    <h2 class="s-title" data-reveal>Первые три встречи</h2>
+    <div class="flex flex-col gap-6 mt-8">
+      {[
+        { num: '01', title: 'Встреча 1: Знакомство', desc: '20 минут, бесплатно. Вы рассказываете, что вас привело. Я слушаю. В конце — решаем вместе, хотим ли продолжить.' },
+        { num: '02', title: 'Встреча 2: Картина ситуации', desc: 'Углубляемся. Я начинаю понимать ваш контекст — прошлое, настоящее, то, что важно для вас. Пространство безопасное.' },
+        { num: '03', title: 'Встреча 3: Направление', desc: 'Обсуждаем, с чем именно хотим работать. Как часто, в каком темпе. Это ваши решения — я только помогаю увидеть варианты.' },
+      ].map((step) => (
+        <div class="p-8 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
+          <div class="font-heading text-4xl font-bold text-[rgba(15,46,56,0.06)] mb-4 leading-none">{step.num}</div>
+          <h3 class="font-heading text-lg font-semibold text-[var(--color-deep)] mb-3">{step.title}</h3>
+          <p class="text-[var(--color-text-mid)] font-light leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)] text-center">
+  <div class="max-w-[580px] mx-auto">
+    <h2 class="font-heading text-[clamp(2rem,4vw,3rem)] font-normal text-[var(--color-deep)] mb-4 tracking-[-0.02em]" data-reveal>
+      Готовы попробовать?
+    </h2>
+    <p class="text-[var(--color-text-mid)] font-light mb-8" data-reveal>Первая встреча — 20 минут, бесплатно, без обязательств.</p>
+    <a href="/book/" class="btn-primary" data-reveal>
+      <span>Записаться</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+</MainLayout>

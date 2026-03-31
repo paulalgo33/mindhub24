@@ -1,0 +1,107 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Сниженное настроение — MindHub24"
+  description="Онлайн-консультации при сниженном настроении. Потеря интереса, усталость, пустота — работаем осторожно, в вашем темпе."
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <a href="/services/" class="text-xs text-[var(--color-text-light)] hover:text-[var(--color-primary)] transition-colors mb-6 inline-block">← Все направления</a>
+    <p class="s-label" data-reveal>Направление</p>
+    <h1 class="font-heading text-[clamp(2.6rem,5vw,3.8rem)] font-normal leading-[1.12] text-[var(--color-deep)] tracking-[-0.03em] mb-4" data-reveal>Сниженное настроение</h1>
+    <p class="text-xl text-[var(--color-text-mid)] font-light leading-[1.7]" data-reveal>Когда нет сил даже на то, что раньше приносило радость</p>
+  </div>
+</section>
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Узнаёте себя?</p>
+    <h2 class="s-title" data-reveal>Знакомо ли это?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+      {['Потеря интереса к вещам, которые раньше радовали', 'Усталость, которая не проходит после отдыха', 'Ощущение пустоты или серости', 'Трудно начать хоть что-то — даже встать с кровати', 'Чувство, что ничего не изменится', 'Слёзы без причины или, наоборот, полное онемение'].map((item) => (
+        <div class="p-6 pl-7 bg-white rounded-2xl border border-[var(--color-border)] border-l-[3px] card-glass text-[var(--color-text-mid)] font-light leading-relaxed" data-pain-card>
+          {item}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Как мы работаем</p>
+    <h2 class="s-title" data-reveal>Наш подход</h2>
+    <div class="flex flex-col gap-5 text-lg text-[var(--color-text-mid)] font-light leading-[1.85]">
+      <p data-reveal>Мы не давим и не торопим. Ищем, что стоит за апатией — иногда это накопленная усталость, иногда нереализованные потребности, иногда что-то, о чём сложно говорить вслух.</p>
+      <p data-reveal>Восстанавливаем ресурс постепенно. Небольшие шаги, которые дают реальный результат — без насилия над собой.</p>
+    </div>
+    <div class="mt-8 p-5 rounded-xl border border-orange-100" style="background:rgba(251,146,60,0.05);" data-reveal>
+      <p class="text-sm text-orange-700 font-light leading-relaxed">
+        <strong class="font-medium">Важно:</strong> При тяжёлой депрессии или суицидальных мыслях рекомендуется работа с психиатром. Мы честно скажем, если ваша ситуация требует направления к клиническому специалисту.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Результаты</p>
+    <h2 class="s-title" data-reveal>Что вы получите</h2>
+    <div class="flex flex-col gap-4 mt-8">
+      {['Возвращение смысла — постепенно, без насилия над собой', 'Улучшение функционирования в повседневной жизни', 'Устойчивость — умение справляться с упадком без отчаяния', 'Понимание, что за апатией стоит'].map((item) => (
+        <div class="flex items-start gap-3 py-3" data-reveal>
+          <span class="text-[var(--color-accent)] font-medium flex-shrink-0 mt-0.5">✓</span>
+          <p class="text-[var(--color-text-mid)] font-light leading-relaxed">{item}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Попробуйте прямо сейчас</p>
+    <div class="flex flex-wrap gap-4 mt-4" data-reveal>
+      <a href="/tools/journal" class="p-5 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift no-underline">
+        <p class="font-medium text-[var(--color-deep)] mb-1">Дневник чувств</p>
+        <p class="text-xs text-[var(--color-text-light)]">Запишите, что сейчас</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Также работаем с</p>
+    <div class="flex flex-wrap gap-3 mt-4" data-reveal>
+      <a href="/services/anxiety" class="py-2 px-5 bg-white rounded-full border border-[var(--color-border)] text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all no-underline">Тревога и стресс</a>
+      <a href="/services/burnout" class="py-2 px-5 bg-white rounded-full border border-[var(--color-border)] text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all no-underline">Выгорание</a>
+      <a href="/services/trauma" class="py-2 px-5 bg-white rounded-full border border-[var(--color-border)] text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all no-underline">Сложный опыт</a>
+    </div>
+  </div>
+</section>
+
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <div class="p-8 rounded-2xl" style="background:linear-gradient(135deg,rgba(27,77,92,0.06),rgba(201,168,76,0.04));border:1px solid rgba(27,77,92,0.12);">
+      <div class="flex items-start gap-5">
+        <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-14 h-14 rounded-full object-cover flex-shrink-0" style="box-shadow:0 2px 8px rgba(0,0,0,0.12);" />
+        <div>
+          <p class="font-heading text-xl text-[var(--color-deep)] mb-1">Готовы поговорить?</p>
+          <p class="text-[var(--color-text-mid)] font-light mb-5">Первая встреча бесплатно — 20 минут, без обязательств.</p>
+          <a href="/book/" class="btn-primary" style="display:inline-flex;"><span>Записаться бесплатно</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-left:6px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 p-6 rounded-2xl text-center" style="background:rgba(220,38,38,0.05);border:1px solid rgba(220,38,38,0.15);">
+      <p class="text-sm font-medium" style="color:#dc2626;">Если вы в кризисе — немедленно позвоните по номеру экстренной помощи</p>
+      <p class="text-sm mt-1" style="color:#991b1b;">Россия: 112 · Израиль: 112 · ЕС: 112</p>
+      <p class="text-xs mt-2 text-[var(--color-text-light)]">MindHub24 — не экстренная служба. <a href="/crisis/" class="underline">Кризисные ресурсы →</a></p>
+    </div>
+  </div>
+</section>
+
+</MainLayout>

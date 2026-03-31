@@ -1,0 +1,113 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+
+const faqCategories = [
+  {
+    title: 'Общее',
+    items: [
+      { q: 'Как проходит первая встреча?', a: 'Это 20-минутный видеозвонок. Мы знакомимся, вы рассказываете, что привело вас ко мне. Без анкет, без диагнозов. Просто разговор. В конце вместе решаем, хотим ли продолжить.' },
+      { q: 'Сколько стоит консультация?', a: 'Ознакомительная встреча — бесплатно. Стоимость консультаций обсуждается на первой встрече.' },
+      { q: 'Это конфиденциально?', a: 'Абсолютно. Я не рассказываю о вас никому. Ни при каких обстоятельствах. Всё, что происходит в рамках наших встреч, остаётся между нами.' },
+      { q: 'Мне нужно готовиться?', a: 'Нет. Вам не нужно знать, что сказать. Вам не нужно формулировать проблему. Просто приходите — мы разберёмся вместе.' },
+      { q: 'Чем вы отличаетесь от платформ?', a: 'MindHub24 — не маркетплейс. В отличие от платформ вроде Zigmund или Yasno, здесь Вы работаете с одним конкретным специалистом, который знает Вашу историю. Нет случайных назначений. Нет алгоритмов.' },
+    ],
+  },
+  {
+    title: 'Конфиденциальность',
+    items: [
+      { q: 'Кто видит мои данные?', a: 'Никто, кроме меня. Я не делюсь данными с третьими лицами ни при каких обстоятельствах.' },
+      { q: 'Безопасны ли онлайн-консультации?', a: 'Мы используем зашифрованные видеозвонки. Разговоры не записываются. Ваши данные хранятся защищённо.' },
+      { q: 'Узнает ли мой работодатель или семья?', a: 'Нет. Абсолютно нет. Это ваше личное пространство.' },
+    ],
+  },
+  {
+    title: 'Практическое',
+    items: [
+      { q: 'Как записаться?', a: 'Нажмите «Записаться», выберите удобное время. Мы подтвердим встречу по email.' },
+      { q: 'Что если нужно отменить?', a: 'Отменить можно за 24 часа. Ссылка для переноса — в письме с подтверждением.' },
+      { q: 'Сколько длится сессия?', a: '50 минут. Первая встреча-знакомство — 20 минут, бесплатно.' },
+      { q: 'Сколько сессий мне нужно?', a: 'Зависит от запроса. Обычно 6–12 сессий. Мы обсуждаем это вместе на третьей встрече.' },
+    ],
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqCategories.flatMap(cat =>
+    cat.items.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  )
+};
+---
+
+<MainLayout
+  title="FAQ — MindHub24 | Психологическая помощь онлайн"
+  description="Частые вопросы о психологическом консультировании онлайн. Как записаться, сколько стоит, конфиденциальность."
+  jsonLd={jsonLd}
+>
+
+<section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Вопросы и ответы</p>
+    <h1 class="s-title" data-reveal>FAQ</h1>
+    <p class="s-subtitle" data-reveal>Всё, что вы хотели спросить — но, может, стеснялись.</p>
+  </div>
+</section>
+
+<section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto flex flex-col gap-14">
+    {faqCategories.map((cat) => (
+      <div>
+        <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-6 pb-4 border-b border-[var(--color-border)]" data-reveal>{cat.title}</h2>
+        <div class="flex flex-col gap-3">
+          {cat.items.map((item) => (
+            <div class="border border-[var(--color-border)] rounded-2xl overflow-hidden bg-white" data-reveal>
+              <button
+                class="faq-btn w-full text-left px-7 py-5 flex items-center justify-between gap-4 font-medium text-[var(--color-deep)] text-base hover:text-[var(--color-primary)] transition-colors duration-200"
+              >
+                <span>{item.q}</span>
+                <svg class="faq-icon flex-shrink-0 transition-transform duration-300 text-[var(--color-accent)]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="faq-body overflow-hidden transition-all duration-400 ease-out" style="max-height:0;">
+                <p class="px-7 pb-6 text-[var(--color-text-mid)] font-light leading-relaxed">{item.a}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="py-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)] text-center">
+  <div class="max-w-[540px] mx-auto">
+    <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-3" data-reveal>Остались вопросы?</h2>
+    <p class="text-[var(--color-text-mid)] font-light mb-6" data-reveal>Напишите нам или сразу записывайтесь — на встрече можно спросить всё что угодно.</p>
+    <div class="flex gap-4 justify-center flex-wrap" data-reveal>
+      <a href="/contact/" class="btn-ghost">Написать нам</a>
+      <a href="/book/" class="btn-primary"><span>Записаться бесплатно</span></a>
+    </div>
+  </div>
+</section>
+
+</MainLayout>
+
+<script>
+  document.querySelectorAll('.faq-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const body = btn.nextElementSibling as HTMLElement;
+      const icon = btn.querySelector('.faq-icon') as HTMLElement;
+      const isOpen = body.style.maxHeight !== '0px' && body.style.maxHeight !== '';
+      document.querySelectorAll('.faq-body').forEach((b) => { (b as HTMLElement).style.maxHeight = '0'; });
+      document.querySelectorAll('.faq-icon').forEach((ic) => { (ic as HTMLElement).style.transform = ''; });
+      if (!isOpen) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>
