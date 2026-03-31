@@ -12,6 +12,7 @@ const services = [
   { slug: 'womens-support', name: 'Поддержка женщин', desc: 'Ролевая перегрузка, перфекционизм, потеря себя.' },
   { slug: 'adolescents', name: 'Подростки', desc: 'Для родителей, которые хотят помочь, но не знают как.' },
 ];
+import BookingCTA from '@/components/BookingCTA.astro';
 ---
 
 <MainLayout
@@ -81,4 +82,5 @@ const services = [
   </div>
 </section>
 
+<BookingCTA quote="Не нужно быть в кризисе, чтобы заслуживать поддержку. Достаточно того, что вам трудно." />
 </MainLayout>

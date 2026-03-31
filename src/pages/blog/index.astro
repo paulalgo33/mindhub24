@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+import BookingCTA from '@/components/BookingCTA.astro';
 ---
 
 <MainLayout
@@ -68,4 +69,5 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date
   </div>
 </section>
 
+<BookingCTA quote="Знание это первый шаг. Действие это второй. Мы поможем с обоими." />
 </MainLayout>

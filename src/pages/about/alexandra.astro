@@ -11,6 +11,7 @@ const jsonLd = {
   "knowsLanguage": "Russian",
   "url": "https://mindhub24.com/about/alexandra"
 };
+import BookingCTA from '@/components/BookingCTA.astro';
 ---
 
 <MainLayout
@@ -140,7 +141,7 @@ const jsonLd = {
         <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-14 h-14 rounded-full object-cover flex-shrink-0" style="box-shadow:0 2px 8px rgba(0,0,0,0.12);" />
         <div>
           <p class="font-heading text-xl text-[var(--color-deep)] mb-1">Готовы поговорить?</p>
-          <p class="text-[var(--color-text-mid)] font-light mb-5">Первая встреча бесплатно — 20 минут, без обязательств.</p>
+          <p class="text-[var(--color-text-mid)] font-light mb-5">Первая встреча бесплатно — 15 минут, без обязательств.</p>
           <a href="/book/" class="btn-primary" style="display:inline-flex;"><span>Записаться бесплатно</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-left:6px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
@@ -148,4 +149,5 @@ const jsonLd = {
   </div>
 </section>
 
+<BookingCTA quote="Иногда самое важное, что вы можете сделать для себя, это позволить кому-то помочь." />
 </MainLayout>

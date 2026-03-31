@@ -1,10 +1,11 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
+import BookingCTA from '@/components/BookingCTA.astro';
 ---
 
 <MainLayout
   title="Записаться — MindHub24 | Психологическая помощь онлайн"
-  description="Запишитесь на бесплатную первую встречу с психологом-консультантом. 20 минут, онлайн, без обязательств."
+  description="Запишитесь на бесплатную первую встречу с психологом-консультантом. 15 минут, онлайн, без обязательств."
 >
 
 <section class="pt-[120px] pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
@@ -14,7 +15,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
       Первая встреча — бесплатно
     </h1>
     <p class="text-xl text-[var(--color-text-mid)] font-light max-w-[500px] mx-auto" data-reveal>
-      20 минут. Знакомимся, обсуждаем ваш запрос. Без анкет, без диагнозов.
+      15 минут. Знакомимся, обсуждаем ваш запрос. Без анкет, без диагнозов.
     </p>
   </div>
 </section>
@@ -23,7 +24,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
 <section class="pb-16 px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
   <div class="max-w-[700px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
     {[
-      { type: 'Знакомство', price: 'Бесплатно', duration: '20 минут', desc: 'Первая встреча. Без обязательств.', cta: 'Записаться', featured: false },
+      { type: 'Знакомство', price: 'Бесплатно', duration: '15 минут', desc: 'Первая встреча. Без обязательств.', cta: 'Записаться', featured: false },
       { type: 'Консультация', price: 'Индивидуально', duration: '50 минут', desc: 'Стоимость обсуждается индивидуально. Оплата: Wise, PayPal (международные клиенты), Prodamus (Россия — скоро). Реквизиты обсуждаются после первой встречи.', cta: 'Записаться', featured: true },
       { type: 'Пакет сессий', price: 'Пакет', duration: '4–8 сессий', desc: 'Стоимость пакетов обсуждается на первой встрече.', cta: 'Выбрать', featured: false },
     ].map((card) => (
@@ -114,4 +115,5 @@ import MainLayout from '@/layouts/MainLayout.astro';
   </div>
 </section>
 
+<BookingCTA quote="Вы уже сделали самое сложное: вы решились. Осталось выбрать время." />
 </MainLayout>

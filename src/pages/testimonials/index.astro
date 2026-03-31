@@ -75,7 +75,7 @@ const testimonials = [
     gender: null,
   },
   {
-    quote: "Первая встреча бесплатная — и это не маркетинг. Это реально 20 минут, где сразу понимаешь: Вас слышат. По-настоящему.",
+    quote: "Первая встреча бесплатная — и это не маркетинг. Это реально 15 минут, где сразу понимаешь: Вас слышат. По-настоящему.",
     name: "Ольга, 33",
     location: "Краков 🇵🇱",
     tag: "Первая встреча",
@@ -123,6 +123,7 @@ const testimonials = [
     gender: "мужчина",
   },
 ];
+import BookingCTA from '@/components/BookingCTA.astro';
 ---
 
 <MainLayout
@@ -193,7 +194,7 @@ const testimonials = [
   </p>
   <div class="max-w-[540px] mx-auto">
     <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] mb-4" data-reveal>Хотите стать частью этих историй?</h2>
-    <p class="text-[var(--color-text-mid)] font-light mb-6" data-reveal>Первая встреча — бесплатно. 20 минут.</p>
+    <p class="text-[var(--color-text-mid)] font-light mb-6" data-reveal>Первая встреча — бесплатно. 15 минут.</p>
     <a href="/book/" class="btn-primary" data-reveal>
       <span>Записаться на бесплатный онлайн-звонок</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -201,4 +202,5 @@ const testimonials = [
   </div>
 </section>
 
+<BookingCTA quote="Каждый человек, чей отзыв вы прочитали, однажды тоже сомневался." />
 </MainLayout>

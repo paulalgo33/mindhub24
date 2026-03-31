@@ -76,7 +76,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
         <a href="/blog/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">Блог</a>
         <a href="/tools/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">Инструменты</a>
         <a href="/faq/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">FAQ</a>
-        <a href="/book/" class="btn-primary ml-3" style="padding:0.5rem 1.3rem;font-size:0.875rem;">
+        <a href="/book/" class="btn-primary ml-3 nav-cta-pulse" style="padding:0.5rem 1.3rem;font-size:0.875rem;">
           <span>Записаться — бесплатно</span>
         </a>
       </div>
@@ -306,6 +306,13 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
   #mainNav.scrolled::after {
     opacity: 1;
     border-bottom-color: var(--color-border);
+  }
+  @keyframes gentlePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(27, 77, 92, 0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(27, 77, 92, 0); }
+  }
+  .nav-cta-pulse {
+    animation: gentlePulse 2s infinite;
   }
   /* Main site is always light — no night mode override needed */
   .nav-inner {

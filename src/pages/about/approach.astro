@@ -1,5 +1,6 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
+import BookingCTA from '@/components/BookingCTA.astro';
 ---
 
 <MainLayout
@@ -79,7 +80,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
     <div class="flex flex-col gap-6 mt-8">
       {[
         { label: 'Формат', value: 'Видеозвонок. Зашифрованный, не записывается.' },
-        { label: 'Длительность', value: '50 минут. Первая встреча-знакомство — 20 минут, бесплатно.' },
+        { label: 'Длительность', value: '50 минут. Первая встреча-знакомство — 15 минут, бесплатно.' },
         { label: 'Периодичность', value: 'Обычно раз в неделю. По договорённости — реже или чаще.' },
         { label: 'Язык', value: 'Только русский.' },
         { label: 'Подготовка', value: 'Ничего не нужно готовить. Просто приходите.' },
@@ -114,7 +115,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
     <h2 class="s-title" data-reveal>Первые три встречи</h2>
     <div class="flex flex-col gap-6 mt-8">
       {[
-        { num: '01', title: 'Встреча 1: Знакомство', desc: '20 минут, бесплатно. Вы рассказываете, что вас привело. Я слушаю. В конце — решаем вместе, хотим ли продолжить.' },
+        { num: '01', title: 'Встреча 1: Знакомство', desc: '15 минут, бесплатно. Вы рассказываете, что вас привело. Я слушаю. В конце — решаем вместе, хотим ли продолжить.' },
         { num: '02', title: 'Встреча 2: Картина ситуации', desc: 'Углубляемся. Я начинаю понимать ваш контекст — прошлое, настоящее, то, что важно для вас. Пространство безопасное.' },
         { num: '03', title: 'Встреча 3: Направление', desc: 'Обсуждаем, с чем именно хотим работать. Как часто, в каком темпе. Это ваши решения — я только помогаю увидеть варианты.' },
       ].map((step) => (
@@ -149,7 +150,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
     <h2 class="font-heading text-[clamp(2rem,4vw,3rem)] font-normal text-[var(--color-deep)] mb-4 tracking-[-0.02em]" data-reveal>
       Готовы попробовать?
     </h2>
-    <p class="text-[var(--color-text-mid)] font-light mb-8" data-reveal>Первая встреча — 20 минут, бесплатно, без обязательств.</p>
+    <p class="text-[var(--color-text-mid)] font-light mb-8" data-reveal>Первая встреча — 15 минут, бесплатно, без обязательств.</p>
     <a href="/book/" class="btn-primary" data-reveal>
       <span>Записаться</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -157,4 +158,5 @@ import MainLayout from '@/layouts/MainLayout.astro';
   </div>
 </section>
 
+<BookingCTA quote="Просить о помощи это не слабость. Это, возможно, самый сильный шаг, который вы можете сделать." />
 </MainLayout>

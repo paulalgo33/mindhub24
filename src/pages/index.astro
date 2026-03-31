@@ -16,13 +16,14 @@ const jsonLd = {
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "Как проходит первая встреча?", "acceptedAnswer": { "@type": "Answer", "text": "Это 20-минутный видеозвонок. Мы знакомимся, вы рассказываете, что привело вас ко мне. Без анкет, без диагнозов. Просто разговор." } },
+        { "@type": "Question", "name": "Как проходит первая встреча?", "acceptedAnswer": { "@type": "Answer", "text": "Это 15-минутный видеозвонок. Мы знакомимся, вы рассказываете, что привело вас ко мне. Без анкет, без диагнозов. Просто разговор." } },
         { "@type": "Question", "name": "Это конфиденциально?", "acceptedAnswer": { "@type": "Answer", "text": "Абсолютно. Всё, что происходит в рамках наших встреч, остаётся между нами." } },
-        { "@type": "Question", "name": "Первая встреча бесплатно?", "acceptedAnswer": { "@type": "Answer", "text": "Да, первая ознакомительная встреча (20 минут) полностью бесплатна, без обязательств." } }
+        { "@type": "Question", "name": "Первая встреча бесплатно?", "acceptedAnswer": { "@type": "Answer", "text": "Да, первая ознакомительная встреча (15 минут) полностью бесплатна, без обязательств." } }
       ]
     }
   ]
 };
+import BookingCTA from '@/components/BookingCTA.astro';
 ---
 
 <MainLayout
@@ -91,7 +92,7 @@ const jsonLd = {
       { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>`, title: 'Полностью онлайн', sub1: 'Из дома, из офиса, из другой страны.', sub2: 'Никуда не нужно ехать.' },
       { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`, title: 'На русском языке', sub1: 'Чувства живут на родном языке.', sub2: 'Здесь вас поймут.' },
       { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`, title: 'Конфиденциально', sub1: 'Никто не узнает.', sub2: 'Ни при каких обстоятельствах.' },
-      { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`, title: 'Первая встреча бесплатно', sub1: '20 минут. Без обязательств.', sub2: 'Просто познакомимся.' },
+      { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`, title: 'Первая встреча бесплатно', sub1: '15 минут. Без обязательств.', sub2: 'Просто познакомимся.' },
     ].map((item) => (
       <div class="p-6 bg-white rounded-2xl border border-[var(--color-border)] card-glass card-lift text-center" data-reveal>
         <div class="w-11 h-11 rounded-xl flex items-center justify-center mx-auto mb-4 text-[var(--color-primary)]" style="background:rgba(27,77,92,0.07);" set:html={item.icon} />
@@ -136,7 +137,7 @@ const jsonLd = {
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
       {[
         { num: '01', title: 'Запишитесь', desc: 'Онлайн, за 2 минуты. Выберите удобное время в календаре.' },
-        { num: '02', title: 'Поговорите', desc: '20-минутная бесплатная встреча. Знакомимся, обсуждаем ваш запрос.' },
+        { num: '02', title: 'Поговорите', desc: '15-минутная бесплатная встреча. Знакомимся, обсуждаем ваш запрос.' },
         { num: '03', title: 'Работайте', desc: 'В вашем темпе. Еженедельно или по мере необходимости.' },
       ].map((step) => (
         <div class="p-10 rounded-[20px] border border-[var(--color-border)] bg-white card-glass" data-reveal>
@@ -324,7 +325,7 @@ const jsonLd = {
     <h2 class="s-title text-center" data-reveal>FAQ</h2>
     <div class="mt-10 flex flex-col gap-3" id="faqList">
       {[
-        { q: 'Как проходит первая встреча?', a: 'Это 20-минутный видеозвонок. Мы знакомимся, вы рассказываете, что привело вас ко мне. Без анкет, без диагнозов. Просто разговор. В конце вместе решаем, хотим ли продолжить.' },
+        { q: 'Как проходит первая встреча?', a: 'Это 15-минутный видеозвонок. Мы знакомимся, вы рассказываете, что привело вас ко мне. Без анкет, без диагнозов. Просто разговор. В конце вместе решаем, хотим ли продолжить.' },
         { q: 'Сколько стоит консультация?', a: 'Первая встреча — бесплатно. Стоимость обсуждается на ознакомительной встрече.' },
         { q: 'Это конфиденциально?', a: 'Абсолютно. Я не рассказываю о вас никому. Ни при каких обстоятельствах. Всё, что происходит в рамках наших встреч, остаётся между нами.' },
         { q: 'Мне нужно готовиться к встрече?', a: 'Нет. Вам не нужно знать, что сказать. Вам не нужно формулировать проблему. Просто приходите — мы разберёмся вместе.' },
@@ -359,7 +360,7 @@ const jsonLd = {
       Готовы попробовать? Первая онлайн-встреча — бесплатно.
     </h2>
     <p class="text-lg text-[var(--color-text-mid)] font-light mb-10" data-reveal>
-      20 минут. Без обязательств. Без диагнозов. Просто разговор.
+      15 минут. Без обязательств. Без диагнозов. Просто разговор.
     </p>
     <a href="/book/" class="btn-primary text-lg py-5 px-10" data-reveal>
       <span>Записаться</span>
@@ -376,6 +377,67 @@ const jsonLd = {
   <p class="text-xs mt-2 text-[var(--color-text-light)]">MindHub24 — не экстренная служба. <a href="/crisis/" class="underline">Кризисные ресурсы →</a></p>
 </div>
 
+<!-- =================== 5 TRUTHS =================== -->
+<section class="py-16 md:py-24 px-4" style="background: linear-gradient(180deg, #E8F0ED 0%, #D9E8E2 100%);">
+  <div class="max-w-lg mx-auto">
+
+    <p class="text-center text-sm font-medium tracking-widest uppercase mb-2" style="color: var(--color-primary);">Прежде чем вы уйдёте</p>
+    <h2 class="text-center font-heading text-2xl md:text-3xl mb-12" style="color: var(--color-deep);">
+      5 вещей, которые <span class="relative inline-block"><span class="relative z-10">правда</span><span class="absolute bottom-0 left-0 w-full h-3 rounded-full opacity-30" style="background: var(--color-accent);"></span></span> о первой встрече
+    </h2>
+
+    <div class="space-y-4 chat-bubbles">
+
+      <div class="flex justify-start" data-reveal>
+        <div class="max-w-xs px-5 py-3 rounded-2xl rounded-bl-md shadow-sm" style="background: white;">
+          <p class="text-base" style="color: var(--color-deep);">Вы не будете знать, что сказать. И это нормально.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end" data-reveal>
+        <div class="max-w-xs px-5 py-3 rounded-2xl rounded-br-md shadow-sm" style="background: var(--color-primary); color: white;">
+          <p class="text-base">Первые минуты могут быть неловкими. Это тоже нормально.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-start" data-reveal>
+        <div class="max-w-xs px-5 py-3 rounded-2xl rounded-bl-md shadow-sm" style="background: white;">
+          <p class="text-base" style="color: var(--color-deep);">Не нужно быть в кризисе, чтобы прийти.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end" data-reveal>
+        <div class="max-w-xs px-5 py-3 rounded-2xl rounded-br-md shadow-sm" style="background: var(--color-primary); color: white;">
+          <p class="text-base">Быть услышанным бывает важнее, чем получить совет.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-start" data-reveal>
+        <div class="max-w-xs px-5 py-3 rounded-2xl rounded-bl-md shadow-sm" style="background: white;">
+          <p class="text-base" style="color: var(--color-deep);">Через 15 минут вы будете рады, что решились.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-12">
+      <p class="font-heading text-lg md:text-xl mb-6" style="color: var(--color-deep);">
+        Первый шаг кажется большим.<br/>
+        Мы делаем его маленьким.
+      </p>
+      <a href="/book/"
+        class="inline-flex items-center gap-2 px-8 py-4 text-lg font-medium text-white rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        style="background: linear-gradient(135deg, #1B4D5C 0%, #2A6E82 100%);">
+        Записаться на бесплатный 15-минутный звонок
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="mt-3 text-sm" style="color: var(--color-text-mid);">Онлайн · Бесплатно · Конфиденциально</p>
+    </div>
+
+  </div>
+</section>
+
+<BookingCTA quote="Вы заслуживаете быть услышанным. Не завтра. Сейчас." />
 </MainLayout>
 
 <script>

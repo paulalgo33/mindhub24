@@ -16,7 +16,7 @@ const t = {
   ...ru,
   meta: {
     title: 'Бесплатная онлайн-консультация с психологом — MindHub24',
-    description: 'Запишитесь на бесплатную онлайн-встречу с психологом. 20 минут. Без обязательств. Первый шаг — бесплатно.',
+    description: 'Запишитесь на бесплатную онлайн-встречу с психологом. 15 минут. Без обязательств. Первый шаг — бесплатно.',
   },
   crisis: {
     title: 'Если вы в кризисной ситуации:',
@@ -42,7 +42,7 @@ const t = {
     <div>
       <p class="text-[0.65rem] tracking-[0.18em] uppercase text-[var(--color-accent)] font-semibold mb-5" data-reveal>Психологическое консультирование · Онлайн</p>
       <h1 class="font-heading text-[clamp(2.8rem,5.5vw,4rem)] font-normal leading-[1.1] tracking-[-0.03em] text-[var(--color-deep)] mb-6" data-reveal>
-        Бесплатная онлайн-встреча с психологом. <em>20 минут.</em>
+        Бесплатная онлайн-встреча с психологом. <em>15 минут.</em>
       </h1>
       <p class="text-lg text-[var(--color-text-mid)] font-light leading-[1.85] mb-8 max-w-[500px]" data-reveal>
         Расскажите, что происходит. Мы поможем разобраться. Без обязательств.
@@ -167,12 +167,33 @@ const t = {
 
 <Voices label={t.voices.label} title={t.voices.title} items={t.voices.items} closing={t.voices.closing} />
 
+<!-- Chat bubbles -->
+<section class="py-12 px-4" style="background: linear-gradient(180deg, #E8F0ED 0%, #D9E8E2 100%);">
+  <div class="max-w-md mx-auto space-y-4">
+    <div class="flex justify-start">
+      <div class="max-w-xs px-5 py-3 rounded-2xl rounded-bl-md shadow-sm" style="background: white;">
+        <p class="text-base" style="color: var(--color-deep);">Вы не будете знать, что сказать. И это нормально.</p>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <div class="max-w-xs px-5 py-3 rounded-2xl rounded-br-md shadow-sm" style="background: var(--color-primary); color: white;">
+        <p class="text-base">Не нужно быть в кризисе, чтобы прийти.</p>
+      </div>
+    </div>
+    <div class="flex justify-start">
+      <div class="max-w-xs px-5 py-3 rounded-2xl rounded-bl-md shadow-sm" style="background: white;">
+        <p class="text-base" style="color: var(--color-deep);">Через 15 минут вы будете рады, что решились.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FINAL CTA -->
 <section class="py-[var(--spacing-section-lg)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)] text-center relative overflow-hidden" id="cta">
   <div class="absolute w-[600px] h-[600px] rounded-full blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(27,77,92,0.06),transparent_70%)] pointer-events-none"></div>
   <div class="relative z-2 max-w-[600px] mx-auto">
     <h2 class="font-heading text-[clamp(2.8rem,6vw,4.5rem)] font-medium text-[var(--color-deep)] mb-4 leading-[1.08] tracking-[-0.03em]" data-reveal>
-      Бесплатная онлайн-встреча. 20 минут.
+      Бесплатная онлайн-встреча. 15 минут.
     </h2>
     <p class="text-lg text-[var(--color-text-mid)] font-light mb-10" data-reveal>
       Расскажите, что происходит. Мы поможем разобраться. Без обязательств.
