@@ -1,70 +1,88 @@
 ---
 import ToolLayout from '@/layouts/ToolLayout.astro';
+
+const QUESTIONS = [
+  'Что сегодня было самым сложным?',
+  'Что дало вам силы сегодня?',
+  'Как ваше тело себя чувствует сегодня?',
+  'Что вы хотели бы сделать, но не сделали?',
+  'Что вас порадовало сегодня — даже немного?',
+  'Как вы заботились о себе сегодня?',
+  'Что вы хотите взять с собой в завтра?',
+];
 ---
 
-<ToolLayout title="Трекер настроения">
-  <div class="max-w-[600px] mx-auto">
-    <!-- Header -->
+<ToolLayout title="Карта настроения">
+  <div class="max-w-[560px] mx-auto">
+
     <div class="mb-10">
       <p class="s-label">Трекер · 7 дней</p>
-      <h1 class="font-heading text-[clamp(2rem,5vw,3rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
-        Трекер настроения
+      <h1 class="font-heading text-[clamp(2rem,5vw,2.8rem)] font-normal leading-[1.15] text-[var(--color-deep)] tracking-[-0.03em] mb-3">
+        Карта настроения
       </h1>
       <p class="text-[var(--color-text-mid)] font-light leading-relaxed">
-        Отмечайте настроение каждый день. На 7-й день получите AI-анализ своей недели.
+        Отмечайте настроение каждый день. На 7-й получите AI-анализ своей недели.
       </p>
     </div>
 
-    <!-- Main tracker -->
-    <div id="trackerSection">
-      <!-- 7-day grid -->
-      <div id="weekGrid" class="grid grid-cols-7 gap-2 mb-8"></div>
+    <!-- Progress bar -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-2">
+        <p class="text-xs text-[var(--color-text-light)]">Прогресс</p>
+        <p class="text-xs font-medium text-[var(--color-primary)]"><span id="doneCount">0</span> / 7 дней</p>
+      </div>
+      <div class="h-2 rounded-full overflow-hidden" style="background:rgba(27,77,92,0.08);">
+        <div id="progressBar" class="h-full rounded-full transition-all duration-500" style="background:var(--color-primary);width:0%;"></div>
+      </div>
+      <!-- Day dots -->
+      <div class="flex gap-2 mt-3" id="dayDots"></div>
+    </div>
 
-      <!-- Today's entry -->
-      <div id="todayEntry" class="p-6 rounded-2xl border border-[var(--color-border)] bg-white" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);">
-        <p class="text-sm font-medium text-[var(--color-text)] mb-4">Как вы себя чувствуете сегодня?</p>
+    <!-- Today entry -->
+    <div id="entrySection">
+      <div id="alreadyDone" style="display:none;" class="p-6 rounded-2xl border border-[var(--color-border)] bg-[rgba(27,77,92,0.03)] text-center mb-4">
+        <p class="font-heading text-lg text-[var(--color-deep)] mb-1">Сегодня уже отмечено ✓</p>
+        <p class="text-sm text-[var(--color-text-mid)] font-light">Возвращайтесь завтра.</p>
+      </div>
 
-        <!-- Mood scale 1-5 -->
-        <div class="flex gap-2 mb-5" id="moodBtns">
-          {[
-            { v: 1, label: 'Очень плохо', emoji: '😔' },
-            { v: 2, label: 'Плохо', emoji: '😕' },
-            { v: 3, label: 'Нейтрально', emoji: '😐' },
-            { v: 4, label: 'Хорошо', emoji: '🙂' },
-            { v: 5, label: 'Отлично', emoji: '😊' },
-          ].map(m => (
-            <button
-              class="mood-btn flex-1 flex flex-col items-center gap-1 p-3 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:bg-[rgba(27,77,92,0.04)] transition-all duration-300"
-              data-value={m.v}
-              title={m.label}
-            >
-              <span class="text-2xl">{m.emoji}</span>
-              <span class="text-[0.6rem] text-[var(--color-text-light)]">{m.v}</span>
-            </button>
-          ))}
+      <div id="entryForm" class="p-6 rounded-2xl border border-[var(--color-border)] bg-white" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);">
+        <p class="text-sm font-medium text-[var(--color-text)] mb-4" id="dayQuestion"></p>
+
+        <!-- Slider 1-10 -->
+        <div class="mb-5">
+          <div class="flex items-center justify-between mb-2">
+            <p class="text-xs text-[var(--color-text-light)]">Настроение сегодня</p>
+            <div class="flex items-center gap-2">
+              <span id="moodEmoji" class="text-2xl">😐</span>
+              <span id="moodVal" class="font-heading text-xl text-[var(--color-primary)] font-medium">5</span>
+            </div>
+          </div>
+          <input
+            id="moodSlider"
+            type="range"
+            min="1" max="10" value="5" step="1"
+            class="w-full mood-slider"
+          />
+          <div class="flex justify-between text-[0.65rem] text-[var(--color-text-light)] mt-1">
+            <span>Очень плохо</span>
+            <span>Отлично</span>
+          </div>
         </div>
 
         <textarea
-          id="moodNote"
-          placeholder="Добавьте заметку (необязательно)..."
-          class="w-full min-h-[80px] p-4 rounded-xl border border-[var(--color-border)] bg-[rgba(250,247,242,0.5)] font-body text-sm text-[var(--color-text)] leading-relaxed resize-none outline-none focus:border-[var(--color-primary)] transition-colors duration-300 font-light"
+          id="noteInput"
+          placeholder="Пара слов о сегодняшнем дне (необязательно)..."
+          class="w-full min-h-[80px] p-4 rounded-xl border border-[var(--color-border)] bg-[rgba(250,247,242,0.5)] font-body text-sm text-[var(--color-text)] leading-relaxed resize-none outline-none focus:border-[var(--color-primary)] transition-colors duration-300 font-light mb-4"
         ></textarea>
 
-        <div class="flex items-center justify-between mt-4">
-          <p id="todayStatus" class="text-xs text-[var(--color-text-light)]"></p>
-          <button id="saveBtn" class="btn-primary" style="display:none;">
-            <span>Сохранить</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Already logged today -->
-      <div id="alreadySaved" style="display:none;" class="mt-4 p-4 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] text-sm text-[var(--color-text-mid)] text-center font-light">
-        Сегодня уже отмечено ✓ — возвращайтесь завтра
+        <button id="saveBtn" class="btn-primary w-full justify-center">
+          <span>Сохранить</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+        </button>
       </div>
     </div>
 
-    <!-- Loading analysis -->
+    <!-- Analysis loading -->
     <div id="loadingAnalysis" style="display:none;" class="text-center py-14">
       <div class="breath-ring mx-auto mb-5"></div>
       <p class="text-[var(--color-text-mid)] font-light text-sm">Анализирую вашу неделю...</p>
@@ -72,98 +90,139 @@ import ToolLayout from '@/layouts/ToolLayout.astro';
 
     <!-- Analysis result -->
     <div id="analysisSection" style="display:none;" class="mt-2">
-      <div class="p-8 rounded-2xl border border-[var(--color-border)] bg-white" style="box-shadow:0 20px 60px rgba(0,0,0,0.04);">
-        <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-accent)] mb-4">Анализ вашей недели</p>
-        <p id="analysisText" class="text-[var(--color-text)] leading-[1.9] font-light text-[1.05rem]"></p>
+      <!-- SVG chart -->
+      <div class="p-5 rounded-2xl border border-[var(--color-border)] bg-white mb-5" style="box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);">
+        <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-accent)] mb-3">Ваша неделя</p>
+        <svg id="moodChart" viewBox="0 0 400 100" width="100%" height="80"></svg>
       </div>
 
-      <div class="mt-6 p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4">
-        <div class="w-10 h-10 rounded-full bg-[var(--color-deep)] shrink-0 overflow-hidden">
+      <div class="p-8 rounded-2xl border border-[var(--color-border)] bg-white mb-5" style="box-shadow:0 20px 60px rgba(0,0,0,0.04);">
+        <p class="text-[0.65rem] tracking-[0.1em] uppercase font-semibold text-[var(--color-accent)] mb-4">Анализ вашей недели</p>
+        <p id="analysisText" class="text-[var(--color-text)] leading-[1.9] font-light text-[1.02rem]"></p>
+      </div>
+
+      <div class="p-6 rounded-xl bg-[rgba(27,77,92,0.04)] border border-[rgba(27,77,92,0.08)] flex items-start gap-4 mb-6">
+        <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
           <img src="/images/alexandra-hero.jpeg" alt="Александра" class="w-full h-full object-cover" />
         </div>
         <div>
-          <p class="text-sm text-[var(--color-text)] font-medium mb-1">Хотите разобраться в паттернах глубже?</p>
-          <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться к Александре →</a>
+          <p class="text-sm text-[var(--color-text)] font-medium mb-1">Если хотите поговорить глубже — Александра здесь.</p>
+          <a href="/lp/israel#pricing" class="text-sm text-[var(--color-primary)] font-medium no-underline hover:underline">Записаться бесплатно →</a>
         </div>
       </div>
 
-      <button id="resetWeekBtn" class="btn-ghost mt-8 text-sm">Начать новую неделю</button>
+      <button id="resetBtn" class="btn-ghost text-sm">Начать заново</button>
     </div>
+
   </div>
 </ToolLayout>
 
 <style>
-  .breath-ring {
-    width: 60px; height: 60px; border-radius: 50%;
-    border: 2px solid var(--color-primary);
-    animation: breathRing 2.4s ease-in-out infinite;
-  }
-  @keyframes breathRing {
-    0%, 100% { transform: scale(0.85); opacity: 0.4; }
-    50%       { transform: scale(1.15); opacity: 1; }
-  }
-  .mood-btn.selected {
-    border-color: var(--color-primary) !important;
-    background: rgba(27,77,92,0.08) !important;
-    transform: scale(1.05);
-  }
-  .day-cell {
-    aspect-ratio: 1;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.6rem;
-    gap: 3px;
-    border: 1px solid var(--color-border);
-    background: rgba(250,247,242,0.5);
-    color: var(--color-text-light);
-  }
-  .day-cell.filled-1 { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); }
-  .day-cell.filled-2 { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.3); }
-  .day-cell.filled-3 { background: rgba(234,179,8,0.15); border-color: rgba(234,179,8,0.3); }
-  .day-cell.filled-4 { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.3); }
-  .day-cell.filled-5 { background: rgba(27,77,92,0.15); border-color: rgba(27,77,92,0.4); }
-  .day-cell.today { border-color: var(--color-primary); border-width: 2px; }
+  .breath-ring { width:60px;height:60px;border-radius:50%;border:2px solid var(--color-primary);animation:breathRing 2.4s ease-in-out infinite; }
+  @keyframes breathRing { 0%,100%{transform:scale(0.85);opacity:.4} 50%{transform:scale(1.15);opacity:1} }
+  .mood-slider { -webkit-appearance:none;appearance:none;height:6px;border-radius:3px;outline:none;cursor:pointer; background:linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 50%, rgba(27,77,92,0.15) 50%, rgba(27,77,92,0.15) 100%); }
+  .mood-slider::-webkit-slider-thumb { -webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--color-deep);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15); }
 </style>
 
-<script>
-  const STORAGE_KEY = 'mh24_mood_week';
-  const EMOJIS = ['', '😔', '😕', '😐', '🙂', '😊'];
-  const DAYS_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+<script define:vars={{ QUESTIONS }}>
+  const STORAGE_KEY = 'mh24_mood';
+  const EMOJIS = {1:'😔',2:'😕',3:'😟',4:'😑',5:'😐',6:'🙂',7:'😊',8:'😄',9:'😁',10:'🤩'};
+  const DAYS = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
 
-  interface DayEntry { date: string; value: number; note: string; }
+  function todayStr() { return new Date().toISOString().slice(0,10); }
+  function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); } catch { return []; } }
+  function save(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
 
-  function loadData(): DayEntry[] {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-    catch { return []; }
+  let data = load();
+
+  const slider = document.getElementById('moodSlider');
+  const moodVal = document.getElementById('moodVal');
+  const moodEmoji = document.getElementById('moodEmoji');
+  const noteInput = document.getElementById('noteInput');
+  const entryForm = document.getElementById('entryForm');
+  const alreadyDone = document.getElementById('alreadyDone');
+  const doneCount = document.getElementById('doneCount');
+  const progressBar = document.getElementById('progressBar');
+  const dayDots = document.getElementById('dayDots');
+  const dayQuestion = document.getElementById('dayQuestion');
+  const loadingAnalysis = document.getElementById('loadingAnalysis');
+  const analysisSection = document.getElementById('analysisSection');
+  const analysisText = document.getElementById('analysisText');
+
+  function show(el) { el.style.display = ''; }
+  function hide(el) { el.style.display = 'none'; }
+
+  function updateSliderBackground() {
+    const val = parseInt(slider.value);
+    const pct = ((val - 1) / 9 * 100).toFixed(1);
+    slider.style.background = `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) ${pct}%, rgba(27,77,92,0.15) ${pct}%, rgba(27,77,92,0.15) 100%)`;
   }
-  function saveData(data: DayEntry[]) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+  slider.addEventListener('input', () => {
+    const v = parseInt(slider.value);
+    moodVal.textContent = String(v);
+    moodEmoji.textContent = EMOJIS[v] || '😐';
+    updateSliderBackground();
+  });
+  updateSliderBackground();
+
+  function getLast7() {
+    const today = new Date();
+    const week = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today); d.setDate(d.getDate() - i);
+      const ds = d.toISOString().slice(0,10);
+      week.push({ date: ds, day: DAYS[d.getDay()], entry: data.find(e => e.date === ds) || null });
+    }
+    return week;
   }
-  function todayStr(): string {
-    return new Date().toISOString().slice(0, 10);
+
+  function render() {
+    const week = getLast7();
+    const filled = week.filter(w => w.entry).length;
+    doneCount.textContent = String(filled);
+    progressBar.style.width = `${(filled/7)*100}%`;
+
+    dayDots.innerHTML = '';
+    week.forEach(w => {
+      const dot = document.createElement('div');
+      dot.className = 'flex-1 flex flex-col items-center gap-1';
+      const v = w.entry?.value;
+      const color = v ? `hsl(${(v-1)*13},55%,${75 - v*3}%)` : 'rgba(27,77,92,0.08)';
+      dot.innerHTML = `
+        <div class="w-full h-2 rounded-full transition-all duration-300" style="background:${w.entry ? 'var(--color-primary)' : 'rgba(27,77,92,0.08)'}"></div>
+        <span class="text-[0.6rem] text-[var(--color-text-light)]">${w.day}</span>
+      `;
+      dayDots.appendChild(dot);
+    });
+
+    const today = todayStr();
+    const todayEntry = data.find(e => e.date === today);
+    const todayIdx = week.findIndex(w => w.date === today);
+    const question = QUESTIONS[todayIdx >= 0 ? todayIdx : 0];
+    dayQuestion.textContent = question;
+
+    if (todayEntry) { hide(entryForm); show(alreadyDone); }
+    else { show(entryForm); hide(alreadyDone); }
+
+    if (filled >= 7) { setTimeout(() => runAnalysis(week), 300); }
   }
 
-  let data = loadData();
-  let selectedMood = 0;
+  document.getElementById('saveBtn').addEventListener('click', () => {
+    const v = parseInt(slider.value);
+    const note = noteInput.value.trim();
+    data = data.filter(e => e.date !== todayStr());
+    data.push({ date: todayStr(), value: v, note });
+    save(data);
+    noteInput.value = '';
+    slider.value = '5';
+    moodVal.textContent = '5';
+    moodEmoji.textContent = '😐';
+    updateSliderBackground();
+    render();
+  });
 
-  const weekGrid = document.getElementById('weekGrid')!;
-  const saveBtn = document.getElementById('saveBtn')!;
-  const todayStatus = document.getElementById('todayStatus')!;
-  const moodNote = document.getElementById('moodNote') as HTMLTextAreaElement;
-  const todayEntry = document.getElementById('todayEntry')!;
-  const alreadySaved = document.getElementById('alreadySaved')!;
-  const loadingAnalysis = document.getElementById('loadingAnalysis')!;
-  const analysisSection = document.getElementById('analysisSection')!;
-  const analysisText = document.getElementById('analysisText')!;
-  const trackerSection = document.getElementById('trackerSection')!;
-
-  function show(el: HTMLElement) { el.style.display = ''; }
-  function hide(el: HTMLElement) { el.style.display = 'none'; }
-
-  async function typeText(el: HTMLElement, text: string, delay = 18) {
+  async function typeText(el, text, delay = 16) {
     el.textContent = '';
     for (const ch of text) {
       el.textContent += ch;
@@ -171,122 +230,71 @@ import ToolLayout from '@/layouts/ToolLayout.astro';
     }
   }
 
-  function renderGrid() {
-    weekGrid.innerHTML = '';
-    // Show last 7 slots
-    const today = new Date();
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const ds = d.toISOString().slice(0, 10);
-      const entry = data.find(e => e.date === ds);
-      const cell = document.createElement('div');
-      cell.className = `day-cell${entry ? ` filled-${entry.value}` : ''}${i === 0 ? ' today' : ''}`;
-      cell.innerHTML = `
-        <span>${DAYS_RU[d.getDay()]}</span>
-        <span>${entry ? EMOJIS[entry.value] : '·'}</span>
-      `;
-      weekGrid.appendChild(cell);
-    }
-  }
-
-  function checkTodayStatus() {
-    const already = data.find(e => e.date === todayStr());
-    if (already) {
-      hide(todayEntry);
-      show(alreadySaved);
-      todayStatus.textContent = '';
-    } else {
-      show(todayEntry);
-      hide(alreadySaved);
-    }
-    // Check if 7 days filled
-    const today = new Date();
-    let filledCount = 0;
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const ds = d.toISOString().slice(0, 10);
-      if (data.find(e => e.date === ds)) filledCount++;
-    }
-    if (filledCount >= 7) {
-      hide(trackerSection);
-      runAnalysis();
-    }
-  }
-
-  document.querySelectorAll('.mood-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectedMood = parseInt((btn as HTMLElement).dataset.value || '0');
-      show(saveBtn as HTMLElement);
-    });
-  });
-
-  saveBtn.addEventListener('click', () => {
-    if (!selectedMood) return;
-    const entry: DayEntry = { date: todayStr(), value: selectedMood, note: moodNote.value.trim() };
-    data = data.filter(e => e.date !== todayStr());
-    data.push(entry);
-    saveData(data);
-    selectedMood = 0;
-    moodNote.value = '';
-    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
-    hide(saveBtn as HTMLElement);
-    renderGrid();
-    checkTodayStatus();
-  });
-
-  async function runAnalysis() {
+  async function runAnalysis(week) {
+    const entrySection = document.getElementById('entrySection');
+    hide(entrySection);
     show(loadingAnalysis);
 
-    const today = new Date();
-    const weekSummary = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
-      const ds = d.toISOString().slice(0, 10);
-      const entry = data.find(e => e.date === ds);
-      if (entry) {
-        weekSummary.push(`${DAYS_RU[d.getDay()]}: ${entry.value}/5${entry.note ? ` (${entry.note})` : ''}`);
-      }
+    // Draw chart
+    const values = week.map(w => w.entry?.value || 0);
+    const svg = document.getElementById('moodChart');
+    if (svg && values.some(v => v > 0)) {
+      const W = 400, H = 80, pad = 20;
+      const pts = values.map((v, i) => {
+        const x = pad + (i / 6) * (W - pad*2);
+        const y = H - pad - ((v/10) * (H - pad*2));
+        return `${x},${y}`;
+      }).join(' ');
+      svg.innerHTML = `
+        <polyline points="${pts}" fill="none" stroke="rgba(27,77,92,0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        ${values.map((v,i) => {
+          if (!v) return '';
+          const x = pad + (i/6)*(W-pad*2);
+          const y = H - pad - ((v/10)*(H-pad*2));
+          return `<circle cx="${x}" cy="${y}" r="4" fill="var(--color-primary)" /><text x="${x}" y="${y-8}" text-anchor="middle" font-size="9" fill="rgba(27,77,92,0.6)" font-family="DM Sans,sans-serif">${v}</text>`;
+        }).join('')}
+        ${week.map((w,i) => {
+          const x = pad + (i/6)*(W-pad*2);
+          return `<text x="${x}" y="${H-2}" text-anchor="middle" font-size="8" fill="rgba(27,77,92,0.4)" font-family="DM Sans,sans-serif">${w.day}</text>`;
+        }).join('')}
+      `;
     }
+
+    const entries = week.map(w => w.entry
+      ? `${w.day}: ${w.entry.value}/10${w.entry.note ? ` — ${w.entry.note}` : ''}`
+      : `${w.day}: нет данных`
+    ).join('\n');
 
     try {
       const res = await fetch('/api/claude', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
-          max_tokens: 500,
-          system: 'Ты — эмпатичный собеседник, анализирующий дневник настроения. Прокомментируй неделю тепло и без осуждения: отметь паттерны, дни подъёма и спада. НЕ ставь диагнозов. НЕ давай советов. Признай усилие вести трекер. 3-4 предложения. Русский язык.',
-          messages: [{ role: 'user', content: `Мой дневник настроения за неделю (1=очень плохо, 5=отлично):\n${weekSummary.join('\n')}` }],
+          max_tokens: 400,
+          system: 'Ты — тёплый, эмпатичный собеседник. Проанализируй дневник настроения за 7 дней. НЕ ставь диагнозов. Отметь паттерны мягко. Отметь сильные стороны. 4-6 предложений. Русский язык.',
+          messages: [{ role: 'user', content: `Дневник настроения за неделю (шкала 1-10):\n${entries}` }],
         }),
       });
-      const d2 = await res.json();
-      const reply = d2?.content?.[0]?.text || 'Спасибо, что вели трекер — это само по себе важный шаг.';
+      const d = await res.json();
+      const reply = d?.content?.[0]?.text || 'Спасибо, что вели трекер — это само по себе важный шаг.';
       hide(loadingAnalysis);
       show(analysisSection);
       await typeText(analysisText, reply, 16);
     } catch {
       hide(loadingAnalysis);
       show(analysisSection);
-      analysisText.textContent = 'Спасибо, что вели трекер целую неделю — это само по себе важный шаг к осознанности.';
+      analysisText.textContent = 'Спасибо, что вели трекер целую неделю. Это — важный акт заботы о себе.';
     }
   }
 
-  document.getElementById('resetWeekBtn')!.addEventListener('click', () => {
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (!confirm('Сбросить данные за неделю?')) return;
     data = [];
-    saveData(data);
-    selectedMood = 0;
+    save(data);
     hide(analysisSection);
-    show(trackerSection);
-    renderGrid();
-    checkTodayStatus();
+    show(document.getElementById('entrySection'));
+    render();
   });
 
-  // Init
-  renderGrid();
-  checkTodayStatus();
+  render();
 </script>
