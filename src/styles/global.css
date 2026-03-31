@@ -363,8 +363,13 @@ body:hover .cursor-glow { opacity: 1; }
   --color-sand: #21262D;
   --color-text: #E6EDF3;
   --color-text-mid: #8B949E;
-  --color-text-light: #484F58;
+  --color-text-light: #6E7681;
   --color-border: rgba(255, 255, 255, 0.06);
+}
+
+/* White cards must become dark in night mode — prevents light text on white bg */
+[data-night="true"] .bg-white {
+  background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
 /* ================================================================
