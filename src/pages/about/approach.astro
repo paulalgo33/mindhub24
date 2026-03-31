@@ -3,7 +3,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
 ---
 
 <MainLayout
-  title="Наш подход — MindHub24"
+  title="Наш подход — MindHub24 | Психологическая помощь онлайн"
   description="Как мы работаем: психологическое консультирование онлайн. Не терапия, не диагнозы — разговор, который помогает увидеть ситуацию иначе."
 >
 
@@ -15,6 +15,17 @@ import MainLayout from '@/layouts/MainLayout.astro';
     </h1>
     <p class="text-xl text-[var(--color-text-mid)] font-light leading-[1.8]" data-reveal>
       Без лекций, без домашних заданий, без диагнозов. Просто разговор — который постепенно меняет многое.
+    </p>
+  </div>
+</section>
+
+<!-- Competitive positioning -->
+<section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
+  <div class="max-w-[720px] mx-auto">
+    <p class="s-label" data-reveal>Чем мы отличаемся</p>
+    <h2 class="s-title" data-reveal>Не маркетплейс</h2>
+    <p class="text-lg text-[var(--color-text-mid)] font-light leading-[1.85]" data-reveal>
+      MindHub24 — не маркетплейс. В отличие от платформ вроде Zigmund или Yasno, здесь Вы работаете с одним конкретным специалистом, который знает Вашу историю. Нет случайных назначений. Нет алгоритмов.
     </p>
   </div>
 </section>
@@ -48,7 +59,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
       <div class="p-6 bg-white rounded-2xl border border-[var(--color-border)] card-glass" data-reveal>
         <p class="text-xs tracking-[0.1em] uppercase text-red-400 font-semibold mb-3">Что мы НЕ делаем</p>
         <ul class="flex flex-col gap-2.5">
-          {['Не ставим диагнозы', 'Не назначаем лекарства', 'Не заменяем психиатра при тяжёлых состояниях', 'Не работаем в экстренных кризисных ситуациях'].map((item) => (
+          {['Не ставим диагнозы', 'Не назначаем лекарства', 'Не заменяем психиатра при тяжёлых состояниях', 'Не работаем в экстренных кризисных ситуациях', 'Если Ваш запрос выходит за рамки психологического консультирования — мы порекомендуем подходящего специалиста. Направление к психиатру, клиническому психологу или другому профессионалу — это часть нашей работы.'].map((item) => (
             <li class="text-sm text-[var(--color-text-mid)] font-light flex items-start gap-2">
               <span class="text-red-400 mt-0.5 flex-shrink-0">×</span>
               {item}

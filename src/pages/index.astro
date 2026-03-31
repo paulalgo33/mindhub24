@@ -26,7 +26,7 @@ const jsonLd = {
 ---
 
 <MainLayout
-  title="MindHub24 — Психологическое консультирование онлайн на русском"
+  title="MindHub24 — Психологическая помощь онлайн на русском"
   description="Онлайн-консультации с психологом на русском языке. Для тех, кто живёт за рубежом или просто ищет поддержку. Первая встреча бесплатно."
   jsonLd={jsonLd}
 >
@@ -37,9 +37,12 @@ const jsonLd = {
     <!-- Text left -->
     <div>
       <p class="s-label" data-reveal>Психологическое консультирование · Онлайн</p>
-      <h1 class="font-heading text-[clamp(2.6rem,5vw,3.8rem)] font-normal leading-[1.12] tracking-[-0.03em] text-[var(--color-deep)] mb-6" data-reveal>
+      <h1 class="font-heading text-[clamp(2.6rem,5vw,3.8rem)] font-normal leading-[1.12] tracking-[-0.03em] text-[var(--color-deep)] mb-4" data-reveal>
         Психологическая помощь на русском языке. <em>Полностью онлайн.</em>
       </h1>
+      <p class="font-heading text-xl text-[var(--color-primary)] font-normal italic mb-6" data-reveal>
+        Пространство, где можно быть собой — и стать сильнее.
+      </p>
       <p class="text-lg text-[var(--color-text-mid)] font-light leading-[1.8] mb-8 max-w-[520px]" data-reveal>
         Из Израиля, Германии, Польши, Латвии — где бы вы ни были. Первая встреча — бесплатно.
       </p>
@@ -235,7 +238,10 @@ const jsonLd = {
         </div>
       ))}
     </div>
-    <div class="text-center mt-8" data-reveal>
+    <p class="text-xs text-[var(--color-text-light)] text-center mt-6 max-w-[600px] mx-auto">
+      * Имена и детали изменены для защиты конфиденциальности. Отзывы основаны на реальном опыте клиентов.
+    </p>
+    <div class="text-center mt-6" data-reveal>
       <a href="/testimonials/" class="btn-ghost">Все отзывы →</a>
     </div>
   </div>
@@ -275,10 +281,11 @@ const jsonLd = {
     <div class="mt-10 flex flex-col gap-3" id="faqList">
       {[
         { q: 'Как проходит первая встреча?', a: 'Это 20-минутный видеозвонок. Мы знакомимся, вы рассказываете, что привело вас ко мне. Без анкет, без диагнозов. Просто разговор. В конце вместе решаем, хотим ли продолжить.' },
-        { q: 'Сколько стоит консультация?', a: 'Ознакомительная встреча — бесплатно. Консультация (50 минут) — €50. Пакеты: 4 сессии €190, 8 сессий €360.' },
+        { q: 'Сколько стоит консультация?', a: 'Первая встреча — бесплатно. Стоимость обсуждается на ознакомительной встрече.' },
         { q: 'Это конфиденциально?', a: 'Абсолютно. Я не рассказываю о вас никому. Ни при каких обстоятельствах. Всё, что происходит в рамках наших встреч, остаётся между нами.' },
         { q: 'Мне нужно готовиться к встрече?', a: 'Нет. Вам не нужно знать, что сказать. Вам не нужно формулировать проблему. Просто приходите — мы разберёмся вместе.' },
         { q: 'Сколько сессий мне понадобится?', a: 'Зависит от запроса. Обычно 6–12 сессий. Мы обсуждаем это вместе на третьей встрече, когда уже понятен контекст и задача.' },
+        { q: 'Чем Вы отличаетесь от платформ?', a: 'MindHub24 — не маркетплейс. В отличие от платформ вроде Zigmund или Yasno, здесь Вы работаете с одним конкретным специалистом, который знает Вашу историю. Нет случайных назначений. Нет алгоритмов.' },
       ].map((item, i) => (
         <div class="border border-[var(--color-border)] rounded-2xl overflow-hidden bg-white" data-reveal>
           <button
@@ -305,7 +312,7 @@ const jsonLd = {
   <div class="absolute w-[500px] h-[500px] rounded-full blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style="background:radial-gradient(circle,rgba(27,77,92,0.07),transparent 70%);"></div>
   <div class="relative z-10 max-w-[580px] mx-auto">
     <h2 class="font-heading text-[clamp(2.5rem,5.5vw,4rem)] font-normal text-[var(--color-deep)] mb-4 leading-[1.1] tracking-[-0.03em]" data-reveal>
-      Готовы? Первая встреча — бесплатно.
+      Готовы попробовать? Первая онлайн-встреча — бесплатно.
     </h2>
     <p class="text-lg text-[var(--color-text-mid)] font-light mb-10" data-reveal>
       20 минут. Без обязательств. Без диагнозов. Просто разговор.

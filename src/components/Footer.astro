@@ -19,9 +19,11 @@ const { t } = Astro.props;
     MindHub24<span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] inline-block ml-0.5 mb-0.5"></span>
   </div>
   <div class="flex justify-center gap-8 mb-6 flex-wrap">
-    {t.footer.links.map((link) => (
-      <a href="#" class="text-xs text-white/30 no-underline font-light transition-colors duration-200 hover:text-white/70">{link}</a>
-    ))}
+    <a href="/privacy/" class="text-xs text-white/30 no-underline font-light transition-colors duration-200 hover:text-white/70">Конфиденциальность</a>
+    <a href="/terms/" class="text-xs text-white/30 no-underline font-light transition-colors duration-200 hover:text-white/70">Условия</a>
+    <a href="/disclaimer/" class="text-xs text-white/30 no-underline font-light transition-colors duration-200 hover:text-white/70">Отказ от ответственности</a>
+    <a href="/cancellation/" class="text-xs text-white/30 no-underline font-light transition-colors duration-200 hover:text-white/70">Отмена</a>
+    <a href="/cookies/" class="text-xs text-white/30 no-underline font-light transition-colors duration-200 hover:text-white/70">Куки</a>
   </div>
   <p class="text-[0.72rem] text-white/15 font-light">{t.footer.copy}</p>
 </footer>

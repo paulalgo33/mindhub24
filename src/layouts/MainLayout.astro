@@ -77,7 +77,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
         <a href="/tools/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">Инструменты</a>
         <a href="/faq/" class="px-3 py-2 text-sm text-[var(--color-text-mid)] hover:text-[var(--color-primary)] transition-colors duration-200 no-underline font-light">FAQ</a>
         <a href="/book/" class="btn-primary ml-3" style="padding:0.5rem 1.3rem;font-size:0.875rem;">
-          <span>Записаться</span>
+          <span>Записаться — бесплатно</span>
         </a>
       </div>
 
@@ -112,7 +112,7 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
   <!-- =================== FOOTER =================== -->
   <footer style="background:#111;">
     <!-- Main footer grid -->
-    <div class="max-w-[1200px] mx-auto px-[clamp(1.5rem,4vw,3rem)] py-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div class="max-w-[1200px] mx-auto px-[clamp(1.5rem,4vw,3rem)] py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
       <!-- Col 1: Brand -->
       <div>
         <div class="font-heading text-xl font-semibold text-white/80 mb-3 flex items-center gap-1">
@@ -151,7 +151,18 @@ const canonical = `https://mindhub24.com${Astro.url.pathname}`;
         </div>
       </div>
 
-      <!-- Col 3: Legal -->
+      <!-- Col 3: Useful -->
+      <div>
+        <p class="text-[0.65rem] tracking-[0.15em] uppercase text-white/30 font-semibold mb-5">Полезное</p>
+        <div class="flex flex-col gap-2">
+          <a href="/first-words" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Симуляция встречи</a>
+          <a href="/sounds" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Аудио-упражнения</a>
+          <a href="/tools/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Инструменты</a>
+          <a href="/crisis/" class="text-xs text-white/40 hover:text-white/70 no-underline transition-colors">Кризисная помощь</a>
+        </div>
+      </div>
+
+      <!-- Col 4: Legal -->
       <div>
         <p class="text-[0.65rem] tracking-[0.15em] uppercase text-white/30 font-semibold mb-5">Информация</p>
         <div class="flex flex-col gap-2">
