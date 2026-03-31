@@ -5,7 +5,7 @@ author: "Александра"
 category: "Переезд"
 tags: ["переезд", "ностальгия", "адаптация", "эмиграция"]
 excerpt: "Вы выбрали уехать. Может быть, даже хотели этого годами. Но теперь накатывает что-то тяжёлое, когда видите фото с прежнего двора. Это не ошибка. Это горе."
-coverImage: "/images/stock/session.jpg"
+coverImage: "/images/stock/Copying-Skill.jpg"
 published: true
 ---
 

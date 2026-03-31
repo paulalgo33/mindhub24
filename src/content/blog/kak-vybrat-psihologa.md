@@ -5,7 +5,7 @@ author: "Александра"
 category: "О терапии"
 tags: ["выбор психолога", "консультирование", "первый шаг", "доверие"]
 excerpt: "Образование, подход, специализация, первая встреча — что реально важно, а что не так критично. Практическое руководство для тех, кто ищет, но не знает, на что смотреть."
-coverImage: "/images/stock/session.jpg"
+coverImage: "/images/stock/freepik__the-style-is-candid-image-photography-with-natural__55850.png"
 published: true
 ---
 

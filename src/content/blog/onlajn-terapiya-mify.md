@@ -5,7 +5,7 @@ author: "Александра"
 category: "О терапии"
 tags: ["онлайн", "мифы", "консультирование", "формат"]
 excerpt: "«Онлайн — это ненастоящее», «нельзя раскрыться через экран», «это только для тех, кто не может дойти до кабинета». Разбираю каждый миф честно."
-coverImage: "/images/stock/session.jpg"
+coverImage: "/images/stock/elderly-people-making-video-call_23-2150165767.jpg"
 published: true
 ---
 

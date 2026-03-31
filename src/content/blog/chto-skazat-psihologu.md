@@ -5,7 +5,7 @@ author: "Александра"
 category: "О терапии"
 tags: ["первая встреча", "страх", "начало", "консультирование"]
 excerpt: "«А вдруг я скажу что-то не то?» «Надо ли подготовиться?» «Что если я расплачусь?» Отвечаю честно на всё, что останавливает людей перед первым шагом."
-coverImage: "/images/stock/session.jpg"
+coverImage: "/images/stock/cbt-therapy.jpg"
 published: true
 ---
 

@@ -5,7 +5,7 @@ author: "Александра"
 category: "Выгорание"
 tags: ["выгорание", "усталость", "работа", "восстановление"]
 excerpt: "Вы продолжаете работать, но уже не чувствуете, зачем. Всё, что раньше давало энергию, теперь только забирает. Разбираемся, что происходит — и как выходить."
-coverImage: "/images/stock/session.jpg"
+coverImage: "/images/stock/close-up-frustrated-woman.jpg"
 published: true
 ---
 
