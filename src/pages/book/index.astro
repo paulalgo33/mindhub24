@@ -57,29 +57,78 @@ import BookingCTA from '@/components/BookingCTA.astro';
   </div>
 </div>
 
-<!-- Cal.com placeholder -->
+<!-- Cal.com booking + optional partial-capture -->
 <section class="pb-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-warm)]">
   <div class="max-w-[700px] mx-auto">
     <p class="s-label text-center" data-reveal>Выберите время</p>
     <h2 class="font-heading text-2xl font-normal text-[var(--color-deep)] text-center mb-8" data-reveal>Доступное расписание</h2>
-    <!-- Cal.com embed placeholder -->
-    <div class="bg-white rounded-3xl border border-[var(--color-border)] p-12 text-center card-glass" data-reveal>
-      <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 text-[var(--color-primary)]" style="background:rgba(27,77,92,0.07);">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+
+    <div class="bg-white rounded-3xl border border-[var(--color-border)] p-6 md:p-8 mb-6 card-glass" data-reveal>
+      <p class="text-sm text-[var(--color-text-mid)] font-light mb-4">Хотите, чтобы мы напомнили, если не успеете завершить запись? Оставьте email (необязательно).</p>
+      <div class="flex flex-col sm:flex-row gap-3 mb-3">
+        <input id="pc-name" type="text" placeholder="Имя" autocomplete="given-name"
+          class="flex-1 px-4 py-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-cream)] text-[var(--color-deep)] outline-none focus:border-[var(--color-primary)]" />
+        <input id="pc-email" type="email" placeholder="Email" autocomplete="email"
+          class="flex-1 px-4 py-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-cream)] text-[var(--color-deep)] outline-none focus:border-[var(--color-primary)]" />
       </div>
-      <h3 class="font-heading text-xl text-[var(--color-deep)] mb-2">Календарь подключается</h3>
-      <p class="text-[var(--color-text-mid)] font-light mb-6 max-w-[400px] mx-auto">Интеграция с Cal.com в процессе настройки. Пока напишите нам напрямую — ответим в течение нескольких часов.</p>
-      <div class="flex gap-4 justify-center flex-wrap">
-        <a href="https://t.me/mindhub24" class="btn-primary" target="_blank" rel="noopener">
-          <span>Написать в Telegram</span>
-        </a>
-        <a href="mailto:hello@mindhub24.com" class="btn-ghost">
-          hello@mindhub24.com
-        </a>
-      </div>
+      <label class="flex items-start gap-2 text-xs text-[var(--color-text-light)] font-light cursor-pointer">
+        <input id="pc-consent" type="checkbox" class="mt-0.5" />
+        <span>Я согласен(на) получить напоминание о записи на email. Данные используются только для этого. <a href="/privacy/" class="underline">Политика конфиденциальности</a>.</span>
+      </label>
+      <p id="pc-status" class="text-xs mt-2 text-[var(--color-primary)] hidden">Спасибо — напомним, если понадобится.</p>
+    </div>
+
+    <div class="bg-white rounded-3xl border border-[var(--color-border)] overflow-hidden card-glass" data-reveal>
+      <div id="cal-inline" style="width:100%;min-height:640px;"></div>
+      <noscript>
+        <div class="p-8 text-center">
+          <a href="https://t.me/mindhub24" class="btn-primary"><span>Написать в Telegram</span></a>
+        </div>
+      </noscript>
     </div>
   </div>
 </section>
+
+<script is:inline define:vars={{ calLink: 'mindhub24/15min' }}>
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal; let ar = arguments;
+      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+      if (ar[0] === L) { const api = function () { p(api, arguments); }; const ns = ar[1]; api.q = api.q || []; if (typeof ns === "string") { cal.ns[ns] = cal.ns[ns] || api; p(cal.ns[ns], ar); p(cal, ["initNamespace", ns]); } else p(cal, ar); return; }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "15min", { origin: "https://app.cal.com" });
+  Cal.ns["15min"]("inline", {
+    elementOrSelector: "#cal-inline",
+    calLink: calLink,
+    layout: "month_view",
+    config: { theme: "light" },
+  });
+  Cal.ns["15min"]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+
+  const emailEl = document.getElementById('pc-email');
+  const nameEl = document.getElementById('pc-name');
+  const consentEl = document.getElementById('pc-consent');
+  const statusEl = document.getElementById('pc-status');
+  let captured = false;
+  function maybeCapture() {
+    if (captured) return;
+    const email = emailEl.value.trim();
+    const valid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+    if (valid && consentEl.checked) {
+      captured = true;
+      fetch('/api/partial-capture', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name: nameEl.value.trim(), consent: true }),
+      }).then(() => { statusEl.classList.remove('hidden'); }).catch(() => { captured = false; });
+    }
+  }
+  emailEl.addEventListener('blur', maybeCapture);
+  consentEl.addEventListener('change', maybeCapture);
+</script>
 
 <!-- What to expect -->
 <section class="py-[var(--spacing-section)] px-[clamp(1.5rem,4vw,3rem)] bg-[var(--color-cream)]">
@@ -89,7 +138,7 @@ import BookingCTA from '@/components/BookingCTA.astro';
     <div class="flex flex-col gap-4 mt-8">
       {[
         { step: '1', title: 'Подтверждение на email', desc: 'В течение нескольких часов вы получите письмо с подтверждением и ссылкой на встречу.' },
-        { step: '2', title: 'Напоминание за 24 часа', desc: 'Мы напомним о встрече. Если нужно перенести — ссылка будет в письме.' },
+        { step: '2', title: 'Напоминания за 24 часа и за 1 час', desc: 'Мы мягко напомним о встрече. Если нужно перенести — ссылка будет в письме.' },
         { step: '3', title: 'Встреча в видеозвонке', desc: 'Просто нажмите ссылку в удобное время. Ничего устанавливать не нужно.' },
       ].map((item) => (
         <div class="flex items-start gap-5 py-5 border-b border-[var(--color-border)]" data-reveal>
