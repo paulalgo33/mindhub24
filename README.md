@@ -1,163 +1,163 @@
 # MindHub24 — Production Website
 
-> Premium online psychological counseling practice for Russian-speaking clients worldwide.
+> Russian-language online psychology consulting practice for Russian-speaking expats worldwide.
+> Founder: Alexandra (Психолог-консультант). Operator: Sudipto Paul.
 
-## Tech Stack
+---
 
-| Layer | Choice | Why |
-|-------|--------|-----|
-| Framework | **Astro 5** | Static-first, zero JS by default, content collections ready |
-| Styling | **Tailwind CSS v4** | Vite plugin, `@theme` design tokens, no config file |
-| Animations | **GSAP 3 + ScrollTrigger** | Cinematic scroll reveals, parallax, counters |
-| Images | **Astro Image + Sharp** | Auto WebP, responsive `srcset`, lazy loading |
-| Deployment | **Cloudflare Pages** | Free, global CDN, automatic builds |
-| Analytics | **Plausible** | Privacy-first, no cookies, GDPR-compliant |
-| Booking | **Cal.com** | Free tier, timezone handling, webhook support |
-| Forms | **Tally** | GDPR-compliant, free, embeddable |
-| Email | **MailerLite** | Free under 1000 subs, automation |
-| Automation | **Make.com** | Connects Cal.com → Sheets → MailerLite → Telegram |
+## ⚡ Source of truth
 
-## Project Structure
+| What | Where |
+|------|-------|
+| **Live site** | https://mindhub24.com (→ Vercel) |
+| **Preview** | https://mindhub24.vercel.app |
+| **GitHub repo** | https://github.com/paulalgo33/mindhub24 |
+| **Local clone** | `~/Projects/mindhub24` |
+| **Vercel project** | bivaestn-9955s-projects / mindhub24 |
+| **Deploy** | Auto on push to `main` |
+
+**This repo is the ONE canonical source. Nothing else is authoritative.**
+
+---
+
+## Tech stack
+
+| Layer | Choice |
+|-------|--------|
+| Framework | Astro 5 (static) |
+| Styling | Tailwind CSS v4 |
+| Animations | GSAP 3 + ScrollTrigger |
+| Deployment | Vercel (auto-deploy from main) |
+| Analytics | Plausible (privacy-first, no cookies) |
+| Booking | Cal.com embed (⚠ NOT YET WIRED — see TODO) |
+| Forms | Tally |
+| Email | MailerLite |
+
+---
+
+## Project structure
 
 ```
 mindhub24/
-├── astro.config.mjs           # Astro 5 config + Tailwind Vite plugin + sitemap
-├── package.json
-├── tsconfig.json              # Path aliases (@/components, @/assets, etc.)
+├── api/
+│   └── claude.js              # Serverless functions (AI tools: journal, reframe, studio)
 ├── public/
+│   ├── images/                # Alexandra photos + stock images
 │   ├── robots.txt
 │   └── site.webmanifest
 ├── src/
-│   ├── styles/
-│   │   └── global.css         # Tailwind @theme design system, animations, night mode
+│   ├── components/            # Nav, Hero, Quiz, AudioPlayer, CalBooking, Footer etc.
+│   ├── content/
+│   │   ├── blog/              # 10 Russian blog articles (MD)
+│   │   └── config.ts
 │   ├── i18n/
-│   │   └── ru.ts              # Type-safe Russian translations (all copy)
-│   ├── layouts/
-│   │   └── LandingLayout.astro  # Base: meta, OG, JSON-LD, night detection, cursor glow
-│   ├── components/
-│   │   ├── Nav.astro            # Glassmorphic sticky nav
-│   │   ├── Hero.astro           # Day/night variants, ambient orbs, floating badge
-│   │   ├── Marquee.astro        # Infinite scroll trust ticker
-│   │   ├── AudioPlayer.astro    # Voice recording player with waveform
-│   │   ├── Quiz.astro           # 5-question interactive modal quiz
-│   │   ├── Voices.astro         # Dark masonry anonymous quotes
-│   │   ├── CalBooking.astro     # Cal.com embed (inline or modal)
-│   │   ├── Analytics.astro      # Plausible with custom MindHub24 events
-│   │   ├── MetaPixel.astro      # Facebook/Instagram pixel
-│   │   └── Footer.astro         # Crisis numbers + legal links
-│   ├── scripts/
-│   │   └── scroll-animations.ts # GSAP ScrollTrigger cinematic engine
+│   │   └── ru.ts              # All Russian copy (type-safe)
+│   ├── layouts/               # LandingLayout, MainLayout, ToolLayout
 │   ├── pages/
-│   │   ├── index.astro          # Root redirect → /lp/israel
-│   │   └── lp/
-│   │       ├── israel.astro     # 14-section landing page (€50 / ₪190)
-│   │       └── russia.astro     # Russia variant (5 000 ₽, no Meta refs)
-│   └── assets/
-│       └── images/              # Alexandra photos (auto-optimized to WebP)
-└── dist/                        # Build output
+│   │   ├── index.astro        # Root → redirects to /lp/israel
+│   │   ├── lp/                # israel, russia, poland, baltics, free-consult
+│   │   ├── services/          # 9 service pages
+│   │   ├── tools/             # journal, reframe, studio + 10 more tools
+│   │   ├── about/             # alexandra, approach
+│   │   ├── blog/              # index + [slug]
+│   │   ├── book/              # Cal.com booking page
+│   │   ├── team/              # Team page
+│   │   ├── testimonials/
+│   │   ├── faq/
+│   │   ├── crisis/
+│   │   └── [legal]/           # privacy, terms, cookies, disclaimer, cancellation
+│   ├── scripts/
+│   │   └── scroll-animations.ts
+│   └── styles/
+│       └── global.css         # Design tokens, night mode, animations
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
 ```
 
-## Quick Start
+---
+
+## Quick start
 
 ```bash
-# Install
+cd ~/Projects/mindhub24
 npm install
-
-# Development
-npm run dev          # http://localhost:4321
-
-# Build
-npm run build        # Static output → dist/
-
-# Preview build
-npm run preview      # Local preview of built site
+npm run dev        # http://localhost:4321
+npm run build      # static output → dist/
 ```
 
-## Deploy to Cloudflare Pages
+---
 
-1. Push to GitHub
-2. Connect repo in Cloudflare Pages dashboard
-3. Build command: `npm run build`
-4. Build output directory: `dist`
-5. Done — automatic deploys on push
-
-## Design System
-
-### Colors (defined in `src/styles/global.css` via `@theme`)
+## Design system
 
 | Token | Value | Usage |
 |-------|-------|-------|
 | `--color-deep` | `#0F2E38` | Primary dark, buttons, nav |
 | `--color-primary` | `#1B4D5C` | Accent borders, links |
-| `--color-primary-light` | `#2A7A91` | Hover states |
-| `--color-accent` | `#C9A84C` | Gold accents, labels |
+| `--color-accent` | `#C9A84C` | Gold accents |
 | `--color-cream` | `#FAF7F2` | Main background |
-| `--color-warm` | `#F3EDE4` | Alternating sections |
 
-### Typography
+Fonts: **Playfair Display** (headings) · **DM Sans** (body)
 
-| Role | Font | Weight |
-|------|------|--------|
-| Headings | Playfair Display | 400–700 |
-| Body | DM Sans | 300–600 |
+---
 
-### UX Features
+## Non-negotiables (brand rules)
 
-- **Night mode** (23:00–05:00): Auto-detects, swaps hero to "Не спится?" with breathing exercise
-- **Cursor glow**: Ambient light follows mouse (desktop only)
-- **Film grain**: Subtle texture overlay for tactile depth
-- **Scroll reveals**: IntersectionObserver-based fade-up animations
-- **GSAP parallax**: Image parallax on scroll
-- **Interactive quiz**: 5-question modal, same result for everyone (therapeutic mirror)
-- **Audio waveform**: Animated bars synced to playback
+- Alexandra's title: **Психолог-консультант** — never психотерапевт or therapist
+- Sole booking CTA: free 15-min consultation
+- No fabricated testimonials — real anonymized only
+- Russian is source language — never translate-from-English
+- Crisis block on every page with verified emergency numbers
+- No AI disclosure in user-facing copy
 
-## Analytics Events
+---
 
-All events fire via Plausible custom events (`window.mh24.*`):
+## TODO before production launch
 
-| Event | Trigger |
-|-------|---------|
-| `cta_click` | Any CTA button |
-| `booking_widget_open` | Cal.com modal opens |
-| `booking_confirmed` | Booking completed |
-| `quiz_start` | Quiz opened |
-| `quiz_complete` | Quiz finished |
-| `audio_play` | Audio player started |
-| `night_mode_active` | Night visitor detected |
-| `lp_scroll_depth` | 25/50/75/100% scroll |
-| `crisis_page_view` | Crisis section viewed |
+- [ ] **Cal.com** — create event "Ознакомительная встреча 15 мин", add calLink to `src/components/CalBooking.astro`
+- [ ] **DNS** — point mindhub24.com A record → `76.76.21.21` at Hostinger (in progress 2026-06-10)
+- [ ] **Meta Pixel** — replace `PIXEL_ID_HERE` in `src/components/MetaPixel.astro`
+- [ ] **Plausible** — add snippet, verify events firing
+- [ ] **Audio** — Alexandra records intro MP3 → `public/audio/first-session.mp3`
+- [ ] **Testimonials** — replace placeholder quotes with real anonymized client feedback
 
-## Landing Pages
+---
 
-| URL | Market | Price | Ad Source |
-|-----|--------|-------|-----------|
-| `/lp/israel` | Israel | €50 / ₪190 | Meta Ads |
-| `/lp/russia` | Russia | 5 000 ₽ | Google Ads |
-| `/lp/poland` | Poland | €50 | Meta Ads |
-| `/lp/baltics` | Baltics | €50 | Meta Ads |
+## Deployment
 
-## Next Steps
+Vercel auto-deploys on every push to `main`. No manual step needed.
 
-### To Complete Before Launch
-1. Replace `PIXEL_ID_HERE` in MetaPixel component with actual pixel ID
-2. Set up Cal.com account, update `calLink` in CalBooking component
-3. Record Alexandra's audio, place MP3 in `public/audio/`
-4. Add `audioSrc="/audio/first-session.mp3"` to AudioPlayer props
-5. Set up Plausible account at plausible.io
-6. Configure custom domain in Cloudflare Pages
+```bash
+git add .
+git commit -m "your message"
+git push origin main
+# → Vercel builds and deploys automatically
+```
 
-### Phase 2 Additions
-- Poland and Baltics landing pages (same structure, different pricing/copy)
-- English translations (`src/i18n/en.ts`)
-- Blog with Astro Content Collections
-- Main site pages (`/ru/about`, `/ru/services/*`, etc.)
-- Telegram bot integration
-- Stripe payment at booking (Cal.com integration)
+Custom domain setup: Vercel dashboard → Domains → add `mindhub24.com` + `www.mindhub24.com`
 
-## Legal Safety
+---
 
-- Title used: "Психолог-консультант" (legally safe with Russian degree)
-- Never: "Психотерапевт", "Клинический психолог", "Licensed psychologist"
-- Service: "Психологическое консультирование" (not "лечение" or "терапия")
-- Crisis disclaimers on every landing page
-- No health data collected in chatbots or casual channels
+## Archives (do not use for deployment)
+
+| Path | What | Why archived |
+|------|------|--------------|
+| `~/Projects/mindhub24-ARCHIVE-2026-04-25` | Local dev build, Apr 2026 sprint | No git remote, predates production site |
+| `~/Documents/Claude/Projects/Mindhub24_Project/repo-staging-ARCHIVE-2026-04-25` | Claude Code staging copy | No git, no remote, older content |
+
+Both archives contain reviewed Russian content (modules, practices) that may be merged into production in Phase 2.
+
+---
+
+## Related systems
+
+| System | Location | Purpose |
+|--------|----------|---------|
+| Content OS (mh24-os) | `~/Code/mh24-os/` | Automated content pipeline (Instagram/Telegram) |
+| Cockpit dashboard | `~/Code/mh24-os/cockpit/` | Weekly strategy UI |
+| Kingston SSD | `/Volumes/Kingston/mh24/` | Pipeline artifacts + DB backups |
+| Postgres DB | localhost:5432 db=mh24 | Content pipeline state |
+
+---
+
+*Last updated: 2026-06-10 · Maintained by Sudipto Paul*
